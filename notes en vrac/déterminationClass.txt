@@ -1,0 +1,71 @@
+//// Partie 1 projet PHP
+
+Connexion
+	-> getConnexion()
+
+CrudUsers
+	-> getUsers()
+	-> getSingleUser()
+	-> delete()
+	-> update()
+	-> insert()
+
+CrudQuestion
+	-> get()
+	-> insert()
+	-> update()
+	-> delete()
+
+CrudAnswer
+	-> get()
+	-> insert()
+	-> update()
+	-> delete()
+
+User
+	-> ID
+	-> username
+	-> nom
+	-> prenom
+	-> password
+	-> mail
+	-> roles
+	-> createAt
+	-> nbWin
+	-> nbPoints
+	-> nbLoose
+	-> winRate
+
+
+Question
+	-> id
+	-> label
+	-> level
+	-> answers[]
+
+
+Answer 
+	-> id
+	-> label
+	-> question
+	-> valid
+	-> getAnswer()
+
+
+
+///// Partie 2 projet tuteuré
+Game
+	-> difficulté(selon couleur)
+	-> NB_JOUEUR_MIN (2)
+	-> NB_JOUEUR_MAX (6)
+	-> nbJoueurs
+	-> GRID (48) (par personne)
+	-> nbJoueursGagnants
+	-> playerTurn
+
+
+class GameMaster extends User
+	-> valider la réponse d'un joueur
+	-> renseigner les pseudo des gens
+	-> génère un QR code pour chaque joueur
+	-> envoi un mail

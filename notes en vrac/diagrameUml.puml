@@ -1,0 +1,31 @@
+@startuml
+
+class User{
+    #id : int
+    #username : string
+    #password : string
+    #email : string
+    #roles : string[]
+    #firstName : string
+    #lastName : string
+    createAt : Datetime
+
+}
+
+class Question{
+    #id : int
+    #label : string
+    #level : string
+    #answers : Answer[]
+}
+
+class Answer{
+    #id : int
+    #label : string
+    #question : Question
+    #valid : bool
+}
+
+
+@enduml
+

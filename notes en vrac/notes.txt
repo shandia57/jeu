@@ -1,0 +1,32 @@
+page d'accueil -> launcher de connexion 
+
+
+une fois connecté -> on redirige l'utilisateur vers les pages correspondante
+
+player -> redirigé veres /game
+ADMIN -> redirigé vers /admin -> /users /questions 
+
+// Routing // 
+
+/ 
+/subscribe
+/game
+/admin
+/users
+/questions
+
+// ENTITES // 
+USERS
+STATS 
+QUESTIONS
+ANSWER -> deux clés primaire : id answer id questions ____
+
+
+// Séparation des taches 
+Eric : inscription - connexion - jeu - 
+Alex : BDD - admin - users -  question - 
+Trello 
+Diagramme UML 
+Gantt 
+Git
+mettre l'environnement en place 
