@@ -1,5 +1,25 @@
 @startuml
 
+class Connexion{
+    +getConnexion()
+}
+
+class CrudUsers{
+    +getAllUsers()
+    +getSingleUser()
+    +insertUser()
+    +updateUser()
+    +deleteUser()
+}
+
+class CrudQuestions{
+    +getAllQuestions()
+    +getSingleQuestion()
+    +insertQuestion()
+    +updateQuestion()
+    +deleteQuestion()
+}
+
 class User{
     #id : int
     #username : string
