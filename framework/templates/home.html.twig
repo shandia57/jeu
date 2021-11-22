@@ -1,13 +1,26 @@
+{% extends "layout.html.twig" %}
+
+{% block head %}
+{{ parent() }} 
+{% endblock %}
+
+{% block bootstrap %}
+{{ parent() }} 
+{% endblock %}
+
+{% block fontawesome %}
+{{ parent() }} 
+{% endblock %}
+
+{% block css %}
+{{ parent() }} 
+
+{% endblock %}
+
+{% block title %}{{ parent() }} - hehe {% endblock %}
+
+{% block body %}
 <h1>Bonjour {{ firstName }}</h1>
+<p>Hello</p>
+{% endblock %}
 
-<ul>
-        {% for i in 1..loopUntil %}
-                <li>{{ i }}</li>
-        {% endfor %}
-</ul>
-
-<ul>
-        {% for user in users %}
-                <li>{{ user }}</li>
-        {% endfor %}
-</ul>

@@ -1,0 +1,22 @@
+main{
+    margin: 2% 10% 2% 10%;
+}
+input::placeholder{
+    text-align: center;
+}
+select{
+    text-align: center;
+}
+h1{
+    text-align: center;
+}
+
+.filter{
+    margin-top:3%;
+}
+
+
+
+
+
+

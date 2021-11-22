@@ -1,0 +1,61 @@
+{% extends "layout.html.twig" %}
+
+{% block head %}
+{{ parent() }} 
+{% endblock %}
+
+{% block bootstrap %}
+{{ parent() }} 
+{% endblock %}
+
+{% block fontawesome %}
+{{ parent() }} 
+{% endblock %}
+
+{% block css %}
+    {{ parent() }} 
+    <link rel="stylesheet" type="text/css" href="assets/style/questions.css">
+
+{% endblock %}
+
+
+{% block title %}{{ parent() }} {{title}} {% endblock %}
+
+{% block body %}
+    {% block main %}
+        {{ parent() }} 
+    {% endblock %}
+    <main>
+        <h1>Questions</h1>
+        <div class="filter">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Recipient's username"
+                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                        class="fas fa-search"></i></button>
+            </div>
+
+            <select class="form-select" aria-label="Default select example">
+                <option selected value="ROLES_ADMIN">asc</option>
+                <option value="ROLES_USER">desc</option>
+            </select>
+        </div>
+        <div class="question-answers">
+            <h3>Quelle est la capitale de la France ? </h3>
+            <ul class=" list-group-flush">
+                <li class="list-group-item">Paris<span class="btn btn-danger">X</span></li>
+                <li class="list-group-item">Marseille <span class="btn btn-danger">X</span></li>
+                <li class="list-group-item">Forbach<span class="btn btn-danger">X</span></li>
+            </ul>
+        </div>
+        <div class="question-answers">
+            <h3>Quelle est la ville la plus grande de France ? </h3>
+            <ul class=" list-group-flush">
+                <li class="list-group-item">Paris<span class="btn btn-danger">X</span></li>
+                <li class="list-group-item">Marseille<span class="btn btn-danger">X</span></li>
+                <li class="list-group-item">Forbach<span class="btn btn-danger">X</span></li>
+            </ul>
+        </div>
+    </main>
+{% endblock %}
+

@@ -1,0 +1,20 @@
+.question-answers{
+    margin-top:3%;
+}
+span{
+    float:right;
+    /* padding: 0 10px 0 10px;
+    background-color:red;
+    vertical-align: middle;
+    color:white;
+    border-radius:5px;
+    border:none; */
+    vertical-align: text-top;
+}
+.list-group-item{
+    padding: 20px;
+}
+.list-group-item:hover{
+    background-color: lightgray;
+    border-radius: 10px;
+}

@@ -1,0 +1,145 @@
+{% extends "layout.html.twig" %}
+
+{% block head %}
+{{ parent() }} 
+{% endblock %}
+
+{% block bootstrap %}
+{{ parent() }} 
+{% endblock %}
+
+{% block fontawesome %}
+{{ parent() }} 
+{% endblock %}
+
+{% block css %}
+    {{ parent() }} 
+    <link rel="stylesheet" type="text/css" href="assets/style/user.css">
+
+{% endblock %}
+
+
+{% block title %}{{ parent() }} - hehe {% endblock %}
+
+{% block body %}
+    {% block main %}
+        {{ parent() }} 
+    {% endblock %}
+    <main>
+        <h1>Users</h1>
+
+        <p>{{users}}</p>
+
+        <div class="filter">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="username" aria-label="Recipient's username"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                        class="fas fa-search"></i></button>
+            </div>
+
+            <select class="form-select" aria-label="Default select example">
+                <option selected value="ROLES_ADMIN">asc</option>
+                <option value="ROLES_USER">desc</option>
+            </select>
+        </div>
+
+
+        <table class="table">
+            <thead>
+                <tr data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <th scope="col">#ID</th>
+                    <th scope="col">userName</th>
+                    <th scope="col">firstName</th>
+                    <th scope="col">lastName</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Roles</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <th scope="row">1</th>
+                    <td>Admin</td>
+                    <td>Alex</td>
+                    <td>Sch</td>
+                    <td>admin57@test.Fr</td>
+                    <td>ROLES_ADMIN</td>
+                    <td><button type="button" class="btn btn-danger">X</button></td>
+                </tr>
+                <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <th scope="row">2</th>
+                    <td>Erico</td>
+                    <td>Eric</td>
+                    <td>Hoffmann</td>
+                    <td>masterMind57@hotmail.fr</td>
+                    <td>ROLES_USER</td>
+                    <td><button type="button" class="btn btn-danger">X</button></td>
+
+                </tr>
+                <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <th scope="row">3</th>
+                    <td>Floskiskovic</td>
+                    <td>Florian</td>
+                    <td>Tramoy</td>
+                    <td>rushB@hotmail.fr</td>
+                    <td>ROLES_USER</td>
+                    <td><button type="button" class="btn btn-danger">X</button></td>
+
+                </tr>
+                <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <th scope="row">4</th>
+                    <td>AbdouluSan</td>
+                    <td>Abdoulu</td>
+                    <td>Idilbi</td>
+                    <td>jePoseLaBombe@hotmail.fr</td>
+                    <td>ROLES_USER</td>
+                    <td><button type="button" class="btn btn-danger">X</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <label for="inputPassword5" class="form-label">user name</label>
+                    <input type="password" id="inputPassword5" class="form-control"
+                        aria-describedby="passwordHelpBlock">
+
+                    <label for="inputPassword5" class="form-label">first name</label>
+                    <input type="password" id="inputPassword5" class="form-control"
+                        aria-describedby="passwordHelpBlock">
+
+                    <label for="inputPassword5" class="form-label">last name</label>
+                    <input type="password" id="inputPassword5" class="form-control"
+                        aria-describedby="passwordHelpBlock">
+
+                    <label for="inputPassword5" class="form-label">email</label>
+                    <input type="password" id="inputPassword5" class="form-control"
+                        aria-describedby="passwordHelpBlock">
+
+                    <label for="inputPassword5" class="form-label">Roles</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected value="ROLES_ADMIN">ROLES_ADMIN</option>
+                        <option value="ROLES_USER">ROLES_USER</option>
+                    </select>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
