@@ -12,6 +12,7 @@ function getUsers(): array
     }
 }
 
+
 function userExists(string $username): bool
 {
     $connection = getConnection();
@@ -66,7 +67,5 @@ function userConnection(string $username, string $password)
         }
     }
     return false;
-
-
 }
 
