@@ -42,8 +42,8 @@
         </div>
 
 
-        <form action="delete" method="getx">
-        
+
+        <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#modalSubscribe">Ajouter un nouvel utilisateur</button>
         <table class="table" >
             <thead>
                 <tr >
@@ -58,7 +58,7 @@
             
             <tbody>
                     {% for user in users %}
-                        <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getInfo(this)">
+                        <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setInfoUser(this)">
                             <th scope="row">{{user.id_user}} </th>
                             <td name="username">{{user.username}}</td>
                             <td>{{user.firstName}}</td>
@@ -70,41 +70,35 @@
             </tbody>
         </table>
         
-        </form>
+
     </main>
 
-    <!-- Modal -->
+    <!-- Modal update / delete --> 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="username"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="formTest" method="post" action="users">
 
                     <div class="modal-body">
-                    <input type="hidden" name="id_user" value="5">
-                    <label for="inputPassword5" class="form-label">user name</label>
-                    <input type="text" id="inputPassword5" class="form-control"
-                        aria-describedby="passwordHelpBlock" name="username">
+                    <input name="id_user" value="5" id="id_user" type="hidden">
 
-                    <label for="inputPassword5" class="form-label" >first name</label>
-                    <input type="text" id="inputPassword5" class="form-control"
-                        aria-describedby="passwordHelpBlock" name="firstName">
+                    <label for="firstName" class="form-label" >first name</label>
+                    <input id="firstName" class="form-control" name="firstName" type="text">
 
-                    <label for="inputPassword5" class="form-label">last name</label>
-                    <input type="text" id="inputPassword5" class="form-control"
-                        aria-describedby="passwordHelpBlock" name="lastName">
+                    <label for="lastName" class="form-label">last name</label>
+                    <input id="lastName" class="form-control" name="lastName" type="text">
 
-                    <label for="inputPassword5" class="form-label">email</label>
-                    <input type="text" id="inputPassword5" class="form-control"
-                        aria-describedby="passwordHelpBlock" name="email">
+                    <label for="mail" class="form-label">email</label>
+                    <input id="mail" class="form-control" name="mail" type="text">
 
                     <label for="inputPassword5" class="form-label">Roles</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected value="ROLES_ADMIN">ROLES_ADMIN</option>
-                        <option value="ROLES_USER">ROLES_USER</option>
+                    <select id="roles" class="form-select" aria-label="Default select example" name="roles">
+                        <option id="role1"  selected value="ROLES_ADMIN">ROLES_ADMIN</option>
+                        <option id="role2" value="ROLES_USER">ROLES_USER</option>
                     </select>
 
                 </div>
@@ -118,6 +112,49 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal new inscription -->
+    <div class="modal fade" id="modalSubscribe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Inscription d'un nouvelle utilisateur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="users">
+                    <div class="modal-body">
+                        <label for="usernameSub" class="form-label">Username</label>
+                        <input  id="usernameSub" class="form-control" type="text" name="usernameSub">
+
+                        <label for="passwordSub" class="form-label">Password</label>
+                        <input  id="passwordSub" class="form-control" type="password" name="passwordSub">
+
+                        <label for="passwordConfSub" class="form-label">Password</label>
+                        <input  id="passwordConfSub" class="form-control" type="password" name="passwordConfSub">
+
+                        <label for="firstNameSub" class="form-label">First name</label>
+                        <input  id="firstNameSub" class="form-control" type="text" name="firstNameSub">
+
+                        <label for="lastNameSub" class="form-label">Last name</label>
+                        <input  id="lastNameSub" class="form-control" type="text" name="lastNameSub">
+
+                        <label for="mailSub" class="form-label">Mail</label>
+                        <input  id="mailSub" class="form-control" type="text" name="mailSub">
+
+                        <select id="rolesSub" class="form-select" aria-label="Default select example" name="rolesSub">
+                            <option id="role1Sub"  selected value="ROLES_ADMIN">ROLES_ADMIN</option>
+                            <option id="role2Sub" value="ROLES_USER">ROLES_USER</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" name="insert">Insert new user</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="assets/script/script.js"></script>
   
 {% endblock %}

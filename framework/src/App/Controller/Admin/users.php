@@ -11,10 +11,12 @@ class Users extends AbstractController
     public function __invoke()
     {
         if(isset($_POST['delete'])){
-            $id_user = htmlspecialchars_decode($_POST['id_user']);
+            $id_user = htmlspecialchars($_POST['id_user']);
             deleteUser($id_user);
         }else if (isset($_POST['update'])){
-            print_r($_POST);
+            updateUser($_POST);
+        }else if(isset($_POST['insert'])){
+            insertUser($_POST);
         }else{
             echo "fail";
         }
