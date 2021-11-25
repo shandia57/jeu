@@ -40,22 +40,68 @@
                 <option value="ROLES_USER">desc</option>
             </select>
         </div>
+        <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#modalQuestions">Ajouter une nouvelle question</button>
         <div class="question-answers">
             <h3>Quelle est la capitale de la France ? </h3>
             <ul class=" list-group-flush">
-                <li class="list-group-item">Paris<span class="btn btn-danger">X</span></li>
-                <li class="list-group-item">Marseille <span class="btn btn-danger">X</span></li>
-                <li class="list-group-item">Forbach<span class="btn btn-danger">X</span></li>
+                <li class="list-group-item">Paris</li>
+                <li class="list-group-item">Marseille </li>
+                <li class="list-group-item">Forbach</li>
             </ul>
         </div>
         <div class="question-answers">
             <h3>Quelle est la ville la plus grande de France ? </h3>
             <ul class=" list-group-flush">
-                <li class="list-group-item">Paris<span class="btn btn-danger">X</span></li>
-                <li class="list-group-item">Marseille<span class="btn btn-danger">X</span></li>
-                <li class="list-group-item">Forbach<span class="btn btn-danger">X</span></li>
+                <li class="list-group-item">Paris</li>
+                <li class="list-group-item">Marseille</li>
+                <li class="list-group-item">Forbach</li>
             </ul>
         </div>
     </main>
+
+<div class="modal fade" id="modalQuestions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter une question</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+        <form>
+            <div class="modal-body list-group list-group-flush">
+                <div class="list-group-item">
+                    <label for="exampleInputEmail1" class="form-label">Label question</label>
+                    <input class="form-control" type="text" >
+                </div>
+                <div class="list-group-item">
+                    <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
+                    <select class="form-select" name="level">
+                        <option selected>Choisir le niveau de difficulté</option>
+                        <option value="1">Vert</option>
+                        <option value="2">Jaune</option>
+                        <option value="3">Bleu</option>
+                        <option value="4">Orange</option>
+                        <option value="5">Rouge</option>
+                        <option value="6">Noir</option>
+                    </select>
+                </div>
+                <div class="list-group-item">
+                    <label for="exampleInputEmail1" class="form-label">Réponse</label>
+                    <input class="form-control" type="text">
+                    <button id="btnCreateAnswer" class="btn btn-outline-success marginBtn" type="button" >Ajouter une réponse</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+
+    </div>
+
+  </div>
+</div>
+    <script type="text/javascript" src="assets/script/script.js"></script>
+
 {% endblock %}
 

@@ -12,11 +12,12 @@ class Users extends AbstractController
     {
         if(isset($_POST['delete'])){
             $id_user = htmlspecialchars($_POST['id_user']);
-            deleteUser($id_user);
+            deleteUser($_POST['id_user']);
         }else if (isset($_POST['update'])){
             updateUser($_POST);
         }else if(isset($_POST['insert'])){
             insertUser($_POST);
+            // print_r($_POST);
         }else{
             echo "fail";
         }

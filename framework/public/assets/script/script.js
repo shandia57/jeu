@@ -14,3 +14,7 @@ function setInfoUser(target) {
         roles.options[roles.selectedIndex] = roles.options[1];
     }
 }
+
+let btn = document.getElementById("btnCreateAnswer").addEventListener("click", (e) => {
+    console.log(e.target);
+})
