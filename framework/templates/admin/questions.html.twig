@@ -67,11 +67,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-        <form>
+        <form action="questions" method="post">
             <div class="modal-body list-group list-group-flush">
                 <div class="list-group-item">
                     <label for="exampleInputEmail1" class="form-label">Label question</label>
-                    <input class="form-control" type="text" >
+                    <input class="form-control" type="text" name="label">
                 </div>
                 <div class="list-group-item">
                     <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
@@ -86,14 +86,31 @@
                     </select>
                 </div>
                 <div class="list-group-item">
-                    <label for="exampleInputEmail1" class="form-label">Réponse</label>
-                    <input class="form-control" type="text">
+                    <label for="exampleInputEmail1" class="form-label">Question</label>
+                    <input class="form-control" type="text" name="question">
+                </div>
+
+
+                <div class="list-group-item">
+                    <div class="listAnswer">
+
+                        <div class="labelAnswer">
+                            <label class="form-label answer">Réponse 1</label>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="validAnswer1">
+                                <label class="form-check-label">Réponse valide</label>
+                            </div>
+                        </div>
+
+                        <input class="form-control" type="text" name="answer[]">
+                    </div>
                     <button id="btnCreateAnswer" class="btn btn-outline-success marginBtn" type="button" >Ajouter une réponse</button>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" name="insertQuestion">Submit</button>
             </div>
         </form>
 
