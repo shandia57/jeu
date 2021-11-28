@@ -5,9 +5,11 @@
                 <li>{{ i }}</li>
         {% endfor %}
 </ul>
-
+// remarque on peut faire un for else en twig ^^
 <ul>
         {% for user in users %}
                 <li>{{ user }}</li>
+            {% else %}
+                <li>Aucun user</li>
         {% endfor %}
 </ul>
