@@ -41,22 +41,31 @@
             </select>
         </div>
         <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#modalQuestions">Ajouter une nouvelle question</button>
-        <div class="question-answers">
-            <h3>Quelle est la capitale de la France ? </h3>
-            <ul class=" list-group-flush">
-                <li class="list-group-item">Paris</li>
-                <li class="list-group-item">Marseille </li>
-                <li class="list-group-item">Forbach</li>
-            </ul>
-        </div>
-        <div class="question-answers">
-            <h3>Quelle est la ville la plus grande de France ? </h3>
-            <ul class=" list-group-flush">
-                <li class="list-group-item">Paris</li>
-                <li class="list-group-item">Marseille</li>
-                <li class="list-group-item">Forbach</li>
-            </ul>
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#ID</th>
+                    <th scope="col">Label</th>
+                    <th scope="col">level</th>
+                    <th scope="col">Question</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for singleQuestion in questions %}
+
+                <tr>
+                    <th scope="row"> {{singleQuestion.id_question}}</th> </th>
+                    <td>{{singleQuestion.label}}</td>
+                    <td>{{singleQuestion.level}}</td>
+                    <td>{{singleQuestion.question}}</td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+
     </main>
 
 <div class="modal fade" id="modalQuestions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -3,24 +3,61 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-require_once __DIR__ . '/../../Users/CrudQuestions.php';
+use App\Class\Admin\Questions\Questions;
+use App\Class\Admin\Answers\Answers;
+use App\Class\Admin\Questions_Answers\QuestionsAnswers;
+
 
 
 class Question extends AbstractController
 {
+
+
     public function __invoke(): string
     {
-        if(isset($_POST['insertQuestion'])){
+        $question = new Questions();
+        $answer = new Answers();
+        $questionsAnswers = new QuestionsAnswers();
 
-            // $id_question = getNumberId("questions");
-            // echo $id_question[0]['numberID'];
-            // echo "<pre>";print_r($_POST);
-            // insertQuestion($_POST);
-            insertQuestionsAndAnswers($_POST);
 
+        if (isset($_POST['insertQuestion'])) {
+            $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
         }
+
+        $questions = $question->getAllQuestions();
+
         return $this->render('admin/questions.html.twig', [
-            'title' => "Questions"
+            'title' => "Questions",
+            'questions' => $questions
         ]);
     }
+
+
+    public function insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $details) : void
+    {
+            $id_question = $question->getMaxNumberIdQuestions();
+            $id_question = $question->returnNumberIfEmptyID($id_question);
+
+            $question->insertQuestion($details, $id_question);
+
+            for($i = 0; $i < count($details['answer']); $i++){
+
+                if(isset($_POST["validAnswer" .$i + 1])){
+                    $validAnswer = 1;
+                    $answer->insertAnswer($details['answer'][$i], $validAnswer);
+        
+                }else{
+                    $validAnswer = 0;
+                    $answer->insertAnswer($details['answer'][$i], $validAnswer);
+                }
+
+                $id_answer = $answer->getNumberIdAnswer();
+                $id_answer = $answer->returnNumberIfEmptyID($id_answer);
+
+                $questionsAnswers->linkQuestionWithAnswer($id_question, $id_answer);
+            }
+    }
+
+
+  
 }

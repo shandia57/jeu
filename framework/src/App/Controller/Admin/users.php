@@ -16,17 +16,11 @@ class Users extends AbstractController
             updateUser($_POST);
         }else if(isset($_POST['insert'])){
             insertUser($_POST);
-            // print_r($_POST);
-        }else{
-            echo "fail";
         }
-
         $users = getUsers();
         return $this->render('admin/users.html.twig', [
             'users' => $users
-        ]);
-
-        
+        ]);        
     }
 
 }

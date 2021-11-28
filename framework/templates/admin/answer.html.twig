@@ -1,0 +1,49 @@
+{% extends "layout.html.twig" %}
+
+{% block head %}
+{{ parent() }} 
+{% endblock %}
+
+{% block bootstrap %}
+{{ parent() }} 
+{% endblock %}
+
+{% block fontawesome %}
+{{ parent() }} 
+{% endblock %}
+
+{% block css %}
+    {{ parent() }} 
+    <link rel="stylesheet" type="text/css" href="assets/style/questions.css">
+{% endblock %}
+
+
+{% block title %}{{ parent() }} - hehe {% endblock %}
+
+{% block body %}
+    {% block main %}
+        {{ parent() }} 
+    {% endblock %}
+    <main>
+        <h1>Answers</h1>
+
+        <div>
+            {% for singleQuestion in questions %}
+            <h2>{{singleQuestion.question}}</h2>
+            {% endfor %}
+            <ul class="list-group list-group-flush">
+            {% for answer in answers %}
+                <li class="list-group-item">{{answer.answer}} <span class="rightPosition"> {{answer.valid}} </span> </li>
+            {% endfor %}
+
+
+            </ul>
+        </div>
+
+    </main>
+
+
+
+    <script type="text/javascript" src="assets/script/script.js"></script>
+  
+{% endblock %}
