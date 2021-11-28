@@ -123,4 +123,28 @@ class Questions
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
+
+    public function updateQuestion($dataQuestion) : bool
+    {
+        $connection = getConnection();
+        $sql = "UPDATE `questions` SET 
+         `label`=  '$dataQuestion[labelUpdate]', 
+         `level` = '$dataQuestion[levelUpdate]', 
+         `question` = '$dataQuestion[questionUpdate]' 
+          WHERE `questions`.`id_question` = '$dataQuestion[idQuestionsUpdate]' ;";
+        $stmt = $connection->prepare($sql);
+        return $stmt->execute();
+    }
+
+    public function deleteQuestion($id_question) : array
+    {
+        $connection = getConnection();
+        $sql = "DELETE 
+        FROM `questions`  
+        WHERE `id_question` = $id_question";
+        $stmt = $connection->prepare($sql);
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
 }

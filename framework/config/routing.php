@@ -15,4 +15,5 @@ return [
     new Route('GET', '/users', Users::class),
     new Route('POST', '/users', Users::class),
     new Route('GET', '/questions/{id}', Answer::class),
+    new Route('POST', '/questions/{id}', Answer::class),
 ];

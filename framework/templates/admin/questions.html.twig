@@ -48,6 +48,8 @@
                     <th scope="col">Label</th>
                     <th scope="col">level</th>
                     <th scope="col">Question</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
 
@@ -59,6 +61,10 @@
                     <td>{{singleQuestion.label}}</td>
                     <td>{{singleQuestion.level}}</td>
                     <td>{{singleQuestion.question}}</td>
+                    <td><button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#updateModalQuestions" onclick="updateQuestion(this)">Modifier</button></td>
+                    <td><a class="btn btn-outline-success" href="questions/{{singleQuestion.id_question}}">Voir les réponses</a></td>
+
+                    
                 </tr>
 
             {% endfor %}
@@ -68,11 +74,11 @@
 
     </main>
 
-<div class="modal fade" id="modalQuestions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalQuestions" tabindex="-1"  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ajouter une question</h5>
+        <h5 class="modal-title" >Ajouter une question</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
@@ -85,13 +91,13 @@
                 <div class="list-group-item">
                     <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
                     <select class="form-select" name="level">
-                        <option selected>Choisir le niveau de difficulté</option>
-                        <option value="1">Vert</option>
-                        <option value="2">Jaune</option>
-                        <option value="3">Bleu</option>
-                        <option value="4">Orange</option>
-                        <option value="5">Rouge</option>
-                        <option value="6">Noir</option>
+                        <option selected value="default">Choisir le niveau de difficulté</option>
+                        <option value="Vert">Vert</option>
+                        <option value="Jaune">Jaune</option>
+                        <option value="Bleu">Bleu</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Rouge">Rouge</option>
+                        <option value="Noir">Noir</option>
                     </select>
                 </div>
                 <div class="list-group-item">
@@ -127,7 +133,50 @@
 
   </div>
 </div>
-    <script type="text/javascript" src="assets/script/script.js"></script>
+<!-- Modal update question -->
+    <div class="modal fade" id="updateModalQuestions" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >Modifier la réponse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="questions" method="post">
+                <div class="modal-body list-group list-group-flush">
+                    <input class="idQuestions" type="hidden" name="idQuestionsUpdate">
+                    <div class="list-group-item">
+                        <label for="exampleInputEmail1" class="form-label">Label question</label>
+                        <input class="form-control labelUpdate" type="text" name="labelUpdate">
+                    </div>
+                    <div class="list-group-item">
+                        <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
+                        <select id="level" class="form-select" name="levelUpdate">
+                            <option value="Vert">Vert</option>
+                            <option value="Jaune">Jaune</option>
+                            <option value="Bleu">Bleu</option>
+                            <option value="Orange">Orange</option>
+                            <option value="Rouge">Rouge</option>
+                            <option value="Noir">Noir</option>
+                        </select>
+                    </div>
+                    <div class="list-group-item">
+                        <label for="exampleInputEmail1" class="form-label">Question</label>
+                        <input class="form-control questionUpdate" type="text" name="questionUpdate">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-danger"  name="deleteQuestions">Supprimer</button>
+                    <button type="submit" class="btn btn-primary" name="UpdateQuestions">Modifier</button>
+                </div>
+        </form>
+
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="assets/script/questions.js"></script>
 
 {% endblock %}
 

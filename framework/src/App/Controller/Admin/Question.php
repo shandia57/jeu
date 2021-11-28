@@ -22,6 +22,10 @@ class Question extends AbstractController
 
         if (isset($_POST['insertQuestion'])) {
             $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
+        }else if (isset($_POST['UpdateQuestions'])){
+            $question->updateQuestion($_POST);
+        }else if (isset($_POST['deleteQuestions'])){
+            $question->deleteQuestion($_POST['idQuestionsUpdate']);
         }
 
         $questions = $question->getAllQuestions();

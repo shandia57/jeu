@@ -97,7 +97,7 @@ class Answers
     public function getAnswersWithIdQuestion($id_question) : array
     {
         $connection = getConnection();
-        $sql =  "SELECT answer.answer, answer.valid
+        $sql =  "SELECT answer.answer, answer.valid, answer.id_answer
                 FROM answer, questions, questions_answers
                 WHERE questions.id_question = $id_question
                 AND questions_answers.id_question = questions.id_question
@@ -106,6 +106,17 @@ class Answers
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+    }
+
+    public function updateAnswer($dataAnswer, $validAnswer) : bool
+    {
+        $connection = getConnection();
+        $sql = "UPDATE `answer` SET 
+         `answer`=  '$dataAnswer[answerUpdate]', 
+         `valid` = '$validAnswer' 
+          WHERE `answer`.`id_answer` = '$dataAnswer[idAnswerUpdate]' ;";
+        $stmt = $connection->prepare($sql);
+        return $stmt->execute();
     }
 
 }

@@ -37,7 +37,7 @@ class QuestionsAnswers
         return $this;
     }
 
-    function linkQuestionWithAnswer($id_question, $id_answer) : bool{
+    public function linkQuestionWithAnswer($id_question, $id_answer) : bool{
 
         $connection = getConnection();
         $sql = 'INSERT INTO `questions_answers`(`id_question`, `id_answer`) 
@@ -49,10 +49,22 @@ class QuestionsAnswers
         return $stmt->execute();
     }
 
-    function getQuestionsAnswer() : Array
+    public function getQuestionsAnswer() : Array
     {
         $connection = getConnection();
         $stmt = $connection->prepare("SELECT * FROM `questions_answers` ");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
+    public function deleteQuestion($id_answer) : Array
+    {
+        $connection = getConnection();
+        $sql = "DELETE 
+        FROM `questions_answers`  
+        WHERE `id_answer` = $id_answer";
+        $stmt = $connection->prepare($sql);
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
