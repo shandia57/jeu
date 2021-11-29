@@ -3,21 +3,26 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-require_once __DIR__ . '/../../Users/CrudUsers.php';
+use App\Class\Admin\User\User;
+
 
 class Users extends AbstractController
 {
 
     public function __invoke()
     {
+        $user = new User();
+
         if(isset($_POST['delete'])){
-            deleteUser($_POST['id_user']);
+            $user->deleteUser($_POST['id_user']);
         }else if (isset($_POST['update'])){
-            updateUser($_POST);
+            $user->updateUser($_POST);
         }else if(isset($_POST['insert'])){
-            insertUser($_POST);
+            $user->insertUser($_POST);
         }
-        $users = getUsers();
+
+        $users = $user->getUsers();
+
         return $this->render('admin/users.html.twig', [
             'users' => $users
         ]);        
