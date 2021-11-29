@@ -1,0 +1,17 @@
+<!doctype html>
+<html long="fr">
+<head>
+    <title>{% block title %}Mon micro framework{% endblock %}</title>
+    <meta charset="UTF-8">
+    {% block css %}{% endblock %}
+    {% block js %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+{% block bottom_js %}
+    <script src="/framework/src/App/renderGrid.js" type="text/javascript"></script>
+{% endblock %}
+</body>
+</html>
