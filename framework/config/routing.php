@@ -12,8 +12,10 @@ return [
     new Route('GET', '/', Homepage::class),
     new Route('GET', '/questions', Question::class),
     new Route('POST', '/questions', Question::class),
+
     new Route('GET', '/users', Users::class),
     new Route('POST', '/users', Users::class),
+    
     new Route('GET', '/questions/{id}', Answer::class),
     new Route('POST', '/questions/{id}', Answer::class),
 ];

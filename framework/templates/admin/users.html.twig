@@ -124,27 +124,34 @@
                 <form method="post" action="users">
                     <div class="modal-body">
                         <label for="usernameSub" class="form-label">Username</label>
-                        <input  id="usernameSub" class="form-control" type="text" name="usernameSub">
+                        <input  id="usernameSub" class="form-control" type="text" name="username">
+                        <div class="form-text">{{username}}</div>
 
                         <label for="passwordSub" class="form-label">Password</label>
-                        <input  id="passwordSub" class="form-control" type="password" name="passwordSub">
+                        <input  id="passwordSub" class="form-control" type="password" name="password">
+                        <div class="form-text">{{password}}</div>
 
                         <label for="passwordConfSub" class="form-label">Password</label>
-                        <input  id="passwordConfSub" class="form-control" type="password" name="passwordConfSub">
+                        <input  id="passwordConfSub" class="form-control" type="password" name="passwordConfirm">
+                        <div class="form-text">{{passwordConfirm}}</div>
 
                         <label for="firstNameSub" class="form-label">First name</label>
-                        <input  id="firstNameSub" class="form-control" type="text" name="firstNameSub">
+                        <input  id="firstNameSub" class="form-control" type="text" name="firstName">
+                        <div class="form-text">{{firstName}}</div>
 
                         <label for="lastNameSub" class="form-label">Last name</label>
-                        <input  id="lastNameSub" class="form-control" type="text" name="lastNameSub">
+                        <input  id="lastNameSub" class="form-control" type="text" name="lastName">
+                        <div class="form-text">{{lastName}}</div>
 
                         <label for="mailSub" class="form-label">Mail</label>
-                        <input  id="mailSub" class="form-control" type="text" name="mailSub">
-
-                        <select id="rolesSub" class="form-select" aria-label="Default select example" name="rolesSub">
+                        <input  id="mailSub" class="form-control" type="text" name="mail">
+                        <div class="form-text">{{mail}}</div>
+                        
+                        <select id="rolesSub" class="form-select" aria-label="Default select example" name="roles">
                             <option id="role1Sub"  selected value="ROLES_ADMIN">ROLES_ADMIN</option>
                             <option id="role2Sub" value="ROLES_USER">ROLES_USER</option>
                         </select>
+                        <div class="form-text">{{roles}}</div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
