@@ -40,8 +40,8 @@ class UserLogin extends AbstractController
             //print_r(sizeof($users));
            // print_r($colors);
             $res = array_map(null,$colors,$users);
-            print_r($res);
-            return $this->render('/connectToGame/connectToGame.html.twig', [
+            //print_r($res);
+            return $this->render('/connectToGame/test.html.twig', [
                 "users" => $res,
                 "user" => $isConnected?? null,
                 "canvas" =>$colors2
