@@ -37,7 +37,7 @@
                 <ul class="list-group list-group-flush">
                 {% for answer in answers %}
                     <li class="list-group-item" data-id="{{answer.id_answer}}" data-value="{{answer.valid}}" data-bs-toggle="modal" data-bs-target="#updateAnswerModal" onclick="updateAnswer(this)">{{answer.answer}}</li>
-            {% endfor %}
+                {% endfor %}
             </ul>
         </div>
 
