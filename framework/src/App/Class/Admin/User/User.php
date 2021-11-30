@@ -201,4 +201,17 @@ class User
         }
     }
 
+    public function userExists(string $username): bool
+    {
+        $connection = getConnection();
+        $stmt = $connection->prepare("SELECT COUNT(*) as nb FROM `users` WHERE `username` = :username");
+        $stmt->bindParam('username', $username, PDO::FETCH_ASSOC);
+        if ($stmt->execute()) {
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result[0]['nb'] > 0;
+        }
+        return false;
+
+    }
+
 }
