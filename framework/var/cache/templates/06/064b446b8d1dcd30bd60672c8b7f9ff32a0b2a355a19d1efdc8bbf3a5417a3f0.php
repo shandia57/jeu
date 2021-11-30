@@ -188,29 +188,46 @@ class __TwigTemplate_e07a177eb90af118a89e380e4ec65613f15b929d83ca21f6b68309b50b6
         <div class=\"modal-dialog\">
             <div class=\"modal-content\">
                 <div class=\"modal-header\">
-                    <h5 class=\"modal-title\" id=\"username\"></h5>
+                    <h5 class=\"modal-title\" id=\"usernameTitle\"></h5>
                     <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
                 </div>
                 <form id=\"formTest\" method=\"post\" action=\"users\">
 
                     <div class=\"modal-body\">
-                    <input name=\"id_user\" value=\"5\" id=\"id_user\" type=\"hidden\">
-
+                    <input name=\"id_user\"  id=\"id_user\" type=\"hidden\">
+                    ";
+        // line 89
+        echo "
                     <label for=\"firstName\" class=\"form-label\" >first name</label>
                     <input id=\"firstName\" class=\"form-control\" name=\"firstName\" type=\"text\">
+                    <div class=\"form-text\">";
+        // line 92
+        echo twig_escape_filter($this->env, ($context["firstName"] ?? null), "html", null, true);
+        echo "</div>
 
                     <label for=\"lastName\" class=\"form-label\">last name</label>
                     <input id=\"lastName\" class=\"form-control\" name=\"lastName\" type=\"text\">
+                    <div class=\"form-text\">";
+        // line 96
+        echo twig_escape_filter($this->env, ($context["lastName"] ?? null), "html", null, true);
+        echo "</div>
 
                     <label for=\"mail\" class=\"form-label\">email</label>
                     <input id=\"mail\" class=\"form-control\" name=\"mail\" type=\"text\">
+                    <div class=\"form-text\">";
+        // line 100
+        echo twig_escape_filter($this->env, ($context["mail"] ?? null), "html", null, true);
+        echo "</div>
 
                     <label for=\"inputPassword5\" class=\"form-label\">Roles</label>
                     <select id=\"roles\" class=\"form-select\" aria-label=\"Default select example\" name=\"roles\">
                         <option id=\"role1\"  selected value=\"ROLES_ADMIN\">ROLES_ADMIN</option>
                         <option id=\"role2\" value=\"ROLES_USER\">ROLES_USER</option>
                     </select>
-
+                    <div class=\"form-text\">";
+        // line 107
+        echo twig_escape_filter($this->env, ($context["roles"] ?? null), "html", null, true);
+        echo "</div>
                 </div>
                 <div class=\"modal-footer\">
                     <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Close</button>
@@ -236,42 +253,42 @@ class __TwigTemplate_e07a177eb90af118a89e380e4ec65613f15b929d83ca21f6b68309b50b6
                         <label for=\"usernameSub\" class=\"form-label\">Username</label>
                         <input  id=\"usernameSub\" class=\"form-control\" type=\"text\" name=\"username\">
                         <div class=\"form-text\">";
-        // line 128
+        // line 132
         echo twig_escape_filter($this->env, ($context["username"] ?? null), "html", null, true);
         echo "</div>
 
                         <label for=\"passwordSub\" class=\"form-label\">Password</label>
                         <input  id=\"passwordSub\" class=\"form-control\" type=\"password\" name=\"password\">
                         <div class=\"form-text\">";
-        // line 132
+        // line 136
         echo twig_escape_filter($this->env, ($context["password"] ?? null), "html", null, true);
         echo "</div>
 
                         <label for=\"passwordConfSub\" class=\"form-label\">Password</label>
                         <input  id=\"passwordConfSub\" class=\"form-control\" type=\"password\" name=\"passwordConfirm\">
                         <div class=\"form-text\">";
-        // line 136
+        // line 140
         echo twig_escape_filter($this->env, ($context["passwordConfirm"] ?? null), "html", null, true);
         echo "</div>
 
                         <label for=\"firstNameSub\" class=\"form-label\">First name</label>
                         <input  id=\"firstNameSub\" class=\"form-control\" type=\"text\" name=\"firstName\">
                         <div class=\"form-text\">";
-        // line 140
+        // line 144
         echo twig_escape_filter($this->env, ($context["firstName"] ?? null), "html", null, true);
         echo "</div>
 
                         <label for=\"lastNameSub\" class=\"form-label\">Last name</label>
                         <input  id=\"lastNameSub\" class=\"form-control\" type=\"text\" name=\"lastName\">
                         <div class=\"form-text\">";
-        // line 144
+        // line 148
         echo twig_escape_filter($this->env, ($context["lastName"] ?? null), "html", null, true);
         echo "</div>
 
                         <label for=\"mailSub\" class=\"form-label\">Mail</label>
                         <input  id=\"mailSub\" class=\"form-control\" type=\"text\" name=\"mail\">
                         <div class=\"form-text\">";
-        // line 148
+        // line 152
         echo twig_escape_filter($this->env, ($context["mail"] ?? null), "html", null, true);
         echo "</div>
                         
@@ -280,7 +297,7 @@ class __TwigTemplate_e07a177eb90af118a89e380e4ec65613f15b929d83ca21f6b68309b50b6
                             <option id=\"role2Sub\" value=\"ROLES_USER\">ROLES_USER</option>
                         </select>
                         <div class=\"form-text\">";
-        // line 154
+        // line 158
         echo twig_escape_filter($this->env, ($context["roles"] ?? null), "html", null, true);
         echo "</div>
                     </div>
@@ -321,7 +338,7 @@ class __TwigTemplate_e07a177eb90af118a89e380e4ec65613f15b929d83ca21f6b68309b50b6
 
     public function getDebugInfo()
     {
-        return array (  306 => 25,  302 => 24,  284 => 154,  275 => 148,  268 => 144,  261 => 140,  254 => 136,  247 => 132,  240 => 128,  180 => 70,  171 => 67,  167 => 66,  163 => 65,  159 => 64,  155 => 63,  151 => 62,  148 => 61,  144 => 60,  109 => 27,  106 => 24,  102 => 23,  94 => 21,  86 => 16,  82 => 15,  76 => 12,  72 => 11,  66 => 8,  62 => 7,  56 => 4,  52 => 3,  41 => 1,);
+        return array (  323 => 25,  319 => 24,  301 => 158,  292 => 152,  285 => 148,  278 => 144,  271 => 140,  264 => 136,  257 => 132,  229 => 107,  219 => 100,  212 => 96,  205 => 92,  200 => 89,  180 => 70,  171 => 67,  167 => 66,  163 => 65,  159 => 64,  155 => 63,  151 => 62,  148 => 61,  144 => 60,  109 => 27,  106 => 24,  102 => 23,  94 => 21,  86 => 16,  82 => 15,  76 => 12,  72 => 11,  66 => 8,  62 => 7,  56 => 4,  52 => 3,  41 => 1,);
     }
 
     public function getSourceContext()

@@ -117,11 +117,11 @@ class ControlUsersForm
                                 $this->errors[$fieldName][] = 'Vous devez obligatoirement choisir soit entre ADMIN ou USER';
                             }
                         }
-                    // case 'unique':
-                    //     if ($user->userExists($dataPosted[$fieldName])) {
-                    //         $this->errors[$fieldName][] = $rule['validationMessage'] ?? 'Entité déjà existante !';
-                    //     }
-                    //     break;
+                    case 'unique':
+                        if ($user->userExists($dataPosted[$fieldName])) {
+                            $this->errors[$fieldName][] = $rule['validationMessage'] ?? 'Entité déjà existante !';
+                        }
+                        break;
                 }
             }
         }

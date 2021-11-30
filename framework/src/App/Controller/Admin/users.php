@@ -19,13 +19,16 @@ class Users extends AbstractController
             $user->deleteUser($_POST['id_user']);
 
         }else if (isset($_POST['update'])){
-            $user->updateUser($_POST);
+
+            $controlUserForm->findError($_POST, $user);
+            if(empty($controlUserForm->getErrors())){
+                $user->updateUser($_POST);
+            }
 
         }else if(isset($_POST['insert'])){
             $controlUserForm->findError($_POST, $user);
             if(empty($controlUserForm->getErrors())){
-                echo "bien ouej t'es fort négro ! ";
-            // $user->insertUser($_POST);
+                $user->insertUser($_POST);
             }
         }
 
