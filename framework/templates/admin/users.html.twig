@@ -29,9 +29,9 @@
 
         <div class="filter">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="username" aria-label="Recipient's username"
+                <input type="text" id="searchbar" class="form-control" placeholder="username" aria-label="Recipient's username"
                     aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                <button class="btn btn-outline-secondary" type="button" id="buttonSearch"><i
                         class="fas fa-search"></i></button>
             </div>
 
@@ -44,9 +44,9 @@
 
 
         <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#modalSubscribe">Ajouter un nouvel utilisateur</button>
-        <table class="table" >
+        <table class="table">
             <thead>
-                <tr >
+                <tr>
                     <th scope="col">#ID</th>
                     <th scope="col">userName</th>
                     <th scope="col">firstName</th>
@@ -59,7 +59,7 @@
             <tbody>
                     {% for user in users %}
                         <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setInfoUser(this)">
-                            <th scope="row">{{user.id_user}} </th>
+                            <td scope="row">{{user.id_user}} </td>
                             <td name="username">{{user.username}}</td>
                             <td>{{user.firstName}}</td>
                             <td>{{user.lastName}}</td>

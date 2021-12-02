@@ -112,7 +112,7 @@ class Answers
     {
         $connection = getConnection();
         $sql = "UPDATE `answer` SET 
-         `answer`=  '$dataAnswer[answerUpdate]', 
+         `answer`=  '$dataAnswer[answer]', 
          `valid` = '$validAnswer' 
           WHERE `answer`.`id_answer` = '$dataAnswer[idAnswerUpdate]' ;";
         $stmt = $connection->prepare($sql);

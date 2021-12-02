@@ -17,3 +17,25 @@ function setInfoUser(target) {
 }
 
 
+document.getElementById("searchbar").addEventListener("keyup", (e) => {
+    const tableRowData = document.getElementsByClassName("dataUser");
+    if (e.target.value.trim().length === 0) {
+        for (let i = 0; i < tableRowData.length; i++) {
+            tableRowData[i].style.display = "";
+        }
+    } else {
+        for (let i = 0; i < tableRowData.length; i++) {
+            let tableData = tableRowData[i].getElementsByTagName("td");
+            for (let j = 0; j < tableData.length; j++) {
+                if (e.target.value.toLowerCase() === tableData[j].innerText.toLocaleLowerCase()) {
+                    tableRowData[i].style.display = "";
+                    break;
+                } else {
+                    tableRowData[i].style.display = "none";
+                }
+            }
+        }
+    }
+})
+
+

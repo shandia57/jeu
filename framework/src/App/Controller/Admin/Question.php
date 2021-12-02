@@ -6,6 +6,9 @@ use Framework\Controller\AbstractController;
 use App\Class\Admin\Questions\Questions;
 use App\Class\Admin\Answers\Answers;
 use App\Class\Admin\Questions_Answers\QuestionsAnswers;
+use  App\Class\ControlDataForm\ControlQuestionsForm;
+use  App\Class\ControlDataForm\ControlAnswersForm;
+
 
 
 
@@ -18,12 +21,24 @@ class Question extends AbstractController
         $question = new Questions();
         $answer = new Answers();
         $questionsAnswers = new QuestionsAnswers();
+        $controlQuestionsForm = new ControlQuestionsForm();
+        $controlAnswersForm = new ControlAnswersForm();
 
 
         if (isset($_POST['insertQuestion'])) {
-            $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
+            $controlAnswersForm->findErrosIntoArray($_POST['answer']);
+            $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);
+            if(empty($controlQuestionsForm->getErrors())){
+                $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
+            }
+        
         }else if (isset($_POST['UpdateQuestions'])){
-            $question->updateQuestion($_POST);
+
+            $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);            
+            if(empty($controlQuestionsForm->getErrors())){
+                $question->updateQuestion($_POST);
+            }
+
         }else if (isset($_POST['deleteQuestions'])){
             $question->deleteQuestion($_POST['idQuestionsUpdate']);
         }
@@ -32,7 +47,11 @@ class Question extends AbstractController
 
         return $this->render('admin/questions.html.twig', [
             'title' => "Questions",
-            'questions' => $questions
+            'questions' => $questions, 
+            'label' =>  $controlQuestionsForm->displayErrors("label"),
+            'level' =>  $controlQuestionsForm->displayErrors("level"),
+            'question' =>  $controlQuestionsForm->displayErrors("question"),
+            "answer" => $controlAnswersForm->displayErrors("answer"),
         ]);
     }
 

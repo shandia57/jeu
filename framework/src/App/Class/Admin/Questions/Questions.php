@@ -128,9 +128,9 @@ class Questions
     {
         $connection = getConnection();
         $sql = "UPDATE `questions` SET 
-         `label`=  '$dataQuestion[labelUpdate]', 
-         `level` = '$dataQuestion[levelUpdate]', 
-         `question` = '$dataQuestion[questionUpdate]' 
+         `label`=  '$dataQuestion[label]', 
+         `level` = '$dataQuestion[level]', 
+         `question` = '$dataQuestion[question]' 
           WHERE `questions`.`id_question` = '$dataQuestion[idQuestionsUpdate]' ;";
         $stmt = $connection->prepare($sql);
         return $stmt->execute();

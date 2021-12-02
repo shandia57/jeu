@@ -20,13 +20,13 @@ class Users extends AbstractController
 
         }else if (isset($_POST['update'])){
 
-            $controlUserForm->findError($_POST, $user);
+            $controlUserForm->findError($controlUserForm->getValidationUpdate(), $_POST, $user);
             if(empty($controlUserForm->getErrors())){
                 $user->updateUser($_POST);
             }
 
         }else if(isset($_POST['insert'])){
-            $controlUserForm->findError($_POST, $user);
+            $controlUserForm->findError($controlUserForm->getValidationsSubscription(),$_POST, $user);
             if(empty($controlUserForm->getErrors())){
                 $user->insertUser($_POST);
             }
@@ -42,7 +42,7 @@ class Users extends AbstractController
             'lastname' => $controlUserForm->displayErrors("lastname"),
             'firstName' => $controlUserForm->displayErrors("firstName"),
             'mail' => $controlUserForm->displayErrors("mail"),
-            'roles' => $controlUserForm->displayErrors("roles")
+            'roles' => $controlUserForm->displayErrors("roles"),
         ]);        
     }
 

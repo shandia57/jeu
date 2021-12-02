@@ -73,7 +73,7 @@
         </table>
 
     </main>
-
+{# Modal insert a question #}
 <div class="modal fade" id="modalQuestions" tabindex="-1"  aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -87,6 +87,7 @@
                 <div class="list-group-item">
                     <label for="exampleInputEmail1" class="form-label">Label question</label>
                     <input class="form-control" type="text" name="label">
+                    <div class="form-text">{{label}}</div>
                 </div>
                 <div class="list-group-item">
                     <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
@@ -99,10 +100,12 @@
                         <option value="Rouge">Rouge</option>
                         <option value="Noir">Noir</option>
                     </select>
+                    <div class="form-text">{{level}}</div>
                 </div>
                 <div class="list-group-item">
                     <label for="exampleInputEmail1" class="form-label">Question</label>
                     <input class="form-control" type="text" name="question">
+                    <div class="form-text">{{question}}</div>
                 </div>
 
 
@@ -117,6 +120,8 @@
                                 <label class="form-check-label">Réponse valide</label>
                             </div>
                         </div>
+                        <div class="form-text">{{answer}}</div>
+
 
                         <input class="form-control" type="text" name="answer[]">
                     </div>
@@ -138,7 +143,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" >Modifier la réponse</h5>
+                <h5 class="modal-title" >Modifier la question</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="questions" method="post">
@@ -146,11 +151,12 @@
                     <input class="idQuestions" type="hidden" name="idQuestionsUpdate">
                     <div class="list-group-item">
                         <label for="exampleInputEmail1" class="form-label">Label question</label>
-                        <input class="form-control labelUpdate" type="text" name="labelUpdate">
+                        <input class="form-control labelUpdate" type="text" name="label">
+                        <div class="form-text">{{label}}</div>
                     </div>
                     <div class="list-group-item">
                         <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
-                        <select id="level" class="form-select" name="levelUpdate">
+                        <select id="level" class="form-select" name="level">
                             <option value="Vert">Vert</option>
                             <option value="Jaune">Jaune</option>
                             <option value="Bleu">Bleu</option>
@@ -158,10 +164,12 @@
                             <option value="Rouge">Rouge</option>
                             <option value="Noir">Noir</option>
                         </select>
+                        <div class="form-text">{{level}}</div>
                     </div>
                     <div class="list-group-item">
                         <label for="exampleInputEmail1" class="form-label">Question</label>
-                        <input class="form-control questionUpdate" type="text" name="questionUpdate">
+                        <input class="form-control questionUpdate" type="text" name="question">
+                        <div class="form-text">{{question}}</div>
                     </div>
 
                 </div>

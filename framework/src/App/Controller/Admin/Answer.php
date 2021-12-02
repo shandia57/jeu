@@ -6,6 +6,7 @@ use Framework\Controller\AbstractController;
 use App\Class\Admin\Questions\Questions;
 use App\Class\Admin\Answers\Answers;
 use App\Class\Admin\Questions_Answers\QuestionsAnswers;
+use  App\Class\ControlDataForm\ControlAnswersForm;
 
 
 
@@ -18,6 +19,8 @@ class Answer extends AbstractController
         $question = new Questions();
         $answer = new Answers();
         $questionsAnswers = new QuestionsAnswers();
+        $controlAnswersForm = new ControlAnswersForm();
+
 
         if (isset($_POST['validAnswer'])){
             $validAnswer = 1;
@@ -26,15 +29,23 @@ class Answer extends AbstractController
         }
 
         if(isset($_POST ['updateAnswer'])){
-            $answer->updateAnswer($_POST, $validAnswer);
+            $controlAnswersForm->findError($controlAnswersForm->getValidations(), $_POST, null);
+            if(empty($controlAnswersForm->getErrors())){
+                $answer->updateAnswer($_POST, $validAnswer);
+            }
 
         }else if (isset($_POST ['deleteAnswer'])){
             $questionsAnswers->deleteQuestion($_POST['idAnswerUpdate']);
+
         }else if (isset($_POST ['insertAnswer'])){
-            $answer->insertAnswer($_POST['answer'], $validAnswer);
-            $id_answer = $answer->getNumberIdAnswer();
-            $id_answer = $answer->returnNumberIfEmptyID($id_answer);
-            $questionsAnswers->linkQuestionWithAnswer($id, $id_answer);
+            $controlAnswersForm->findError($controlAnswersForm->getValidations(), $_POST, null);
+            if(empty($controlAnswersForm->getErrors())){
+                $answer->insertAnswer($_POST['answer'], $validAnswer);
+                $id_answer = $answer->getNumberIdAnswer();
+                $id_answer = $answer->returnNumberIfEmptyID($id_answer);
+                $questionsAnswers->linkQuestionWithAnswer($id, $id_answer);
+            }
+
             
         }
 
@@ -45,6 +56,8 @@ class Answer extends AbstractController
             'title' => "Questions",
             'questions' => $questions,
             'answers' => $answers,
+            "answer" => $controlAnswersForm->displayErrors("answer"),
+
         ]);
     }
 
