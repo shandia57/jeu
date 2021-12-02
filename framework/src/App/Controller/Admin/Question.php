@@ -39,7 +39,7 @@ class Question extends AbstractController
                 $question->updateQuestion($_POST);
             }
 
-        }else if (isset($_POST['deleteQuestions'])){
+        }else if (isset($_POST['deleteQuestions']) && $_POST['deleteQuestions'] === "true"){
             $question->deleteQuestion($_POST['idQuestionsUpdate']);
         }
 

@@ -15,7 +15,7 @@ class Users extends AbstractController
         $user = new User();
         $controlUserForm = new ControlUsersForm();
 
-        if(isset($_POST['delete'])){
+        if(isset($_POST['delete']) && $_POST['delete'] === "true"){
             $user->deleteUser($_POST['id_user']);
 
         }else if (isset($_POST['update'])){

@@ -34,7 +34,7 @@ class Answer extends AbstractController
                 $answer->updateAnswer($_POST, $validAnswer);
             }
 
-        }else if (isset($_POST ['deleteAnswer'])){
+        }else if (isset($_POST ['deleteAnswer']) && $_POST ['deleteAnswer'] === "true"){
             $questionsAnswers->deleteQuestion($_POST['idAnswerUpdate']);
 
         }else if (isset($_POST ['insertAnswer'])){

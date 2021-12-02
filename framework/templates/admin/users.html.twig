@@ -29,15 +29,16 @@
 
         <div class="filter">
             <div class="input-group mb-3">
-                <input type="text" id="searchbar" class="form-control" placeholder="username" aria-label="Recipient's username"
-                    aria-describedby="button-addon2">
+                <input type="text" id="searchbar" class="form-control" placeholder="username">
                 <button class="btn btn-outline-secondary" type="button" id="buttonSearch"><i
                         class="fas fa-search"></i></button>
             </div>
 
-            <select class="form-select" aria-label="Default select example">
-                <option selected value="ROLES_ADMIN">asc</option>
-                <option value="ROLES_USER">desc</option>
+            <select id="selectFilter" class="form-select">
+                <option selected value="ascendant">ID : ascendant</option>
+                <option value="descendant">ID : descendant</option>
+                <option value="az">Username:  A - Z</option>
+                <option value="za">Username:  Z - A</option>
             </select>
         </div>
 
@@ -56,7 +57,7 @@
                 </tr>
             </thead>
             
-            <tbody>
+            <tbody id="tbody">
                     {% for user in users %}
                         <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setInfoUser(this)">
                             <td scope="row">{{user.id_user}} </td>
@@ -109,7 +110,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" name="update">Save changes</button>
-                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" name="delete">Delete</button>
+                    <button type="submit" id="btnDelete" class="btn btn-danger" data-bs-dismiss="modal" name="delete">Delete</button>
                 </div>
                 </form>
 
