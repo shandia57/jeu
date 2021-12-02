@@ -1,43 +1,42 @@
-tbody{
-    background-color: #2e6da4;
+h1{
+    color:red;
+}
+#main {
+    margin:0 auto;
+    width: 1500px;
+    display:flex;
+    --s: 50px;  /* size  */
+    --m: 4px;    /* margin */
+    --f: calc(1.732 * var(--s) + 4 * var(--m)  - 1px);
 }
 
-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit:cover;
+#container {
+    font-size: 0; /*disable white space between inline block element */
 }
 
-.hexGrid {
-    width: 75%;
-    margin: 1% auto;
-    background-color: mediumaquamarine;
+#container div .cell{
+    width: var(--s);
+    margin: var(--m);
+    height: calc(var(--s)*1.1547);
+    display: inline-block;
+    font-size:initial;
+    clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+
+    background: red;
+    margin-bottom: calc(var(--m) - var(--s)*0.2885);
+
+}
+#container div .cell:nth-child(odd) {
+    background:lightblue;
 }
 
-.hexGridA,
-.hexGridB {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    pointer-events:none;
-}
-
-.hexGridB {
-    transform: translateX(calc(100%/6));
-    margin: calc(-9.62% + 2px) auto; /* 100%*cos(30)/9 */
-}
-
-.hex {
-    display: flex;
-    pointer-events:initial;
-    width: calc(100%*2/3 - 2px);
-    background-color: #424242;
-    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-}
-.hex:hover {
-    background:red;
-}
-.hex::before {
+/* create increment margin for even rows*/
+#container::before {
     content: "";
-    padding-top: 86.6%;/* 100%*cos(30) */
+    width: calc(var(--s)/2 + var(--m));
+    float: left;
+    height: 120%;
+    shape-outside: repeating-linear-gradient(
+            #0000 0 calc(var(--f) - 3px),
+            #000  0 var(--f));
 }

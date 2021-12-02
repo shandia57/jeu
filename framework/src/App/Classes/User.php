@@ -227,5 +227,11 @@ class User
         return false;
 
     }
+    function filterArrayByKeyValue($array, $key, $keyValue)
+    {
+        return array_filter($array, function($value) use ($key, $keyValue) {
+            return $value[$key] == $keyValue;
+        });
+    }
 
 }

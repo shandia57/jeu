@@ -23,28 +23,31 @@ class UserLogin extends AbstractController
             $color5 = (new Color)->convertRGBToHex(26, 240, 79),
             $color6 = (new Color)->convertRGBToHex(240, 218, 62),
             $color7 = (new Color)->convertRGBToHex(240, 70, 104),
-            $color8 = (new Color)->convertRGBToHex(62, 26, 240),
+            $color8 = (new Color)->convertRGBToHex(105, 2, 219),
             $color9 = (new Color)->convertRGBToHex(52, 240, 221),
             $color10 = (new Color)->convertRGBToHex(54, 180, 240),
+            $color10 = (new Color)->convertRGBToHex(162, 220, 168),
         );
-
-
 
         if (!empty($_POST)) {
             $username = $_POST['username'];
             $password = $_POST['password'];
             $isConnected= (new User)->userConnection($username, $password);
         }
-        $colors2 =$colors;
+        $usersLength = sizeof($users);
            // print_r($users);
-            //print_r(sizeof($users));
+            print_r($usersLength);
            // print_r($colors);
             $res = array_map(null,$colors,$users);
             //print_r($res);
+
+        $result = (new User)->filterArrayByKeyValue($users, 'username',$isConnected??null['username']??null);
+        print_r($result);
             return $this->render('/connectToGame/test.html.twig', [
                 "users" => $res,
                 "user" => $isConnected?? null,
-                "canvas" =>$colors2
+                "usersNumber" => sizeOf($result),
+                "colors" => $colors
             ]);
         }
 }

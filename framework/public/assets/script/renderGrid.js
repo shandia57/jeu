@@ -1,28 +1,95 @@
-console.log('Hello World!');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+//Sets important constants and variables
 
-const a = 2 * Math.PI / 6;
-const r = 50;
+const container = document.getElementById("container");
+let rows = document.getElementsByClassName("gridRow");
+let cells = document.getElementsByClassName("cell");
 
-function init() {
-    drawGrid(canvas.width, canvas.height);
+function getValue(){
+    let numberOfUsers = document.getElementById('numberOfUsers')
+    return numberOfUsers.getAttribute('value');
 }
-init();
 
-function drawGrid(width, height) {
-    for (let y = r; y + r * Math.sin(a) < height; y += r * Math.sin(a)) {
-        for (let x = r, j = 0; x + r * (1 + Math.cos(a)) < width; x += r * (1 + Math.cos(a)), y += (-1) ** j++ * r * Math.sin(a)) {
-            drawHexagon(x, y);
+//function to test associating color to each user from index list
+//replaced with dynamic choice of color in V2
+function getColorV1(){
+    let colors = document.getElementById('listOfColors')
+    let arrayOfColors = [];
+    let options = colors.options.length;
+    for(let i = 0;i<options;i++){
+       if(colors.options[i].value){
+           arrayOfColors.push(colors.options[i].value)
+       }
+    }
+    return arrayOfColors;
+}
+
+function getColorV2(){
+
+    let selectedColor = document.getElementById('listOfColors');
+    return selectedColor.options[selectedColor.selectedIndex].value;
+}
+
+
+function getPlayerAndColor(){
+
+    let selectedColor = document.getElementById('listOfColors');
+    let value = selectedColor.options[selectedColor.selectedIndex].value;
+
+    selectedColor.insertBefore(new Option('--Select Color--', ''), document.getElementById("listOfColors").firstChild);
+    selectedColor.selectedIndex = 0
+
+    let colorSelection = [];
+
+    document.getElementById('listOfColors').addEventListener('change',function(){
+        alert(value);
+        colorSelection.push(value);
+        if(colorSelection.length===1) {
+            let player = getPlayer();
+            let playerAndColor = {};
+            player.map((val, index) => {
+                playerAndColor[val] = colorSelection[index]
+            });
+            console.log(playerAndColor);
+            let player1 = Object.keys(playerAndColor).length;
+            console.log(player1);
+            makeRows(50);
+            makeColumns(player1);
+            return playerAndColor;
+        }
+    });
+}
+getPlayerAndColor()
+
+function getPlayer(){
+    let player= document.getElementById('loggedIn').getAttribute('data-value');
+    let players = [];
+    players.push(player);
+    return players;
+}
+
+
+//Takes (rows, columns) input and makes a grid
+function makeRows(rowNum) {
+    //Creates rows
+    for (let r = 0; r < rowNum; r++) {
+        let row = document.createElement("div");
+        container.appendChild(row).className = "gridRow";
+    }
+}
+
+//Creates columns
+function makeColumns(cellNum) {
+    cellNum = getValue();
+    let color = getColorV2();
+    for (let i = 0; i < rows.length; i++) {
+        for (let j = 0; j < cellNum; j++) {
+            let newCell = document.createElement("div");
+            newCell.textContent = i.toString();
+            newCell.style.textAlign = "center";
+            newCell.style.lineHeight = "55px";
+            newCell.style.fontWeight="600";
+            newCell.style.backgroundColor=color;
+            rows[j].appendChild(newCell).className = "cell";
         }
     }
-}
-
-function drawHexagon(x, y) {
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-        ctx.lineTo(x + r * Math.cos(a * i), y + r * Math.sin(a * i));
-    }
-    ctx.closePath();
-    ctx.stroke();
 }

@@ -11,7 +11,7 @@ class Logout extends AbstractController
     {
         session_start();
         session_destroy();
-        return $this->render('connectToGame.html.twig', [
+        return $this->render('test.html.twig', [
         ]);
     }
 

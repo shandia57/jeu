@@ -12,4 +12,12 @@ abstract class AbstractController
 
         return $twig->render($template, $args);
     }
+    public function isPost():bool
+    {
+        return strtoupper($_SERVER['REQUEST_METHOD])']) === $_POST;
+    }
+    public function redirect(string $url):void{
+        header('location'.$url) ;
+        exit();
+    }
 }
