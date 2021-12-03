@@ -1,5 +1,3 @@
-//Sets important constants and variables
-
 const container = document.getElementById("container");
 let rows = document.getElementsByClassName("gridRow");
 let cells = document.getElementsByClassName("cell");
@@ -78,16 +76,29 @@ function makeRows(rowNum) {
 }
 
 //check contrast ratio of color for font color in cells
-function getColorByBgColor(bgColor) {
-    if (!bgColor) { return ''; }
-    return (parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2) ? '#000' : '#fff';
-}
+function getContrast (hexcolor){
 
+    // If a leading # is provided, remove it
+    if (hexcolor.slice(0, 1) === '#') {
+        hexcolor = hexcolor.slice(1);
+    }
+    // Convert to RGB value
+    let r = parseInt(hexcolor.substr(0,2),16);
+    let g = parseInt(hexcolor.substr(2,2),16);
+    let b = parseInt(hexcolor.substr(4,2),16);
+
+    // Get YIQ ratio
+    let yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+    // Check contrast
+    return (yiq >= 128) ? 'black' : 'white';
+
+}
 
 //Creates columns
 function makeColumns(cellNum) {
     let color = getColorV2();
-    let contrastColor = getColorByBgColor(color);
+    let contrastColor = getContrast(color);
     cellNum = getValue();
 
     for (let i = 0; i < rows.length; i++) {
