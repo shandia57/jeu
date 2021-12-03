@@ -2,6 +2,14 @@ const container = document.getElementById("container");
 let rows = document.getElementsByClassName("gridRow");
 let cells = document.getElementsByClassName("cell");
 
+
+function getPlayer(){
+    let player= document.getElementById('loggedIn').getAttribute('data-value');
+    let players = [];
+    players.push(player);
+    return players;
+}
+
 function getValue(){
     let numberOfUsers = document.getElementById('numberOfUsers')
     return numberOfUsers.getAttribute('value');
@@ -22,7 +30,6 @@ function getColorV1(){
 }
 
 function getColorV2(){
-
     let selectedColor = document.getElementById('listOfColors');
     return selectedColor.options[selectedColor.selectedIndex].value;
 }
@@ -36,34 +43,29 @@ function getPlayerAndColor(){
     selectedColor.insertBefore(new Option('--Select Color--', ''), document.getElementById("listOfColors").firstChild);
     selectedColor.selectedIndex = 0
 
-    let colorSelection = [];
-
+    let color = [];
+;
     document.getElementById('listOfColors').addEventListener('change',function(){
-        alert(value);
-        colorSelection.push(value);
-        if(colorSelection.length===1) {
-            let player = getPlayer();
-            let playerAndColor = {};
-            player.map((val, index) => {
-                playerAndColor[val] = colorSelection[index]
-            });
-            console.log(playerAndColor);
-            let player1 = Object.keys(playerAndColor).length;
+        color.push(value);
+        if(color.length===1) {
+            let username = getPlayer();
+            let data = [];
+            username.forEach(function(elt,index){
+                data.push({
+                    username: elt,
+                    color: color[index]
+                })
+            })
+            let player1 = Object.keys(data).length;
             console.log(player1);
             makeRows(50);
             makeColumns(player1);
-            return playerAndColor;
+            console.log(data);
+            return data;
         }
     });
 }
 getPlayerAndColor()
-
-function getPlayer(){
-    let player= document.getElementById('loggedIn').getAttribute('data-value');
-    let players = [];
-    players.push(player);
-    return players;
-}
 
 
 //Takes (rows, columns) input and makes a grid
