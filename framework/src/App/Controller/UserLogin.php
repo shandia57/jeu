@@ -26,7 +26,7 @@ class UserLogin extends AbstractController
             $color8 = (new Color)->convertRGBToHex(105, 2, 219),
             $color9 = (new Color)->convertRGBToHex(52, 240, 221),
             $color10 = (new Color)->convertRGBToHex(54, 180, 240),
-            $color10 = (new Color)->convertRGBToHex(162, 220, 168),
+            $color11 = (new Color)->convertRGBToHex(162, 220, 168),
         );
 
         if (!empty($_POST)) {
@@ -47,7 +47,7 @@ class UserLogin extends AbstractController
                 "users" => $res,
                 "user" => $isConnected?? null,
                 "usersNumber" => sizeOf($result),
-                "colors" => $colors
+                "colors" => $colors,
             ]);
         }
 }

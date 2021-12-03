@@ -77,10 +77,19 @@ function makeRows(rowNum) {
     }
 }
 
+//check contrast ratio of color for font color in cells
+function getColorByBgColor(bgColor) {
+    if (!bgColor) { return ''; }
+    return (parseInt(bgColor.replace('#', ''), 16) > 0xffffff / 2) ? '#000' : '#fff';
+}
+
+
 //Creates columns
 function makeColumns(cellNum) {
-    cellNum = getValue();
     let color = getColorV2();
+    let contrastColor = getColorByBgColor(color);
+    cellNum = getValue();
+
     for (let i = 0; i < rows.length; i++) {
         for (let j = 0; j < cellNum; j++) {
             let newCell = document.createElement("div");
@@ -89,6 +98,7 @@ function makeColumns(cellNum) {
             newCell.style.lineHeight = "55px";
             newCell.style.fontWeight="600";
             newCell.style.backgroundColor=color;
+            newCell.style.color = contrastColor;
             rows[j].appendChild(newCell).className = "cell";
         }
     }

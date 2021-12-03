@@ -140,4 +140,5 @@ class Color
     {
         return $this->getHexColor(true);
     }
+
 }
