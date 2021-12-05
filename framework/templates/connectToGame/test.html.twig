@@ -1,0 +1,150 @@
+{% extends "layout.html.twig" %}
+
+    {% block head %}
+        {{ parent() }}
+
+        <!-- BOOTSTRAP  -->
+        {% block bootstrap %}
+            {{ parent() }}
+        {% endblock %}
+
+
+
+        <!-- Font Awesome  -->
+        {% block fontawesome %}
+            {{ parent() }}
+        {% endblock %}
+
+        <!-- script CSS -->
+        {% block css %}
+            {{ parent() }}
+        {% endblock %}
+    {% endblock %}
+
+        {% block title %}
+            {{ parent() }}
+            <h1>Hello Guys!</h1>{% endblock %}
+
+
+    {% block body %}
+        {{ parent() }}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" style="border-radius:5px;padding:5px;background-color: #2e6da4;color: #fff;">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+
+
+                        {% if not user %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="subscribe">Subscribe</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#" data-bs-toggle="modal"
+                                   data-bs-target="#exampleModal">Login</a>
+                            </li>
+
+
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link active">
+
+                                    <b id="loggedIn" data-value="{{ user }}"> Bonjour {{ user }}</b>
+
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% if user %}
+                            <a href="connectToGame" type='button' class='btn btn-outline-danger'>Logout</a>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1>Liste des utilisateurs</h1>
+
+        <div id="containerForm">
+            <input id="numberOfUsers" style="display:none" value="{{ usersNumber }}" readonly/>
+            {% if user %}
+            <select id="listOfColors">
+                {% for color in colors %}
+                    <option value="{{ color }}" style="background-color: {{ color }}"></option>
+                {% endfor %}
+            </select>
+            {% endif %}
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Firstname</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">email</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr class="userColor" style="background-color: {{ user[0] }}">
+                        <th scope="row">{{ user[1].username }}</th>
+                        <td>{{ user[1].firstName }}</td>
+                        <td>{{ user[1].lastName }}</td>
+                        <td>{{ user[1].mail }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal Inscription-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Connection page</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post">
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="checkbox">
+                                <label class="form-check-label" for="exampleCheck1">Keep connected</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="submit" class="btn btn-outline-info">Connect</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if user %}
+            <h2>Player one is <b>{{ user }}</b></h2><br/>
+        {% endif %}
+        <div id="main">
+            <div id="container">
+            </div>
+        </div>
+    {% endblock %}
+
+{% block bottom_js %}
+    {{ parent() }}
+{% endblock %}
