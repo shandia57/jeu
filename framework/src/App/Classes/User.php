@@ -3,7 +3,6 @@
 namespace App\Classes;
 require_once "Connection.php";
 use PDO;
-use App\Classes\color;
 
 class User
 {
@@ -235,3 +234,4 @@ class User
     }
 
 }
+

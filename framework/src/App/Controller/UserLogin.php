@@ -2,8 +2,8 @@
 namespace App\Controller;
 
 use App\Classes\User;
-use Framework\Controller\AbstractController;
 use App\Classes\Color;
+use Framework\Controller\AbstractController;
 
 class UserLogin extends AbstractController
 {
@@ -12,23 +12,23 @@ class UserLogin extends AbstractController
     public function __invoke(): string
     {
         session_start();
-        $users=(new User)->getUsers();
 
 
         $colors = (new Color)->saveColorToArray(
-            $color1 = (new Color)->convertRGBToHex(35, 107, 240),
-            $color2 = (new Color)->convertRGBToHex(240, 102, 62,),
-            $color3 = (new Color)->convertRGBToHex(240, 188, 74),
-            $color4 = (new Color)->convertRGBToHex(202, 50, 240),
-            $color5 = (new Color)->convertRGBToHex(26, 240, 79),
-            $color6 = (new Color)->convertRGBToHex(240, 218, 62),
-            $color7 = (new Color)->convertRGBToHex(240, 70, 104),
-            $color8 = (new Color)->convertRGBToHex(105, 2, 219),
-            $color9 = (new Color)->convertRGBToHex(52, 240, 221),
-            $color10 = (new Color)->convertRGBToHex(54, 180, 240),
-            $color11 = (new Color)->convertRGBToHex(162, 220, 168),
+            $color1 = (new Color)->convertRGBToHex(0, 173, 40),
+            $color2 = (new Color)->convertRGBToHex(208, 245, 217,),
+            $color3 = (new Color)->convertRGBToHex(245, 180, 49),
+            $color4 = (new Color)->convertRGBToHex(161, 19, 168),
+            $color5 = (new Color)->convertRGBToHex(237, 203, 245),
+            $color6 = (new Color)->convertRGBToHex(44, 216, 245),
+            $color7 = (new Color)->convertRGBToHex(126, 168, 15),
+            $color8 = (new Color)->convertRGBToHex(168, 15, 30),
+            $color9 = (new Color)->convertRGBToHex(38, 117, 245),
+            $color10 = (new Color)->convertRGBToHex(171, 166, 132),
+            $color11 = (new Color)->convertRGBToHex(245, 215, 19),
         );
 
+        $users=(new User)->getUsers();
         if (!empty($_POST)) {
             $username = $_POST['username'];
             $password = $_POST['password'];
