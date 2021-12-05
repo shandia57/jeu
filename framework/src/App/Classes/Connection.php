@@ -50,6 +50,7 @@ namespace App\Classes;
               try{
                   self::$db = new PDO($dsn, $username, $password, $options);
               } catch (\PDOException $e) {
+                  error_log($e->getMessage(), 3, "php-errors.log\n");
                   throw new \PDOException($e->getMessage(), (int)$e->getCode());
               }
           }
