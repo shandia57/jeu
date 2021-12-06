@@ -17,6 +17,7 @@ require_once "../vendor/autoload.php";
 
 return [
     new Route('GET', '/', Homepage::class),
+    new Route('POST', '/', Homepage::class),
 
     new Route('GET', '/questions', Question::class),
     new Route('POST', '/questions', Question::class),

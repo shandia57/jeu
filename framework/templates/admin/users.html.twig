@@ -1,30 +1,23 @@
-{% extends "layout.html.twig" %}
+{% extends "newLayout.html.twig" %}
 
-{% block head %}
-{{ parent() }} 
-{% endblock %}
+{% block head %} {{ parent() }} {% endblock %}
 
-{% block bootstrap %}
-{{ parent() }} 
-{% endblock %}
+{% block bootstrap %} {{ parent() }}  {% endblock %}
 
-{% block fontawesome %}
-{{ parent() }} 
-{% endblock %}
+{% block fontawesome %} {{ parent() }}  {% endblock %}
 
-{% block css %}
-    {{ parent() }} 
-    <link rel="stylesheet" type="text/css" href="assets/style/user.css">
-{% endblock %}
+{% block css %} {{ parent() }}  {% endblock %}
 
 
-{% block title %}{{ parent() }} - hehe {% endblock %}
+{% block title %}Home page{% endblock %}
 
 {% block body %}
-    {% block main %}
+    {% block header %}
         {{ parent() }} 
     {% endblock %}
-    <main>
+
+
+<main>
         <h1>Users</h1>
 
         <div class="filter">
@@ -74,7 +67,7 @@
 
     </main>
 
-    <!-- Modal update / delete --> 
+     <!-- Modal update / delete --> 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -170,4 +163,16 @@
     <script type="text/javascript" src="assets/script/scripts/users.js"></script>
     <script type="module" src="assets/script/modules/users/users.js"></script>
   
+
+    {% block modalConnection %}
+        {{ parent() }} 
+    {% endblock %}
+
 {% endblock %}
+
+
+
+
+
+
+    

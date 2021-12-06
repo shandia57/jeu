@@ -1,36 +1,36 @@
-{% extends "layout.html.twig" %}
+{% extends "newLayout.html.twig" %}
 
-{% block head %}
-{{ parent() }} 
-{% endblock %}
+{% block head %} {{ parent() }} {% endblock %}
 
-{% block bootstrap %}
-{{ parent() }} 
-{% endblock %}
+{% block bootstrap %} {{ parent() }}  {% endblock %}
 
-{% block fontawesome %}
-{{ parent() }} 
-{% endblock %}
+{% block fontawesome %} {{ parent() }}  {% endblock %}
 
-{% block css %}
-    {{ parent() }} 
-    <link rel="stylesheet" type="text/css" href="../assets/style/questions.css">
+{% block css %} 
+    <link rel="stylesheet" type="text/css" href="../assets/style/style.css">
+
 {% endblock %}
 
 
-{% block title %}{{ parent() }} - hehe {% endblock %}
+{% block title %}Home page{% endblock %}
 
 {% block body %}
-    {% block main %}
-        {{ parent() }} 
+    {% block header %}
+        <header>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/questions">Retour aux questions</a>
+            </div>
+        </nav>
+        </header>
     {% endblock %}
+
     <main>
         <h1>Answers</h1>
 
         <div>
             {% for singleQuestion in questions %}
 
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAnswerModal">Nouvelle réponse</button>
 
                 <h2>{{singleQuestion.question}}</h2>
                 {% endfor %}
@@ -42,9 +42,10 @@
                     <li class="list-group-item"  data-id="{{answer.id_answer}}" data-value="{{answer.valid}}" data-bs-toggle="modal" data-bs-target="#updateAnswerModal" onclick="updateAnswer(this)">{{answer.answer}}</li>
                     {% endif %}
                 {% endfor %}
-            </ul>
+                </ul>
         </div>
-
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAnswerModal">Nouvelle réponse</button>
+        
     </main>
     <!-- Modal Add Answer -->
     <div class="modal fade" id="addAnswerModal" tabindex="-1" aria-hidden="true">
@@ -107,5 +108,13 @@
 
 
     <script type="text/javascript" src="../assets/script/scripts/answers.js"></script>
-  
+
+    {% block modalConnection %}
+        {{ parent() }} 
+    {% endblock %}
+
 {% endblock %}
+
+
+
+  

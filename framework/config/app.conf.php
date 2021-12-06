@@ -1,8 +1,9 @@
 <?php
 return [
     'database' => [
-        'connection' => 'mysql:dbname=jeudeloieV2;host=127.0.0.1',
+        'connection' => 'mysql:dbname=jeudeloieV2;host=localhost',
         'username' => 'root',
         'password' => '',
+        'charset'  => 'UTF-8'
     ]
 ];

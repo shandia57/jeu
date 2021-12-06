@@ -3,10 +3,10 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-use App\Class\Admin\Questions\Questions;
-use App\Class\Admin\Answers\Answers;
-use App\Class\Admin\Questions_Answers\QuestionsAnswers;
-use  App\Class\ControlDataForm\ControlAnswersForm;
+use App\Classes\Admin\Questions\Questions;
+use App\Classes\Admin\Answers\Answers;
+use App\Classes\Admin\Questions_Answers\QuestionsAnswers;
+use  App\Classes\ControlDataForm\ControlAnswersForm;
 
 
 

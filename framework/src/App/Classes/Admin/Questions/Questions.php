@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Class\Admin\Questions;
+namespace App\Classes\Admin\Questions;
 use PDO;
-require_once __DIR__ ."/../../../Connection/connection.php";
+use  App\Classes\Connection;
 
 class Questions
 {
@@ -73,7 +73,7 @@ class Questions
 
     public function getMaxNumberIdQuestions() : Array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $stmt = $connection->prepare("SELECT MAX(id_question) as numberID FROM `questions` ");
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -92,7 +92,7 @@ class Questions
 
     public function insertQuestion($dataQuestion, $id_question) : bool
     {
-        $connection = getConnection();
+        $connection = Connection::get();
     
         $sql = 'INSERT INTO
                 `questions`(`id_question`, `label`, `level`, `question`) 
@@ -108,7 +108,7 @@ class Questions
 
     public function getAllQuestions() : Array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $stmt = $connection->prepare("SELECT * FROM `questions` ");
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -117,7 +117,7 @@ class Questions
 
     public function getSingleQuestion($id) : array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $stmt = $connection->prepare("SELECT * FROM `questions` WHERE id_question = $id");
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -126,7 +126,7 @@ class Questions
 
     public function updateQuestion($dataQuestion) : bool
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $sql = "UPDATE `questions` SET 
          `label`=  '$dataQuestion[label]', 
          `level` = '$dataQuestion[level]', 
@@ -138,7 +138,7 @@ class Questions
 
     public function deleteQuestion($id_question) : array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $sql = "DELETE 
         FROM `questions`  
         WHERE `id_question` = $id_question";

@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Class\ControlDataForm;
+namespace App\Classes\ControlDataForm;
 
-use App\Class\ControlDataForm\ControlDataForm;
+use App\Classes\ControlDataForm\ControlDataForm;
 
 class ControlUsersForm extends ControlDataForm
 {

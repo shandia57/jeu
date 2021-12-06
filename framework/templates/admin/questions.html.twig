@@ -1,31 +1,22 @@
-{% extends "layout.html.twig" %}
+{% extends "newLayout.html.twig" %}
 
-{% block head %}
-{{ parent() }} 
-{% endblock %}
+{% block head %} {{ parent() }} {% endblock %}
 
-{% block bootstrap %}
-{{ parent() }} 
-{% endblock %}
+{% block bootstrap %} {{ parent() }}  {% endblock %}
 
-{% block fontawesome %}
-{{ parent() }} 
-{% endblock %}
+{% block fontawesome %} {{ parent() }}  {% endblock %}
 
-{% block css %}
-    {{ parent() }} 
-    <link rel="stylesheet" type="text/css" href="assets/style/questions.css">
-
-{% endblock %}
+{% block css %} {{ parent() }}  {% endblock %}
 
 
-{% block title %}{{ parent() }} {{title}} {% endblock %}
+{% block title %}Home page{% endblock %}
 
 {% block body %}
-    {% block main %}
+    {% block header %}
         {{ parent() }} 
     {% endblock %}
-    <main>
+
+        <main>
         <h1>Questions</h1>
         <div class="filter">
             <div class="input-group mb-3">
@@ -189,5 +180,14 @@
     <script type="text/javascript" src="assets/script/scripts/questions.js"></script>
     <script type="module" src="assets/script/modules/questions/questions.js"></script>
 
+
+
+    {% block modalConnection %}
+        {{ parent() }} 
+    {% endblock %}
+
 {% endblock %}
+
+
+
 

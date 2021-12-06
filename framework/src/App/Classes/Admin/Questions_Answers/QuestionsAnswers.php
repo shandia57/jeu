@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Class\Admin\Questions_Answers;
+namespace App\Classes\Admin\Questions_Answers;
 use PDO;
-require_once __DIR__ ."/../../../Connection/connection.php";
+use  App\Classes\Connection;
 
 class QuestionsAnswers
 {
@@ -39,7 +39,7 @@ class QuestionsAnswers
 
     public function linkQuestionWithAnswer($id_question, $id_answer) : bool{
 
-        $connection = getConnection();
+        $connection = Connection::get();
         $sql = 'INSERT INTO `questions_answers`(`id_question`, `id_answer`) 
                 VALUES (:id_question, :id_answer)';
         $stmt = $connection->prepare($sql);
@@ -51,7 +51,7 @@ class QuestionsAnswers
 
     public function getQuestionsAnswer() : Array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $stmt = $connection->prepare("SELECT * FROM `questions_answers` ");
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -60,7 +60,7 @@ class QuestionsAnswers
 
     public function deleteQuestion($id_answer) : Array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $sql = "DELETE 
         FROM `questions_answers`  
         WHERE `id_answer` = $id_answer";

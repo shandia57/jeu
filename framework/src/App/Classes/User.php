@@ -6,141 +6,114 @@ use PDO;
 
 class User
 {
-    private $username;
-    private $password;
-    private $lastName;
-    private $firstName;
-    private $mail;
-    private $roles;
-    private $createAt;
+
+    private int $id;
+    private string $username;
+    private string $password;
+    private string $lastName;
+    private string $firstName;
+    private string $mail;
+    private string $roles;
+    private string $createAt;
 
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-    /**
-     * @return mixed
-     */
-    public function getUsername(): mixed
+    public function setId(int $id): User
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getUsername(): string
     {
         return $this->username;
     }
 
-    /**
-     * @param mixed $username
-     * @return User
-     */
-    public function setUsername(mixed $username)
+
+    public function setUsername(string $username) : User
     {
         $this->username = $username;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPassword(): mixed
+
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @param mixed $password
-     * @return User
-     */
 
-    public function setPassword(mixed $password)
+
+    public function setPassword(string $password): User
     {
         $this->password = $password;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLastName(): mixed
+
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @param mixed $lastName
-     * @return User
-     */
 
-    public function setLastName(string $lastName)
+
+    public function setLastName(string $lastName) : User
     {
         $this->lastName = $lastName;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFirstName(): mixed
+
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @param mixed $firstName
-     * @return User
-     */
 
-    public function setFirstName(mixed $firstName)
+    public function setFirstName(string $firstName): User
     {
         $this->firstName = $firstName;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMail(): mixed
+    public function getMail(): string
     {
         return $this->mail;
     }
 
-    /**
-     * @param mixed $mail
-     * @return User
-     */
 
-    public function setMail(mixed $mail)
+    public function setMail(string $mail): User
     {
         $this->mail = $mail;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreateAt(): mixed
+
+    public function getCreateAt(): string
     {
         return $this->createAt;
     }
 
-    /**
-     * @param mixed $createAt
-     * @return User
-     */
-    public function setCreateAt(mixed $createAt)
+
+    public function setCreateAt(string $createAt): User
     {
         $this->createAt = $createAt;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRoles(): mixed
+
+    public function getRoles(): string
     {
         return $this->roles;
     }
 
-    /**
-     * @param mixed $roles
-     * @return User
-     */
-    public function setRoles(mixed $roles)
+
+    public function setRoles(string $roles): User
     {
         $this->roles = $roles;
         return $this;
@@ -166,9 +139,9 @@ class User
         $this->setCreateAt($createAt);
     }
 
+    // ---------------------------------------------------------------- CRUD users
 
-
-    function getUsers(): array
+    public function getUsers(): array
     {
         $db = Connection::get();
         $stmt = $db->prepare("SELECT * FROM `users` ");
@@ -177,7 +150,7 @@ class User
         }
     }
 
-    function userExists(string $username): bool
+    public function userExists(string $username): bool
     {
         $db = Connection::get();
         $stmt = $db->prepare("SELECT COUNT(*) as nb FROM `users` WHERE `username` = :username");
@@ -190,10 +163,10 @@ class User
 
     }
 
-    function insertUser($data): bool
+    public function insertUser($data): bool
     {
         $date = "2021-11-24";
-        $roles = "ADMIN";
+        $roles = "ROLES_USER";
         $db = Connection::get();
         $sql = 'INSERT INTO 
             users(`username`, `password`, `lastName`, `firstName`, `mail`, `roles`, `createAt`) 
@@ -210,9 +183,52 @@ class User
 
         return $stmt->execute();
     }
+    public function insertUserAdmin($dataUser): bool
+    {
+        $connection = Connection::get();
+        $date = "2021-11-24";
+    
+        $sql = 'INSERT INTO
+                `users`(`username`, `password`, `firstName`, `lastName`, `mail`, `roles`, `createAt`) 
+                VALUES 
+                    (:username, :password, :lastname, :firstname, :mail, :roles, :createAt )';
+        $stmt = $connection->prepare($sql);
+        $stmt->bindParam('username', $dataUser['username'], PDO::PARAM_STR);
+        $stmt->bindParam('password', $dataUser['password'], PDO::PARAM_STR);
+        $stmt->bindParam('lastname', $dataUser['lastName'], PDO::PARAM_STR);
+        $stmt->bindParam('firstname', $dataUser['firstName'], PDO::PARAM_STR);
+        $stmt->bindParam('mail', $dataUser['mail'], PDO::PARAM_STR);
+        $stmt->bindParam('roles', $dataUser['roles'], PDO::PARAM_STR);
+        $stmt->bindParam('createAt', $date, PDO::PARAM_STR);
+    
+    
+        return $stmt->execute();
+    }
 
+    public function updateUser($dataUser) : bool
+    {
+        $connection = Connection::get();
+        $sql = "UPDATE `users` SET 
+         `firstName`=  '$dataUser[firstName]', 
+         `lastName` = '$dataUser[lastName]', 
+         `mail` = '$dataUser[mail]', 
+         `roles` =  '$dataUser[roles]'
+          WHERE `users`.id_user = '$dataUser[id_user]' ;";
+        $stmt = $connection->prepare($sql);
+        return $stmt->execute();
+    }
 
-    function userConnection(string $username, string $password)
+    public function deleteUser($id_user) : array
+    {
+        $connection = Connection::get();
+        $sql = "DELETE FROM `jeuDeLoieV2`.`users` WHERE `users`.`id_user` = $id_user";
+        $stmt = $connection->prepare($sql);
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
+    public function userConnection(string $username, string $password)
     {
         $db = Connection::get();
         $stmt = $db->prepare("SELECT * FROM `users` WHERE `username` = :username");
@@ -228,7 +244,7 @@ class User
         return false;
 
     }
-    function filterArrayByKeyValue($array, $key, $keyValue)
+    public function filterArrayByKeyValue($array, $key, $keyValue)
     {
         return array_filter($array, function($value) use ($key, $keyValue) {
             return $value[$key] == $keyValue;

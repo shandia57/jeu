@@ -1,8 +1,9 @@
 <?php 
 
-namespace App\Class\Admin\Answers;
+namespace App\Classes\Admin\Answers;
 use PDO;
-require_once __DIR__ ."/../../../Connection/connection.php";
+use  App\Classes\Connection;
+
 
 class Answers
 {
@@ -56,7 +57,7 @@ class Answers
     }
     
     public function getNumberIdAnswer() : Array{
-        $connection = getConnection();
+        $connection = Connection::get();
         $stmt = $connection->prepare("SELECT MAX(id_answer) as numberID FROM `answer` ");
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -75,7 +76,7 @@ class Answers
 
     public function insertAnswer($answer, $validAnswer) : bool{
 
-        $connection = getConnection();
+        $connection = Connection::get();
         $sql = 'INSERT INTO `answer`(`answer`, `valid`) 
                 VALUES (:answer, :valid)';
         $stmt = $connection->prepare($sql);
@@ -87,7 +88,7 @@ class Answers
 
     public function getSingleAnswer($id_answer) : array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $stmt = $connection->prepare("SELECT * FROM `answer` WHERE id_answer = $id_answer ");
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -96,7 +97,7 @@ class Answers
 
     public function getAnswersWithIdQuestion($id_question) : array
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $sql =  "SELECT answer.answer, answer.valid, answer.id_answer
                 FROM answer, questions, questions_answers
                 WHERE questions.id_question = $id_question
@@ -110,7 +111,7 @@ class Answers
 
     public function updateAnswer($dataAnswer, $validAnswer) : bool
     {
-        $connection = getConnection();
+        $connection = Connection::get();
         $sql = "UPDATE `answer` SET 
          `answer`=  '$dataAnswer[answer]', 
          `valid` = '$validAnswer' 

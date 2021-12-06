@@ -3,11 +3,11 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-use App\Class\Admin\Questions\Questions;
-use App\Class\Admin\Answers\Answers;
-use App\Class\Admin\Questions_Answers\QuestionsAnswers;
-use  App\Class\ControlDataForm\ControlQuestionsForm;
-use  App\Class\ControlDataForm\ControlAnswersForm;
+use App\Classes\Admin\Questions\Questions;
+use App\Classes\Admin\Answers\Answers;
+use App\Classes\Admin\Questions_Answers\QuestionsAnswers;
+use  App\Classes\ControlDataForm\ControlQuestionsForm;
+use  App\Classes\ControlDataForm\ControlAnswersForm;
 
 
 
@@ -18,6 +18,19 @@ class Question extends AbstractController
 
     public function __invoke(): string
     {
+        session_start();
+        
+        if(isset($_POST['logout'])){
+            session_destroy();
+            header("Location: /");
+        }
+
+        $userLogged = $_SESSION['user'] ?? null;
+
+        if($userLogged === null){
+            header("Location: /");
+        }
+
         $question = new Questions();
         $answer = new Answers();
         $questionsAnswers = new QuestionsAnswers();
@@ -46,6 +59,7 @@ class Question extends AbstractController
         $questions = $question->getAllQuestions();
 
         return $this->render('admin/questions.html.twig', [
+            'user' => $userLogged,
             'title' => "Questions",
             'questions' => $questions, 
             'label' =>  $controlQuestionsForm->displayErrors("label"),
