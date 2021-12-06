@@ -35,7 +35,7 @@
     <!-- script CSS -->
     {% block css %}
 
-    <link rel="stylesheet" type="text/css" href="../assets/style/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/style/style.css">
 
     {% endblock %}
 
@@ -49,23 +49,95 @@
 
 <body>
     {% block body %}
-        {% block main %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        {% block header %}
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Admin toolbar</a>
+                    <a class="navbar-brand" href="/">Home</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+                       <ul class="navbar-nav">
+
+
+                        {% if not user %}
+
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link active">
+                                    <b id="loggedIn" data-value="{{ user }}"> Bonjour {{ user }}</b>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/users">Users</a>
+                            </li>
+                                <a class="nav-link active" href="/questions">Questions</a>
+                            </li>
+                        {% endif %}
+                        </ul>
+                    </div>
+                    {% if not user %}
                     <div class="navbar-nav">
-                        <a class="nav-link " aria-current="page" href="#">Home</a>
-                        <a class="nav-link" href="/users">Users</a>
-                        <a class="nav-link" href="/questions">Questions</a>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="subscribe">Subscribe</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" data-bs-toggle="modal"
+                                   data-bs-target="#exampleModal">Login</a>
+                        </li>
                     </div>
-                    </div>
+                    {% else %}
+                        <form method="POST">
+                            <button type='submit' class='btn btn-outline-danger' name="logout">Logout</button>
+                        </form>
+                    {% endif %}
                 </div>
             </nav>
+            
+            </header>
         {% endblock %}
+
+        {% block modalConnection %}
+            {% if not user %}
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Connection page</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    <div class="mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control" name="username">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password">
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="checkbox">
+                                        <label class="form-check-label" for="exampleCheck1">Keep connected</label>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-outline-info">Connect</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endblock %}
+
+
 
     {% endblock %}
 </body>
