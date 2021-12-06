@@ -10,6 +10,7 @@ class Twig
 {
     protected Environment $templating;
 
+
     public function __construct()
     {
         $basePath = dirname(__DIR__) . '/../..';
@@ -23,6 +24,7 @@ class Twig
         }
 
         $this->templating = new Environment($loader, $params);
+
     }
 
     public function render(string $template, array $args = []): string
