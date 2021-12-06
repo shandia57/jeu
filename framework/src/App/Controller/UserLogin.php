@@ -11,9 +11,6 @@ class UserLogin extends AbstractController
 
     public function __invoke(): string
     {
-        session_start();
-
-
         $colors = (new Color)->saveColorToArray(
             $color1 = (new Color)->convertRGBToHex(0, 173, 40),
             $color2 = (new Color)->convertRGBToHex(208, 245, 217,),
@@ -35,7 +32,7 @@ class UserLogin extends AbstractController
             $isConnected= (new User)->userConnection($username, $password);
         }
         $usersLength = sizeof($users);
-           // print_r($users);
+           print_r($_SESSION??null);
             print_r($usersLength);
            // print_r($colors);
             $res = array_map(null,$colors,$users);
@@ -43,6 +40,7 @@ class UserLogin extends AbstractController
 
         $result = (new User)->filterArrayByKeyValue($users, 'username',$isConnected??null['username']??null);
         print_r($result);
+        print_r($_SESSION['user']??null);
             return $this->render('/connectToGame/test.html.twig', [
                 "users" => $res,
                 "user" => $isConnected?? null,
