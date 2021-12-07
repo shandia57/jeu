@@ -57,8 +57,8 @@ class ControlDataForm
                         }
                         break;
                     case "shouldBe":
-                        if($dataPosted[$fieldName] !== $rule['value'][0] ){
-                            if($dataPosted[$fieldName] !== $rule['value'][1]){
+                        if($dataPosted[$fieldName] !== $rule['value'] ){
+                            if(!in_array($dataPosted[$fieldName],$rule['value'])){
                                 $this->errors[$fieldName][] = 'Vous devez obligatoirement choisir une des valeurs données dans le sélecteur !';
                             }
                         }
