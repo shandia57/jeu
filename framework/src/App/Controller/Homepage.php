@@ -10,11 +10,12 @@ class Homepage extends AbstractController
 
     public function __invoke(): string
     {
-
+        // A mettre en commentaire pour tester le logout
         session_start();
         if(isset($_POST['logout'])){
             $this->logout();
         }
+        // FIN de commentaire
 
         if (!empty($_POST)) {
             $username = $_POST['username'];
@@ -28,7 +29,6 @@ class Homepage extends AbstractController
 
 
         $result = (new User)->filterArrayByKeyValue($users, 'username',$isConnected??null['username']??null);
-        // print_r($result);
             return $this->render('/home.html.twig', [
                 "user" => $isConnected['username']?? null,
                 "user_roles" => $isConnected['roles']?? null,

@@ -16,7 +16,9 @@ class Answer extends AbstractController
 
     public function __invoke(int $id): string
     {
+        // A mettre en commentaier pour tester le logout
         session_start();
+        // Fin de commentaire
         Answer::isAdmin();
         $question = new Questions();
         $answer = new Answers();

@@ -18,7 +18,9 @@ class Question extends AbstractController
 
     public function __invoke(): string
     {
+        // A mettre en commentaire pour tester le logout
         session_start();
+        // Fin de commentaire
         Question::isAdmin();
         
 

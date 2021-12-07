@@ -93,9 +93,14 @@
                         </li>
                     </div>
                     {% else %}
+                            {# A alterner les commentaires pour tester le logout #}
+
                         <form method="POST">
                             <button type='submit' class='btn btn-outline-danger' name="logout">Logout</button>
                         </form>
+                        
+                            {# <a href="/" class='btn btn-outline-danger' name="logout">Logout</a> #}
+
                     {% endif %}
                 </div>
             </nav>

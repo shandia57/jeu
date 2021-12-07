@@ -12,7 +12,9 @@ class Users extends AbstractController
 
     public function __invoke()
     {
+        // A mettre en commentaire pour tester le logout
         session_start();
+        // Fin de commentaire
         Users::isAdmin();
 
         $user = new User();

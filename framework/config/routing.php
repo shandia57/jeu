@@ -18,6 +18,7 @@ require_once "../vendor/autoload.php";
 return [
     new Route('GET', '/', Homepage::class),
     new Route('POST', '/', Homepage::class),
+    // new Route('PUT', '/', Logout::class),
 
     new Route('GET', '/questions', Question::class),
     new Route('POST', '/questions', Question::class),
@@ -30,8 +31,9 @@ return [
 
     new Route('GET','/connectToGame', UserLogin::class),
     new Route('POST','/connectToGame', UserLogin::class),
+    new Route('PUT','/connectToGame', Logout::class),
+
     new Route('GET','/subscribe', Subscribe::class),
-    new Route('POST','/subscribe', Subscribe::class),
-    new Route('PUT','/connectToGame', Logout::class)
+    new Route('POST','/subscribe', Subscribe::class)
 
 ];
