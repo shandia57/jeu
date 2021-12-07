@@ -22,7 +22,6 @@ class Logout extends AbstractController
 
         session_destroy();
         return $this->render('test.html.twig', [
-            "user" => $_SESSION['username'] = '',
         ]);
     }
 
