@@ -12,7 +12,6 @@ class Homepage extends AbstractController
     {
 
         session_start();
-        
         if(isset($_POST['logout'])){
             $this->logout();
         }

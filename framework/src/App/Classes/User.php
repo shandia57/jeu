@@ -165,8 +165,10 @@ class User
 
     public function insertUser($data): bool
     {
-        $date = "2021-11-24";
+        $date = date("Y-m-d");
         $roles = "ROLES_USER";
+        $password = password_hash($data['password'], PASSWORD_DEFAULT);
+
         $db = Connection::get();
         $sql = 'INSERT INTO 
             users(`username`, `password`, `lastName`, `firstName`, `mail`, `roles`, `createAt`) 
@@ -174,7 +176,7 @@ class User
                 (:username, :password, :lastName, :firstName, :mail, :roles, :createAt)';
         $stmt = $db->prepare($sql);
         $stmt->bindParam('username', $data['username'], PDO::PARAM_STR);
-        $stmt->bindParam('password', $data['password'], PDO::PARAM_STR);
+        $stmt->bindParam('password', $password, PDO::PARAM_STR);
         $stmt->bindParam('lastName', $data['lastName'], PDO::PARAM_STR);
         $stmt->bindParam('firstName', $data['firstName'], PDO::PARAM_STR);
         $stmt->bindParam('mail', $data['mail'], PDO::PARAM_STR);
@@ -186,7 +188,8 @@ class User
     public function insertUserAdmin($dataUser): bool
     {
         $connection = Connection::get();
-        $date = "2021-11-24";
+        $date = date("Y-m-d");
+        $password = password_hash($dataUser['password'], PASSWORD_DEFAULT);
     
         $sql = 'INSERT INTO
                 `users`(`username`, `password`, `firstName`, `lastName`, `mail`, `roles`, `createAt`) 
@@ -194,7 +197,7 @@ class User
                     (:username, :password, :lastname, :firstname, :mail, :roles, :createAt )';
         $stmt = $connection->prepare($sql);
         $stmt->bindParam('username', $dataUser['username'], PDO::PARAM_STR);
-        $stmt->bindParam('password', $dataUser['password'], PDO::PARAM_STR);
+        $stmt->bindParam('password', $password, PDO::PARAM_STR);
         $stmt->bindParam('lastname', $dataUser['lastName'], PDO::PARAM_STR);
         $stmt->bindParam('firstname', $dataUser['firstName'], PDO::PARAM_STR);
         $stmt->bindParam('mail', $dataUser['mail'], PDO::PARAM_STR);
@@ -230,12 +233,14 @@ class User
 
     public function userConnection(string $username, string $password)
     {
+
         $db = Connection::get();
         $stmt = $db->prepare("SELECT * FROM `users` WHERE `username` = :username");
         $stmt->bindParam('username', $username, PDO::FETCH_ASSOC);
         if ($stmt->execute()) {
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if ($result[0]['password'] !== $password) {
+            
+            if (!password_verify($password, $result[0]['password'])) {
                 return false;
             } else {
                 $_SESSION['user'] = [
