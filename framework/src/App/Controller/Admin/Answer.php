@@ -16,37 +16,21 @@ class Answer extends AbstractController
 
     public function __invoke(int $id): string
     {
+        session_start();
+        Answer::isAdmin();
         $question = new Questions();
         $answer = new Answers();
-        $questionsAnswers = new QuestionsAnswers();
         $controlAnswersForm = new ControlAnswersForm();
 
 
-        if (isset($_POST['validAnswer'])){
-            $validAnswer = 1;
-        }else{
-            $validAnswer = 0;
-        }
-
         if(isset($_POST ['updateAnswer'])){
-            $controlAnswersForm->findError($controlAnswersForm->getValidations(), $_POST, null);
-            if(empty($controlAnswersForm->getErrors())){
-                $answer->updateAnswer($_POST, $validAnswer);
-            }
+            $this->update();
 
-        }else if (isset($_POST ['deleteAnswer']) && $_POST ['deleteAnswer'] === "true"){
-            $questionsAnswers->deleteQuestion($_POST['idAnswerUpdate']);
+        }else if (isset($_POST ['deleteAnswer'])){
+            $this->delete();
 
         }else if (isset($_POST ['insertAnswer'])){
-            $controlAnswersForm->findError($controlAnswersForm->getValidations(), $_POST, null);
-            if(empty($controlAnswersForm->getErrors())){
-                $answer->insertAnswer($_POST['answer'], $validAnswer);
-                $id_answer = $answer->getNumberIdAnswer();
-                $id_answer = $answer->returnNumberIfEmptyID($id_answer);
-                $questionsAnswers->linkQuestionWithAnswer($id, $id_answer);
-            }
-
-            
+            $this->insert($id);            
         }
 
         $questions = $question->getSingleQuestion($id);
@@ -59,6 +43,49 @@ class Answer extends AbstractController
             "answer" => $controlAnswersForm->displayErrors("answer"),
 
         ]);
+    }
+
+    public function update() : void
+    {
+        if (isset($_POST['validAnswer'])){
+            $validAnswer = 1;
+        }else{
+            $validAnswer = 0;
+        }
+        $answer = new Answers();
+        $controlAnswersForm = new ControlAnswersForm();
+        $controlAnswersForm->findError($controlAnswersForm->getValidations(), $_POST, null);
+        if(empty($controlAnswersForm->getErrors())){
+            $answer->updateAnswer($_POST, $validAnswer);
+        }
+    }
+
+    public function delete() : void
+    {
+        $questionsAnswers = new QuestionsAnswers();
+        if( $_POST ['deleteAnswer'] === "true"){
+            $questionsAnswers->deleteQuestion($_POST['idAnswerUpdate']);
+        }
+    }
+
+    public function insert($id) : void
+    {
+        if (isset($_POST['validAnswer'])){
+            $validAnswer = 1;
+        }else{
+            $validAnswer = 0;
+        }
+        $answer = new Answers();
+        $controlAnswersForm = new ControlAnswersForm();
+        $questionsAnswers = new QuestionsAnswers();
+        
+        $controlAnswersForm->findError($controlAnswersForm->getValidations(), $_POST, null);
+        if(empty($controlAnswersForm->getErrors())){
+            $answer->insertAnswer($_POST['answer'], $validAnswer);
+            $id_answer = $answer->getNumberIdAnswer();
+            $id_answer = $answer->returnNumberIfEmptyID($id_answer);
+            $questionsAnswers->linkQuestionWithAnswer($id, $id_answer);
+        }
     }
 
 

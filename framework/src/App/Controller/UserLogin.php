@@ -20,6 +20,10 @@ class UserLogin extends AbstractController
             header("Location: /connectToGame");
         }
 
+        if(isset($_SESSION['roles'])){
+        echo "SESSION :: $_SESSION[roles]";
+        }
+
         $colors = (new Color)->saveColorToArray(
             $color1 = (new Color)->convertRGBToHex(0, 173, 40),
             $color2 = (new Color)->convertRGBToHex(208, 245, 217,),

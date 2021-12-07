@@ -13,43 +13,32 @@ class Users extends AbstractController
     public function __invoke()
     {
         session_start();
-
-        if(isset($_POST['logout'])){
-            session_destroy();
-            header("Location: /");
-        }
-
-        $userLogged = $_SESSION['user'] ?? null;
-
-        if($userLogged === null){
-            header("Location: /");
-        }
+        Users::isAdmin();
 
         $user = new User();
         $controlUserForm = new ControlUsersForm();
-        
 
-        if(isset($_POST['delete']) && $_POST['delete'] === "true"){
-            $user->deleteUser($_POST['id_user']);
+        $userLogged = $_SESSION['user'] ?? null;
+
+
+        if(isset($_POST['delete'])){
+            $this->delete($user);
 
         }else if (isset($_POST['update'])){
-
-            $controlUserForm->findError($controlUserForm->getValidationUpdate(), $_POST, $user);
-            if(empty($controlUserForm->getErrors())){
-                $user->updateUser($_POST);
-            }
+            $this->update($user, $controlUserForm);
 
         }else if(isset($_POST['insert'])){
-            $controlUserForm->findError($controlUserForm->getValidationsSubscription(),$_POST, $user);
-            if(empty($controlUserForm->getErrors())){
-                $user->insertUserAdmin($_POST);
-            }
+            $this->insert($user, $controlUserForm);
+            
+        }else if (isset($_POST['logout'])){
+            $this->logout();
         }
 
         $users = $user->getUsers();
 
         return $this->render('admin/users.html.twig', [
-            'user' => $userLogged,
+            'user' => $userLogged['username'],
+            'user_roles' => $userLogged['roles'],
             'users' => $users, 
             'username' => $controlUserForm->displayErrors("username"),
             'password' => $controlUserForm->displayErrors("password"),
@@ -59,6 +48,28 @@ class Users extends AbstractController
             'mail' => $controlUserForm->displayErrors("mail"),
             'roles' => $controlUserForm->displayErrors("roles"),
         ]);        
+    }
+
+    public function insert($user, $controlUserForm) : void
+    {
+        $controlUserForm->findError($controlUserForm->getValidationsSubscription(),$_POST, $user);
+        if(empty($controlUserForm->getErrors())){
+            $user->insertUserAdmin($_POST);
+        }
+    }
+    public function update($user, $controlUserForm) : void
+    {
+        $controlUserForm->findError($controlUserForm->getValidationUpdate(), $_POST, $user);
+        if(empty($controlUserForm->getErrors())){
+            $user->updateUser($_POST);
+        }
+    }
+    public function delete($user) : void
+    {
+        if($_POST['delete'] === "true"){
+            $user->deleteUser($_POST['id_user']);
+
+        }
     }
 
 }

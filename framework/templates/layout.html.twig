@@ -71,11 +71,13 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link active" href="/users">Users</a>
-                            </li>
-                                <a class="nav-link active" href="/questions">Questions</a>
-                            </li>
+                            {% if user_roles == "ROLES_ADMIN" %}
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="/users">Users</a>
+                                </li>
+                                    <a class="nav-link active" href="/questions">Questions</a>
+                                </li>
+                            {% endif %}
                         {% endif %}
                         </ul>
                     </div>

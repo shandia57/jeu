@@ -9,7 +9,7 @@ function setInfoUser(target) {
     let roles = document.getElementById("roles");
     if (target.children[5].innerText === "ROLES_ADMIN") {
         roles.options[roles.selectedIndex] = roles.options[0]
-    } else if (target.children[5].innerText === "USER") {
+    } else if (target.children[5].innerText === "ROLES_USER") {
         roles.options[roles.selectedIndex] = roles.options[1];
     }
 }

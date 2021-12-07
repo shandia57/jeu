@@ -1,5 +1,7 @@
+
 main{
     margin: 2% 10% 2% 10%;
+    text-align: center;
 }
 input::placeholder{
     text-align: center;

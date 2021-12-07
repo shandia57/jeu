@@ -11,12 +11,12 @@ class Subscribe extends AbstractController
     public function __invoke(): string
     {
         $user = new User();
-        $controlUserForm = new ControlUserSubForm();
+        $controlUserSubForm = new ControlUserSubForm();
         if (!empty($_POST)) {
             
-            $controlUserForm->findError($controlUserForm->getValidationsSubscription(), $_POST, $user);
+            $controlUserSubForm->findError($controlUserSubForm->getValidationsSubscription(), $_POST, $user);
             
-            if (empty($controlUserForm->getErrors())) {
+            if (empty($controlUserSubForm->getErrors())) {
                 $user->insertUser($_POST);
                 if ($user) {
                     header("Location: /");
@@ -30,12 +30,12 @@ class Subscribe extends AbstractController
 
         return $this->render('Subscribe/subscribe.html.twig', array(
 
-            'username' => $controlUserForm->displayErrors("username"),
-            'password' => $controlUserForm->displayErrors("password"),
-            'passwordConfirm' => $controlUserForm->displayErrors("passwordConfirm"),
-            'lastname' => $controlUserForm->displayErrors("lastname"),
-            'firstName' => $controlUserForm->displayErrors("firstName"),
-            'mail' => $controlUserForm->displayErrors("mail"),
+            'username' => $controlUserSubForm->displayErrors("username"),
+            'password' => $controlUserSubForm->displayErrors("password"),
+            'passwordConfirm' => $controlUserSubForm->displayErrors("passwordConfirm"),
+            'lastname' => $controlUserSubForm->displayErrors("lastname"),
+            'firstName' => $controlUserSubForm->displayErrors("firstName"),
+            'mail' => $controlUserSubForm->displayErrors("mail"),
         ));
     }
 }

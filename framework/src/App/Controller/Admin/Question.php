@@ -19,17 +19,11 @@ class Question extends AbstractController
     public function __invoke(): string
     {
         session_start();
+        Question::isAdmin();
         
-        if(isset($_POST['logout'])){
-            session_destroy();
-            header("Location: /");
-        }
 
         $userLogged = $_SESSION['user'] ?? null;
 
-        if($userLogged === null){
-            header("Location: /");
-        }
 
         $question = new Questions();
         $answer = new Answers();
@@ -39,27 +33,24 @@ class Question extends AbstractController
 
 
         if (isset($_POST['insertQuestion'])) {
-            $controlAnswersForm->findErrosIntoArray($_POST['answer']);
-            $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);
-            if(empty($controlQuestionsForm->getErrors())){
-                $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
-            }
+            $this->insert($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers);
         
         }else if (isset($_POST['UpdateQuestions'])){
 
-            $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);            
-            if(empty($controlQuestionsForm->getErrors())){
-                $question->updateQuestion($_POST);
-            }
+            $this->update($question, $controlQuestionsForm);
 
         }else if (isset($_POST['deleteQuestions']) && $_POST['deleteQuestions'] === "true"){
-            $question->deleteQuestion($_POST['idQuestionsUpdate']);
+            $this->delete($question);
+
+        }else if (isset($_POST['logout'])){
+            $this->logout();
         }
 
         $questions = $question->getAllQuestions();
 
         return $this->render('admin/questions.html.twig', [
-            'user' => $userLogged,
+            'user' => $userLogged['username'],
+            'user_roles' => $userLogged['roles'],
             'title' => "Questions",
             'questions' => $questions, 
             'label' =>  $controlQuestionsForm->displayErrors("label"),
@@ -93,6 +84,28 @@ class Question extends AbstractController
 
                 $questionsAnswers->linkQuestionWithAnswer($id_question, $id_answer);
             }
+    }
+
+    public function insert($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers): void
+    {
+        $controlAnswersForm->findErrosIntoArray($_POST['answer']);
+        $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);
+        if(empty($controlQuestionsForm->getErrors())){
+            $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
+        }
+    }
+
+    public function update($question, $controlQuestionsForm) : void
+    {
+        $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);            
+        if(empty($controlQuestionsForm->getErrors())){
+            $question->updateQuestion($_POST);
+        }
+    }
+
+    public function delete($question) : void
+    {
+        $question->deleteQuestion($_POST['idQuestionsUpdate']);
     }
 
 

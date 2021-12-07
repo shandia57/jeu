@@ -238,7 +238,14 @@ class User
             if ($result[0]['password'] !== $password) {
                 return false;
             } else {
-                return $_SESSION['user'] = $result[0]['username'];
+                $_SESSION['user'] = [
+                    "username" => $result[0]['username'],       
+                    "roles" => $result[0]['roles'] 
+                ];
+                // echo $_SESSION['test']['username'];
+                return $_SESSION['user']; 
+                
+                
             }
         }
         return false;
