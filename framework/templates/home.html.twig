@@ -30,6 +30,9 @@
         {% endif %}
     
     </main>
+    {% block scriptjs %}
+        {{ parent() }} 
+    {% endblock %}
 
     {% block modalConnection %}
         {{ parent() }} 

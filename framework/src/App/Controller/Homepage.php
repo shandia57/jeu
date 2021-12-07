@@ -12,12 +12,12 @@ class Homepage extends AbstractController
     {
         // A mettre en commentaire pour tester le logout
         session_start();
-        if(isset($_POST['logout'])){
+        if(isset($_POST['logout']) && $_POST['logout'] === "true"){
             $this->logout();
         }
         // FIN de commentaire
 
-        if (!empty($_POST)) {
+        if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
             $isConnected= (new User)->userConnection($username, $password);

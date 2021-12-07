@@ -177,8 +177,12 @@
         </div>
     </div>
     </div>
-    <script type="text/javascript" src="assets/script/scripts/questions.js"></script>
-    <script type="module" src="assets/script/modules/questions/questions.js"></script>
+
+    {% block scriptjs %}
+        {{ parent() }} 
+        <script type="text/javascript" src="assets/script/scripts/questions.js"></script>
+        <script type="module" src="assets/script/modules/questions/questions.js"></script>
+    {% endblock %}
 
 
 

@@ -32,7 +32,7 @@ class Users extends AbstractController
         }else if(isset($_POST['insert'])){
             $this->insert($user, $controlUserForm);
             
-        }else if (isset($_POST['logout'])){
+        }else if (isset($_POST['logout']) && $_POST['logout'] === "true" ){
             $this->logout();
         }
 

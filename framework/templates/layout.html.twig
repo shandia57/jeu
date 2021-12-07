@@ -96,7 +96,7 @@
                             {# A alterner les commentaires pour tester le logout #}
 
                         <form method="POST">
-                            <button type='submit' class='btn btn-outline-danger' name="logout">Logout</button>
+                            <button id="logout" type='submit' class='btn btn-outline-danger' name="logout">Logout</button>
                         </form>
                         
                             {# <a href="/" class='btn btn-outline-danger' name="logout">Logout</a> #}
@@ -144,7 +144,9 @@
             {% endif %}
         {% endblock %}
 
-
+        {% block scriptjs %}
+            <script type="text/javascript" src="assets/script/scripts/script.js"></script>
+        {% endblock %}
 
     {% endblock %}
 </body>

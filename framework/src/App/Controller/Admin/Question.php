@@ -44,7 +44,7 @@ class Question extends AbstractController
         }else if (isset($_POST['deleteQuestions']) && $_POST['deleteQuestions'] === "true"){
             $this->delete($question);
 
-        }else if (isset($_POST['logout'])){
+        }else if (isset($_POST['logout']) && $_POST['logout'] === "true"){
             $this->logout();
         }
 
