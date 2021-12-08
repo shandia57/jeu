@@ -27,14 +27,27 @@ export function filterFromSelectInput(event, idParent, positionChild1, positionC
             if (a.children[positionChild2].innerText.toLowerCase() < b.children[positionChild2].innerText.toLowerCase()) return 1;
             return 0;
         });
+    } else if (event.target.value === "levelAsc") {
+        itemsArray.sort(function (a, b) {
+            if (parseInt(a.children[positionChild2].dataset.value) < parseInt(b.children[positionChild2].dataset.value)) return -1;
+            if (parseInt(a.children[positionChild2].dataset.value) > parseInt(b.children[positionChild1].dataset.value)) return 1;
+            return 0;
+        });
+
+    } else if (event.target.value === "levelDesc") {
+        itemsArray.sort(function (a, b) {
+            if (parseInt(a.children[positionChild2].dataset.value) > parseInt(b.children[positionChild2].dataset.value)) return -1;
+            if (parseInt(a.children[positionChild2].dataset.value) < parseInt(b.children[positionChild2].dataset.value)) return 1;
+            return 0;
+        });
+
     }
-
-
     itemsArray.forEach(function (item) {
         parent.appendChild(item);
     });
-}
+    console.log(parent);
 
+}
 
 export function searchValueFromSearchbar(event, idTable) {
     const tableRowData = document.getElementsByClassName(idTable);

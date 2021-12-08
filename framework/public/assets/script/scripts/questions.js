@@ -53,3 +53,35 @@ function updateQuestion(data) {
     document.getElementsByClassName("labelUpdate")[0].value = data.parentNode.parentNode.children[1].innerText;
     document.getElementsByClassName("questionUpdate")[0].value = data.parentNode.parentNode.children[3].innerText;
 }
+
+
+function colorLevelQuestions() {
+    let level = document.getElementsByClassName("colorLevel");
+    for (let i = 0; i < level.length; i++) {
+        level[i].style.backgroundColor = switchColor(level[i].dataset.colorvalue)[0];
+        level[i].dataset.value = switchColor(level[i].dataset.colorvalue)[1];
+    }
+}
+
+function switchColor(color) {
+    switch (color) {
+        case "Vert":
+            return ["#44bd32", 1];
+
+        case "Jaune":
+            return ["#fbc531", 2];
+
+        case "Bleu":
+            return ["#3867d6", 3];
+
+        case "Orange":
+            return ["#EE5A24", 4];
+
+        case "Rouge":
+            return ["#EA2027", 5];
+        case "Noir":
+            return ["#3d3d3d", 6];
+    }
+}
+
+colorLevelQuestions();

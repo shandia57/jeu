@@ -44,18 +44,21 @@
                     <th scope="col">lastName</th>
                     <th scope="col">email</th>
                     <th scope="col">Roles</th>
+                    <th scope="col"></th>
+                    
                 </tr>
             </thead>
             
             <tbody id="tbody">
                     {% for user in users %}
-                        <tr class="dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setInfoUser(this)">
+                        <tr >
                             <td scope="row">{{user.id_user}} </td>
                             <td name="username">{{user.username}}</td>
                             <td>{{user.firstName}}</td>
                             <td>{{user.lastName}}</td>
                             <td>{{user.mail}}</td>
                             <td>{{user.roles}}</td>
+                            <td><button type="button" class="btn btn-outline-info dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setInfoUser(this)">Modifier</button></td>
                          </tr>
                     {% endfor %}
             </tbody>
