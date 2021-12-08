@@ -1,0 +1,197 @@
+{% extends "layout.html.twig" %}
+
+{% block head %} {{ parent() }} {% endblock %}
+
+{% block bootstrap %} {{ parent() }}  {% endblock %}
+
+{% block fontawesome %} {{ parent() }}  {% endblock %}
+
+{% block css %} {{ parent() }}  {% endblock %}
+
+
+{% block title %}Home page{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }} 
+    {% endblock %}
+
+        <main>
+        <h1>Questions</h1>
+        <div class="filter">
+            <div class="input-group mb-3">
+                <input type="text" id="searchbar" class="form-control" placeholder="Recipient's username"
+                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                        class="fas fa-search"></i></button>
+            </div>
+
+            <select id="selectFilter" class="form-select">
+                <option selected value="ascendant">ID : ascendant</option>
+                <option value="descendant">ID : descendant</option>
+                <option value="levelAsc">Level : ascendant</option>
+                <option value="levelDesc">Level : descendant</option>
+            </select>
+        </div>
+        <table class="table">
+            <thead>
+                <tr >
+                    <th scope="col">#ID</th>
+                    <th scope="col">Label</th>
+                    <th scope="col">level</th>
+                    <th scope="col">Question</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+
+            <tbody id="tbody">
+            {% for singleQuestion in questions %}
+
+                <tr class="dataQuestion">
+                    <td scope="row"> {{singleQuestion.id_question}}</td> </th>
+                    <td>{{singleQuestion.label}}</td>
+                    <td class="colorLevel" data-colorValue="{{singleQuestion.level}}"></td>
+                    <td>{{singleQuestion.question}}</td>
+                    <td><button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#updateModalQuestions" onclick="updateQuestion(this)">Modifier</button></td>
+                    <td><a class="btn btn-outline-success" href="questions/{{singleQuestion.id_question}}">Voir les réponses</a></td>
+
+                    
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#modalQuestions">Ajouter une nouvelle question</button>
+
+    </main>
+{# Modal insert a question #}
+<div class="modal fade" id="modalQuestions" tabindex="-1"  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Ajouter une question</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+        <form action="questions" method="post">
+            <div class="modal-body list-group list-group-flush">
+                <div class="list-group-item">
+                    <label for="exampleInputEmail1" class="form-label">Label question</label>
+                    <input class="form-control" type="text" name="label">
+                    <div class="form-text">{{label}}</div>
+                </div>
+                <div class="list-group-item">
+                    <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
+                    <select class="form-select" name="level">
+                        <option selected value="default">Choisir le niveau de difficulté</option>
+                        <option value="Vert">1 - Vert</option>
+                        <option value="Jaune">2 - Jaune</option>
+                        <option value="Bleu">3 - Bleu</option>
+                        <option value="Orange">4 - Orange</option>
+                        <option value="Rouge">5 - Rouge</option>
+                        <option value="Noir">6 - Noir</option>
+                    </select>
+                    <div class="form-text">{{level}}</div>
+                </div>
+                <div class="list-group-item">
+                    <label for="exampleInputEmail1" class="form-label">Question</label>
+                    <input class="form-control" type="text" name="question">
+                    <div class="form-text">{{question}}</div>
+                </div>
+
+
+                <div class="list-group-item">
+                    <div class="listAnswer">
+
+                        <div class="labelAnswer">
+                            <label class="form-label answer">Réponse 1</label>
+
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" name="validAnswer1">
+                                <label class="form-check-label">Réponse valide</label>
+                            </div>
+                        </div>
+                        <div class="form-text">{{answer}}</div>
+
+
+                        <input class="form-control" type="text" name="answer[]">
+                    </div>
+                    <button id="btnCreateAnswer" class="btn btn-outline-success marginBtn" type="button" >Ajouter une réponse</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" name="insertQuestion">Submit</button>
+            </div>
+        </form>
+
+    </div>
+
+  </div>
+</div>
+<!-- Modal update question -->
+    <div class="modal fade" id="updateModalQuestions" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >Modifier la question</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="questions" method="post">
+                    <div class="modal-body list-group list-group-flush">
+                        <input class="idQuestions" type="hidden" name="idQuestionsUpdate">
+                        <div class="list-group-item">
+                            <label for="exampleInputEmail1" class="form-label">Label question</label>
+                            <input class="form-control labelUpdate" type="text" name="label">
+                            <div class="form-text">{{label}}</div>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="exampleInputEmail1" class="form-label">Niveau de difficulté</label>
+                            <select id="level" class="form-select" name="level">
+                                <option value="Vert">1 - Vert</option>
+                                <option value="Jaune">2 - Jaune</option>
+                                <option value="Bleu">3 - Bleu</option>
+                                <option value="Orange">4 - Orange</option>
+                                <option value="Rouge">5 - Rouge</option>
+                                <option value="Noir">6 - Noir</option>
+                            </select>
+                            <div class="form-text">{{level}}</div>
+                        </div>
+                        <div class="list-group-item">
+                            <label for="exampleInputEmail1" class="form-label">Question</label>
+                            <input class="form-control questionUpdate" type="text" name="question">
+                            <div class="form-text">{{question}}</div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" id="btnDelete" class="btn btn-danger"  name="deleteQuestions">Supprimer</button>
+                        <button type="submit" class="btn btn-primary" name="UpdateQuestions">Modifier</button>
+                    </div>
+            </form>
+
+            </div>
+        </div>
+    </div>
+
+    {% block scriptjs %}
+        {{ parent() }} 
+        <script type="text/javascript" src="assets/script/scripts/questions.js"></script>
+        <script type="module" src="assets/script/modules/questions/questions.js"></script>
+    {% endblock %}
+
+
+
+    {% block modalConnection %}
+        {{ parent() }} 
+    {% endblock %}
+
+{% endblock %}
+
+
+
+

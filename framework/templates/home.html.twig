@@ -1,0 +1,41 @@
+{% extends "layout.html.twig" %}
+
+{% block head %} {{ parent() }} {% endblock %}
+
+{% block bootstrap %} {{ parent() }}  {% endblock %}
+
+{% block fontawesome %} {{ parent() }}  {% endblock %}
+
+{% block css %} 
+    {{ parent() }}  
+    <link rel="stylesheet" type="text/css" href="assets/style/buttonCreateGame.css">
+{% endblock %}
+
+
+{% block title %}Home page{% endblock %}
+
+{% block body %}
+    {% block header %}
+        {{ parent() }} 
+    {% endblock %}
+
+
+    <main>
+    
+        <h1>Bienvenu sur la page d'accueil</h1>
+        {% if  not user %}
+        <p>Veuillez vous connecter ou vous inscrire pour démarrer une partie </p>
+        {% else %}
+        <button class="glow-on-hover" type="button">Créer une partie</button>
+        {% endif %}
+    
+    </main>
+    {% block scriptjs %}
+        {{ parent() }} 
+    {% endblock %}
+
+    {% block modalConnection %}
+        {{ parent() }} 
+    {% endblock %}
+
+{% endblock %}

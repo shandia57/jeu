@@ -1,0 +1,35 @@
+.question-answers{
+    margin-top:3%;
+}
+span{
+    float:right;
+    vertical-align: text-top;
+}
+.list-group-item{
+    padding: 20px;
+}
+.list-group-item:hover{
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.form-label{
+    font-weight: 600;
+}
+.marginBtn{
+    margin-top:2%;
+}
+.labelAnswer{
+    display: flex;
+}
+
+.form-switch{
+    margin-left: 2%;
+}
+h1{
+    color:red;
+}
+
+h2{
+    color:red;
+}

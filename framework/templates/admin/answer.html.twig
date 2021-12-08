@@ -1,0 +1,119 @@
+{% extends "layout.html.twig" %}
+
+{% block head %} {{ parent() }} {% endblock %}
+
+{% block bootstrap %} {{ parent() }}  {% endblock %}
+
+{% block fontawesome %} {{ parent() }}  {% endblock %}
+
+{% block css %} 
+    <link rel="stylesheet" type="text/css" href="../assets/style/style.css">
+
+{% endblock %}
+
+
+{% block title %}Home page{% endblock %}
+
+{% block body %}
+    {% block header %}
+        <header>
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/questions"> <i class="fas fa-arrow-left"></i> Retour aux questions</a>
+            </div>
+        </nav>
+        </header>
+    {% endblock %}
+
+    <main>
+
+        <div>
+            {% for singleQuestion in questions %}
+
+
+                <h2>{{singleQuestion.question}}</h2>
+                {% endfor %}
+                <ul class="list-group list-group-flush">
+                {% for answer in answers %}
+                    {% if  answer.valid == "1" %}
+                    <li class="list-group-item" style="color:green;" data-id="{{answer.id_answer}}" data-value="{{answer.valid}}" data-bs-toggle="modal" data-bs-target="#updateAnswerModal" onclick="updateAnswer(this)">{{answer.answer}}</li>
+                    {% else %}
+                    <li class="list-group-item"  data-id="{{answer.id_answer}}" data-value="{{answer.valid}}" data-bs-toggle="modal" data-bs-target="#updateAnswerModal" onclick="updateAnswer(this)">{{answer.answer}}</li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+        </div>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addAnswerModal">Nouvelle réponse</button>
+        
+    </main>
+    <!-- Modal Add Answer -->
+    <div class="modal fade" id="addAnswerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >Nouvelle réponse</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label">Réponse valide</label>
+                                <input class="form-check-input" type="checkbox" name="validAnswer">
+                            </div>
+                             <input class="form-control" type="text" name="answer">
+                            <div class="form-text">{{answer}}</div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" name="insertAnswer">Ajouter cette réponse</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal DELETE / UPDATE ANSWER -->
+        <div class="modal fade" id="updateAnswerModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Modifier une réponse</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="POST">
+                        <div class="modal-body">
+                            <div class="listAnswer">
+                                <input type="hidden" id="idAnswerUpdate" name="idAnswerUpdate">
+                                <div class="form-check form-switch">
+                                    <input id="validAnswerUpdate" class="form-check-input" type="checkbox" name="validAnswer">
+                                    <label class="form-check-label">Réponse valide</label>
+                                </div>
+
+                                <input id="answerUpdate" class="form-control" type="text" name="answer">
+                                <div class="form-text">{{answer}}</div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="btnDelete" class="btn btn-outline-danger" name="deleteAnswer">Supprimer</button>
+                                <button type="submit" class="btn btn-outline-primary" name="updateAnswer">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    <script type="text/javascript" src="../assets/script/scripts/answers.js"></script>
+
+    {% block modalConnection %}
+        {{ parent() }} 
+    {% endblock %}
+
+{% endblock %}
+
+
+
+  

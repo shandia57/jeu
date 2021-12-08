@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 02 déc. 2021 à 18:08
+-- Généré le : jeu. 02 déc. 2021 à 18:10
 -- Version du serveur :  10.4.19-MariaDB
 -- Version de PHP : 8.0.6
 
@@ -33,20 +33,6 @@ CREATE TABLE `answer` (
   `valid` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `answer`
---
-
-INSERT INTO `answer` (`id_answer`, `answer`, `valid`) VALUES
-(46, 'Paris', 1),
-(48, 'Marseille', 1),
-(49, 'Forback', 0),
-(51, 'Paris', 0),
-(52, 'Arles', 1),
-(53, 'Nice', 0),
-(54, 'Marseille', 0),
-(56, 'Nice', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -59,14 +45,6 @@ CREATE TABLE `questions` (
   `level` varchar(50) DEFAULT NULL,
   `question` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `questions`
---
-
-INSERT INTO `questions` (`id_question`, `label`, `level`, `question`) VALUES
-(1, 'Pays / ville', 'Vert', 'Quelle est la capitale de la France ?'),
-(2, 'Pays / ville', 'Jaune', 'Quelle est la plus grande ville de france  ?');
 
 --
 -- Déclencheurs `questions`
@@ -88,20 +66,6 @@ CREATE TABLE `questions_answers` (
   `id_question` int(11) NOT NULL,
   `id_answer` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `questions_answers`
---
-
-INSERT INTO `questions_answers` (`id_question`, `id_answer`) VALUES
-(1, 46),
-(1, 48),
-(1, 49),
-(1, 56),
-(2, 51),
-(2, 52),
-(2, 53),
-(2, 54);
 
 --
 -- Déclencheurs `questions_answers`
@@ -129,15 +93,6 @@ CREATE TABLE `users` (
   `roles` varchar(50) DEFAULT NULL,
   `createAt` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`id_user`, `username`, `password`, `firstName`, `lastName`, `mail`, `roles`, `createAt`) VALUES
-(6, 'Toranus', 'test', 'Nodeshita', 'Tora', 'toran@test.fr', 'ROLES_USER', '2021-11-24'),
-(7, 'Kenito', 'test', 'Wakarimashita', 'Deshita', 'kenito@test.fr', 'ROLES_USER', '2021-11-24'),
-(16, 'admin', 'test', 'test', 'test', 'test@hotmail.fr', 'ROLES_ADMIN', '2021-11-24');
 
 --
 -- Index pour les tables déchargées
