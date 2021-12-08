@@ -17,6 +17,8 @@ class Subscribe extends AbstractController
             $controlUserSubForm->findError($controlUserSubForm->getValidationsSubscription(), $_POST, $user);
             
             if (empty($controlUserSubForm->getErrors())) {
+
+                $_POST['roles'] = "ROLES_USER";
                 $user->insertUser($_POST);
                 if ($user) {
                     header("Location: /");

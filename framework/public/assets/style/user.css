@@ -1,6 +1,6 @@
 table{
     margin-top:2%;
 }
-.dataUser:hover{
-    background-color: lightgray;
+input{
+    text-align: center;
 }

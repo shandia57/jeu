@@ -56,7 +56,7 @@ class Users extends AbstractController
     {
         $controlUserForm->findError($controlUserForm->getValidationsSubscription(),$_POST, $user);
         if(empty($controlUserForm->getErrors())){
-            $user->insertUserAdmin($_POST);
+            $user->insertUser($_POST);
         }
     }
     public function update($user, $controlUserForm) : void

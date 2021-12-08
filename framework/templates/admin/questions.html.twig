@@ -6,7 +6,12 @@
 
 {% block fontawesome %} {{ parent() }}  {% endblock %}
 
-{% block css %} {{ parent() }}  {% endblock %}
+{% block css %} 
+
+    {{ parent() }} 
+    <link rel="stylesheet" type="text/css" href="assets/style/questions.css">
+
+{% endblock %}
 
 
 {% block title %}Home page{% endblock %}

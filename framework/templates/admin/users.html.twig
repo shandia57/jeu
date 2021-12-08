@@ -6,7 +6,11 @@
 
 {% block fontawesome %} {{ parent() }}  {% endblock %}
 
-{% block css %} {{ parent() }}  {% endblock %}
+{% block css %} 
+    {{ parent() }}  
+    <link rel="stylesheet" type="text/css" href="assets/style/user.css">
+
+{% endblock %}
 
 
 {% block title %}Home page{% endblock %}
@@ -51,7 +55,7 @@
             
             <tbody id="tbody">
                     {% for user in users %}
-                        <tr >
+                        <tr class="dataTr">
                             <td scope="row">{{user.id_user}} </td>
                             <td name="username">{{user.username}}</td>
                             <td>{{user.firstName}}</td>
