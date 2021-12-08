@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\Homepage;
+use App\Controller\Fail;
 
 use App\Controller\Admin\Question;
 use App\Controller\Admin\Answer;
@@ -19,6 +20,8 @@ return [
     new Route('GET', '/', Homepage::class),
     new Route('POST', '/', Homepage::class),
     // new Route('PUT', '/', Logout::class),
+
+    new Route('GET', '/fail', Fail::class),
 
     new Route('GET', '/questions', Question::class),
     new Route('POST', '/questions', Question::class),

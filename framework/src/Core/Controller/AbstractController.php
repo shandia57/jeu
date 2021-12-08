@@ -25,7 +25,7 @@ abstract class AbstractController
         if(isset($_SESSION['user']) && $_SESSION['user']['roles'] === "ROLES_ADMIN" ){
             return true;
         }else{
-            header("Location: /");
+            header("Location: /fail");
             return false;
         }
         
