@@ -42,6 +42,10 @@ class Homepage extends AbstractController
         if (!empty($_COOKIE['remember_user'])  && !empty($_COOKIE['remember_roles']) ){
             $isConnected['username']  = $_COOKIE['remember_user'];
             $isConnected['roles']  = $_COOKIE['remember_roles'];
+            $_SESSION['user'] = [
+                "username" => $isConnected['username'],       
+                "roles" => $isConnected['roles'] 
+            ];
         }
 
 
