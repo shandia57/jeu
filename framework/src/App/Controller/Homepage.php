@@ -19,7 +19,7 @@ class Homepage extends AbstractController
         }
         // FIN de commentaire
 
-        
+
 
         if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = $_POST['username'];
@@ -31,7 +31,14 @@ class Homepage extends AbstractController
         $questions = (new Questions)->getAllQuestions();
         $isConnected = $_SESSION['user'] ?? null;
 
+        if (!empty($_COOKIE['remember_user'])){
+            $isConnected['username']  = $_COOKIE['remember_user'];
+        }
 
+        if(isset($_POST['checkbox'])){
+            setcookie("remember_user",  $isConnected['username'], time() +
+            (10 * 365 * 24 * 60 * 60));
+        }
 
         $result = (new User)->filterArrayByKeyValue($users, 'username',$isConnected??null['username']??null);
             return $this->render('/home.html.twig', [
