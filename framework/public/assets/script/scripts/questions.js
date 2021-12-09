@@ -1,5 +1,3 @@
-console.log("ça shmerle sec par ici");
-
 let btn = document.getElementById("btnCreateAnswer").addEventListener("click", (e) => {
 
     let listAnswer = document.createElement("div");

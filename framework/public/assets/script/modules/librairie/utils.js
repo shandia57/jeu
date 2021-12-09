@@ -55,16 +55,18 @@ export function searchValueFromSearchbar(event, idTable) {
         for (let i = 0; i < tableRowData.length; i++) {
             tableRowData[i].style.display = "";
         }
-    }
-    for (let i = 0; i < tableRowData.length; i++) {
-        let tableData = tableRowData[i].getElementsByTagName("td");
-        for (let j = 0; j < tableData.length; j++) {
-            if (event.target.value.toLowerCase().trim() === tableData[j].innerText.toLocaleLowerCase().trim()) {
-                tableRowData[i].style.display = "";
-                break;
-            } else {
-                tableRowData[i].style.display = "none";
+    } else {
+        for (let i = 0; i < tableRowData.length; i++) {
+            let tableData = tableRowData[i].getElementsByTagName("td");
+            for (let j = 0; j < tableData.length; j++) {
+                if (event.target.value.toLowerCase().trim() === tableData[j].innerText.toLocaleLowerCase().trim()) {
+                    tableRowData[i].style.display = "";
+                    break;
+                } else {
+                    tableRowData[i].style.display = "none";
+                }
             }
         }
     }
+
 }

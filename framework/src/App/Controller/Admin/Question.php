@@ -63,6 +63,8 @@ class Question extends AbstractController
             "answer" => $controlAnswersForm->displayErrors("answer"),
             "nbrUsers" => count($users),
             "nbrQuestions" => count($questions),
+            "anyErrors" => $this->anyErrors,
+
         ]);
     }
 
@@ -98,6 +100,8 @@ class Question extends AbstractController
         $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);
         if(empty($controlQuestionsForm->getErrors())){
             $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
+        }else{
+            $this->anyErrors = "L'ajout d'une nouvelle question à échoué, cliquez sur 'Ajouter une nouvelle question' pour avoir plus de détails";
         }
     }
 

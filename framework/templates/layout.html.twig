@@ -54,7 +54,7 @@
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     {% if not user %}
-                    <span class="navbar-brand" >User</span>
+                    <span class="navbar-brand"><b>User</b></span>
                     {% else %}
                     <span class="navbar-brand"><b>Bonjour {{ user }}</b></span>
                     {% endif %}
@@ -114,6 +114,7 @@
             </nav>
             
             </header>
+            <input id="anyErrors" value="{{anyErrors}}" type="hidden"></input>
         {% endblock %}
 
         {% block modalConnection %}

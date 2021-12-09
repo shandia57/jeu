@@ -1,5 +1,3 @@
-console.log("Where is the papagei ? ");
-
 import * as utils from "./../librairie/utils.js";
 
 

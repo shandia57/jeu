@@ -1,6 +1,3 @@
-console.log("it's like a bird, but, it's not a bird");
-
-
 function setInfoUser(button) {
     let target = button.parentNode.parentNode
     document.getElementById("id_user").value = target.children[0].innerText;

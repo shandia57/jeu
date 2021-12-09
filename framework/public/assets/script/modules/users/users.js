@@ -1,5 +1,3 @@
-console.log("coucou tu shmerle ? ");
-
 import * as utils from "../librairie/utils.js";
 
 

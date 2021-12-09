@@ -1,6 +1,3 @@
-console.log("He is in the coil !");
-
-
 function updateAnswer(data) {
     let answerUpdate = document.getElementById("answerUpdate");
     let validAnswer = document.getElementById("validAnswerUpdate");

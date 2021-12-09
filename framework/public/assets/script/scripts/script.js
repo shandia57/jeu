@@ -1,5 +1,6 @@
-console.log("wsh bien ou quoi ?");
-logout = document.getElementById("logout");
+let logout = document.getElementById("logout");
+let anyErrors = document.getElementById("anyErrors");
+
 
 if (logout) {
     logout.addEventListener("click", () => {
@@ -9,3 +10,8 @@ if (logout) {
 
     })
 }
+
+if (anyErrors.value.trim().length > 0) {
+    alert(anyErrors.value);
+}
+

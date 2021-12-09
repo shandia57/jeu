@@ -10,7 +10,6 @@ use  App\Classes\ControlDataForm\ControlUsersForm;
 
 class Users extends AbstractController
 {
-
     public function __invoke()
     {
         // A mettre en commentaire pour tester le logout
@@ -39,6 +38,7 @@ class Users extends AbstractController
 
         $users = $user->getUsers();
         $questions = (new Questions)->getAllQuestions();
+        
 
         return $this->render('admin/users.html.twig', [
             'user' => $userLogged['username'],
@@ -47,12 +47,13 @@ class Users extends AbstractController
             'username' => $controlUserForm->displayErrors("username"),
             'password' => $controlUserForm->displayErrors("password"),
             'passwordConfirm' => $controlUserForm->displayErrors("passwordConfirm"),
-            'lastname' => $controlUserForm->displayErrors("lastname"),
+            'lastName' => $controlUserForm->displayErrors("lastName"),
             'firstName' => $controlUserForm->displayErrors("firstName"),
             'mail' => $controlUserForm->displayErrors("mail"),
             'roles' => $controlUserForm->displayErrors("roles"),
             "nbrUsers" => count($users),
             "nbrQuestions" => count($questions),
+            "anyErrors" => $this->anyErrors,
         ]);        
     }
 
@@ -61,6 +62,8 @@ class Users extends AbstractController
         $controlUserForm->findError($controlUserForm->getValidationsSubscription(),$_POST, $user);
         if(empty($controlUserForm->getErrors())){
             $user->insertUser($_POST);
+        }else{
+            $this->anyErrors = "L'inscription à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
         }
     }
     public function update($user, $controlUserForm) : void
