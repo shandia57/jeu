@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
 use App\Classes\User;
+use App\Classes\Admin\Questions\Questions;
 use  App\Classes\ControlDataForm\ControlUsersForm;
 
 
@@ -37,6 +38,7 @@ class Users extends AbstractController
         }
 
         $users = $user->getUsers();
+        $questions = (new Questions)->getAllQuestions();
 
         return $this->render('admin/users.html.twig', [
             'user' => $userLogged['username'],
@@ -49,6 +51,8 @@ class Users extends AbstractController
             'firstName' => $controlUserForm->displayErrors("firstName"),
             'mail' => $controlUserForm->displayErrors("mail"),
             'roles' => $controlUserForm->displayErrors("roles"),
+            "nbrUsers" => count($users),
+            "nbrQuestions" => count($questions),
         ]);        
     }
 

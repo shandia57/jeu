@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Classes\User;
+use App\Classes\Admin\Questions\Questions;
+
 use Framework\Controller\AbstractController;
 
 class Homepage extends AbstractController
@@ -26,6 +28,7 @@ class Homepage extends AbstractController
         }
 
         $users = (new User)->getUsers();
+        $questions = (new Questions)->getAllQuestions();
         $isConnected = $_SESSION['user'] ?? null;
 
 
@@ -35,6 +38,8 @@ class Homepage extends AbstractController
                 "user" => $isConnected['username']?? null,
                 "user_roles" => $isConnected['roles']?? null,
                 "usersNumber" => sizeOf($result),
+                "nbrUsers" => count($users),
+                "nbrQuestions" => count($questions),
 
             ]);
         }

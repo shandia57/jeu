@@ -53,30 +53,38 @@
             <header>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/">Home</a>
+                    {% if not user %}
+                    <span class="navbar-brand" >User</span>
+                    {% else %}
+                    <span class="navbar-brand"><b>Bonjour {{ user }}</b></span>
+                    {% endif %}
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
                        <ul class="navbar-nav">
-
+                            <li>
+                                <a class="nav-link active" href="/">Home</a>
+                            </li>
 
                         {% if not user %}
 
                         {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link active">
-                                    <b id="loggedIn" data-value="{{ user }}"> Bonjour {{ user }}</b>
-                                </a>
-                            </li>
 
                             {% if user_roles == "ROLES_ADMIN" %}
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="/users">Users</a>
+                                <li class="nav-item position-relative marginRight" >
+                                    <a class="nav-link  " href="/users" >Users 
+                                    <span class="spanBadge badge rounded-pill bg-danger">{{nbrUsers}}</span>
+                                    </a>
                                 </li>
-                                    <a class="nav-link active" href="/questions">Questions</a>
+                                <li>
+                                    <a class="nav-link  position-relative" href="/questions">Questions
+                                    <span class="spanBadge badge rounded-pill bg-danger">{{nbrQuestions}}</span>
+                                    </a>
                                 </li>
+
                             {% endif %}
                         {% endif %}
                         </ul>

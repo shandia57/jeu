@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
+use App\Classes\User;
 use App\Classes\Admin\Questions\Questions;
 use App\Classes\Admin\Answers\Answers;
 use App\Classes\Admin\Questions_Answers\QuestionsAnswers;
@@ -48,6 +49,7 @@ class Question extends AbstractController
             $this->logout();
         }
 
+        $users = (new User)->getUsers();
         $questions = $question->getAllQuestions();
 
         return $this->render('admin/questions.html.twig', [
@@ -59,6 +61,8 @@ class Question extends AbstractController
             'level' =>  $controlQuestionsForm->displayErrors("level"),
             'question' =>  $controlQuestionsForm->displayErrors("question"),
             "answer" => $controlAnswersForm->displayErrors("answer"),
+            "nbrUsers" => count($users),
+            "nbrQuestions" => count($questions),
         ]);
     }
 
