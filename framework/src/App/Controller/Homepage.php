@@ -25,20 +25,25 @@ class Homepage extends AbstractController
             $username = $_POST['username'];
             $password = $_POST['password'];
             $isConnected= (new User)->userConnection($username, $password);
+
+            if(isset($_POST['checkbox'])){
+                setcookie("remember_user",  $isConnected['username'], time() +
+                (10 * 365 * 24 * 60 * 60));
+                setcookie("remember_roles",  $isConnected['roles'], time() +
+                (10 * 365 * 24 * 60 * 60));
+            }
+    
         }
 
         $users = (new User)->getUsers();
         $questions = (new Questions)->getAllQuestions();
         $isConnected = $_SESSION['user'] ?? null;
 
-        if (!empty($_COOKIE['remember_user'])){
+        if (!empty($_COOKIE['remember_user'])  && !empty($_COOKIE['remember_roles']) ){
             $isConnected['username']  = $_COOKIE['remember_user'];
+            $isConnected['roles']  = $_COOKIE['remember_roles'];
         }
 
-        if(isset($_POST['checkbox'])){
-            setcookie("remember_user",  $isConnected['username'], time() +
-            (10 * 365 * 24 * 60 * 60));
-        }
 
         $result = (new User)->filterArrayByKeyValue($users, 'username',$isConnected??null['username']??null);
             return $this->render('/home.html.twig', [

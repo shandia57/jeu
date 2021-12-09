@@ -35,9 +35,12 @@ abstract class AbstractController
     public function logout(): void
     {
         session_destroy();
-        if (isset($_COOKIE['remember_user'])) {
+        if (isset($_COOKIE['remember_user']) && isset($_COOKIE['remember_roles'])) {
             unset($_COOKIE['remember_user']);
             setcookie('remember_user', '', time() - 3600, '/');
+
+            unset($_COOKIE['remember_roles']);
+            setcookie('remember_roles', '', time() - 3600, '/');
         } 
         header("Location: /");
     }
