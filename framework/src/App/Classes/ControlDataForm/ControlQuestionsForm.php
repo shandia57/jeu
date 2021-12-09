@@ -1,13 +1,11 @@
 <?php 
 
 namespace App\Classes\ControlDataForm;
-use PDO;
-use App\Classes\ControlDataForm\ControlDataForm;
 
-class ControlQuestionsForm extends ControlDataForm
+class ControlQuestionsForm extends controlDataForm
 {
 
-    protected $validations = [
+    protected array $validations = [
         'label' => [
             'rules' => [
                 ['name' => 'required'],

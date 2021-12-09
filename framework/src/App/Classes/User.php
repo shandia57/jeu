@@ -166,8 +166,8 @@ class User
     public function insertUser($data): bool
     {
         $date = date("Y-m-d");
-        $roles = "ROLES_USER";
         $password = password_hash($data['password'], PASSWORD_DEFAULT);
+
 
         $db = Connection::get();
         $sql = 'INSERT INTO 
@@ -180,7 +180,7 @@ class User
         $stmt->bindParam('lastName', $data['lastName'], PDO::PARAM_STR);
         $stmt->bindParam('firstName', $data['firstName'], PDO::PARAM_STR);
         $stmt->bindParam('mail', $data['mail'], PDO::PARAM_STR);
-        $stmt->bindParam('roles', $roles, PDO::PARAM_STR);
+        $stmt->bindParam('roles', $data['ROLES_USER'], PDO::PARAM_STR);
         $stmt->bindParam('createAt', $date, PDO::PARAM_STR);
 
         return $stmt->execute();
@@ -189,6 +189,8 @@ class User
     {
         $connection = Connection::get();
         $date = date("Y-m-d");
+        $roles = $dataUser['ROLES_USER'];
+
         $password = password_hash($dataUser['password'], PASSWORD_DEFAULT);
     
         $sql = 'INSERT INTO
@@ -201,7 +203,7 @@ class User
         $stmt->bindParam('lastname', $dataUser['lastName'], PDO::PARAM_STR);
         $stmt->bindParam('firstname', $dataUser['firstName'], PDO::PARAM_STR);
         $stmt->bindParam('mail', $dataUser['mail'], PDO::PARAM_STR);
-        $stmt->bindParam('roles', $dataUser['roles'], PDO::PARAM_STR);
+        $stmt->bindParam('roles', $roles, PDO::PARAM_STR);
         $stmt->bindParam('createAt', $date, PDO::PARAM_STR);
     
     

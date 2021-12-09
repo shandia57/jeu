@@ -15,11 +15,16 @@ class Subscribe extends AbstractController
         if (!empty($_POST)) {
             
             $controlUserSubForm->findError($controlUserSubForm->getValidationsSubscription(), $_POST, $user);
-            
+
             if (empty($controlUserSubForm->getErrors())) {
                 $user->insertUser($_POST);
                 if ($user) {
+                    //session_start();
+                    $username = $_POST['username'];
+                    $password = $_POST['password'];
+                    $isConnected= (new User)->userConnection($username, $password);
                     header("Location: /");
+                    return $isConnected;
                 } else {
                     echo 'Une erreur est survenue pendant votre inscription !';
                 }

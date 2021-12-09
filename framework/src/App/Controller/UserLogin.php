@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Classes\User;
@@ -13,15 +14,15 @@ class UserLogin extends AbstractController
     public function __invoke(): string
     {
 
-        session_start();
-        
-        if(isset($_POST['logout'])){
+        // session_start();
+
+        if (isset($_POST['logout'])) {
             session_destroy();
             header("Location: /connectToGame");
         }
 
-        if(isset($_SESSION['roles'])){
-        echo "SESSION :: $_SESSION[roles]";
+        if (isset($_SESSION['roles'])) {
+            echo "SESSION :: $_SESSION[roles]";
         }
 
         $colors = (new Color)->saveColorToArray(
@@ -38,24 +39,21 @@ class UserLogin extends AbstractController
             $color11 = (new Color)->convertRGBToHex(245, 215, 19),
         );
 
-        $users=(new User)->getUsers();
+        $users = (new User)->getUsers();
         if (!empty($_POST)) {
             $username = $_POST['username'];
             $password = $_POST['password'];
-            $isConnected= (new User)->userConnection($username, $password);
+            $isConnected = (new User)->userConnection($username, $password);
         }
-        $usersLength = sizeof($users);
-        // print_r($usersLength);
-        $res = array_map(null,$colors,$users);
+        $res = array_map(null, $colors, $users);
 
-
-        $result = (new User)->filterArrayByKeyValue($users, 'username',$isConnected??null['username']??null);
+        $result = (new User)->filterArrayByKeyValue($users, 'username', $isConnected ?? null['username'] ?? null);
         // print_r($result);
-            return $this->render('/connectToGame/test.html.twig', [
-                "users" => $res,
-                "user" => $isConnected?? null,
-                "usersNumber" => sizeOf($result),
-                "colors" => $colors,
+        return $this->render('/connectToGame/test.html.twig', [
+            "users" => $res,
+            "user" => htmlspecialchars($isConnected ?? null, ENT_QUOTES),
+            "usersNumber" => sizeOf($result),
+            "colors" => $colors,
             ]);
-        }
+    }
 }

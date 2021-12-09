@@ -3,6 +3,7 @@
 namespace Framework\Controller;
 
 use Framework\Templating\Twig;
+session_start();
 
 abstract class AbstractController
 {

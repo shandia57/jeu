@@ -18,6 +18,6 @@
         "nikic/fast-route": "^1.3",
         "twig/twig": "^3.0",
       "ext-pdo": "*",
-        "twbs/bootstrap": "^5.1"
+        "twbs/bootstrap": "^5.1",
     }
 }

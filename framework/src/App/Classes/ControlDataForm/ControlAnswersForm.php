@@ -1,13 +1,11 @@
 <?php 
 
 namespace App\Classes\ControlDataForm;
-use PDO;
-use App\Classes\ControlDataForm\ControlDataForm;
 
-class ControlAnswersForm extends ControlDataForm
+class ControlAnswersForm extends controlDataForm
 {
 
-    protected $validations = [
+    protected array $validations = [
         'answer' => [
             'rules' => [
                 ['name' => 'required'],
@@ -24,7 +22,7 @@ class ControlAnswersForm extends ControlDataForm
         return $this->validations;
     }
 
-    public function findErrosIntoArray($array) : void
+    public function findErrorsIntoArray($array) : void
     {
         for($i = 0; $i < count($array); $i++){
             $this->findError($this->getValidations(), ["answer" => $array[$i]], null);

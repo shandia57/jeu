@@ -2,12 +2,11 @@
 
 namespace App\Classes\ControlDataForm;
 
-use App\Classes\ControlDataForm\ControlDataForm;
 
-class ControlUsersForm extends ControlDataForm
+class ControlUsersForm extends controlDataForm
 {
     // protected $errors = [];
-    protected $validationsSubscription = [
+    protected array $validationsSubscription = [
         'username' => [
             'rules' => [
                 ['name' => 'required'],
@@ -58,7 +57,7 @@ class ControlUsersForm extends ControlDataForm
         ]
     ];
 
-    protected $validationUpdate =[
+    protected array $validationUpdate = [
 
         'firstName' => [
             'rules' => [
@@ -87,11 +86,6 @@ class ControlUsersForm extends ControlDataForm
         ]
     ];
 
-    
-    public function getValidationsSubscription() : array
-    {
-        return $this->validationsSubscription;
-    }
 
     public function getValidationUpdate() : array
     {

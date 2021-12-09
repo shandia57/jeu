@@ -112,8 +112,6 @@
             </table>
         </div>
 
-        <canvas id="canvas" width="800" height="500" style="color:#000;background-color:silver"></canvas>
-
         <!-- Modal Inscription-->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -132,10 +130,12 @@
                                 <label class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password">
                             </div>
+                            <form method="post">
                             <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="checkbox">
-                                <label class="form-check-label" for="exampleCheck1">Keep connected</label>
+                                <input type="checkbox" class="form-check-input" id="remember_me" name="remember_me" checked/>
+                                <label class="form-check-label" for="remember_me">Keep connected</label>
                             </div>
+                            </form>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close
                                 </button>

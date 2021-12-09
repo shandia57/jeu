@@ -2,18 +2,16 @@
 
 namespace App\Classes\ControlDataForm;
 
-
-
 class ControlDataForm
 {
-    protected $errors = [];
+    protected array $errors = [];
 
     public function getErrors() : array
     {
         return $this->errors;
     }
 
-    public function setErrors($errors) : ControlDataForm
+    public function setErrors($errors) : controlDataForm
     {
         $this->errors = $errors;
 
@@ -62,6 +60,7 @@ class ControlDataForm
                                 $this->errors[$fieldName][] = 'Vous devez obligatoirement choisir une des valeurs données dans le sélecteur !';
                             }
                         }
+                        break;
                     case 'unique':
                         // $user = null if we do not want to check this case
                         if($user !== null){
@@ -86,8 +85,4 @@ class ControlDataForm
 
         return $return;
     }
-
-
-
-
 }

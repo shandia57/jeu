@@ -14,6 +14,6 @@ function log_error( $num, $str, $file, $line, $context = null )
 function log_exception( Exception $e )
 {
     echo "Oups something went wrong. Please Try Later.";
-    exit();
+    header('location: /');
 }
 
