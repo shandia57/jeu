@@ -12,12 +12,12 @@ class Homepage extends AbstractController
 
     public function __invoke(): string
     {
-        // A mettre en commentaire pour tester le logout
+        
         session_start();
         if(isset($_POST['logout']) && $_POST['logout'] === "true"){
             $this->logout();
         }
-        // FIN de commentaire
+       
 
 
 
