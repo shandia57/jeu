@@ -1,30 +1,23 @@
 {% extends "layout.html.twig" %}
-
-{% block head %} {{ parent() }} {% endblock %}
-
-{% block bootstrap %} {{ parent() }}  {% endblock %}
-
-{% block fontawesome %} {{ parent() }}  {% endblock %}
-
-{% block css %} 
+{% block css %}
     <link rel="stylesheet" type="text/css" href="../assets/style/style.css">
-
 {% endblock %}
 
-
-{% block title %}Home page{% endblock %}
+{% block title %}
+	Réponse
+{% endblock %}
 
 {% block body %}
-    {% block header %}
         <header>
-        <nav class="navbar navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/"> <i class="fas fa-arrow-left"></i> Retour a la page d'accueil</a>
-            </div>
-        </nav>
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/"> <i class="fas fa-arrow-left"></i> Retour a la page d'accueil</a>
+                </div>
+            </nav>
         </header>
-    {% endblock %}
 
+
+    {% block content  %} 
     <main>
         <p>
                 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -59,18 +52,11 @@
         
     </main>
 
-
-
-
-
-
-
-    {% block modalConnection %}
-        {{ parent() }} 
+    
     {% endblock %}
+
 
 {% endblock %}
 
 
 
-  

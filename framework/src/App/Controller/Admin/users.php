@@ -12,28 +12,21 @@ class Users extends AbstractController
 {
     public function __invoke()
     {
-        // A mettre en commentaire pour tester le logout
+        
         session_start();
-        // Fin de commentaire
-        Users::isAdmin();
+
+
 
         $user = new User();
         $controlUserForm = new ControlUsersForm();
 
-        $userLogged = $_SESSION['user'] ?? null;
+        $this->isConnected = $_SESSION['user'] ?? null;
+        $this->createUserSessionWithCookie();
+        Users::isAdmin();
 
-
-        if(isset($_POST['delete'])){
-            $this->delete($user);
-
-        }else if (isset($_POST['update'])){
-            $this->update($user, $controlUserForm);
-
-        }else if(isset($_POST['insert'])){
-            $this->insert($user, $controlUserForm);
-            
-        }else if (isset($_POST['logout']) && $_POST['logout'] === "true" ){
-            $this->logout();
+        if(!empty($_POST))
+        {
+            $this->controlPostSended($user, $controlUserForm);
         }
 
         $users = $user->getUsers();
@@ -41,8 +34,8 @@ class Users extends AbstractController
         
 
         return $this->render('admin/users.html.twig', [
-            'user' => $userLogged['username'],
-            'user_roles' => $userLogged['roles'],
+            'user' => $this->isConnected['username'],
+            'user_roles' => $this->isConnected['roles'],
             'users' => $users, 
             'username' => $controlUserForm->displayErrors("username"),
             'password' => $controlUserForm->displayErrors("password"),
@@ -78,6 +71,34 @@ class Users extends AbstractController
         if($_POST['delete'] === "true"){
             $user->deleteUser($_POST['id_user']);
 
+        }
+    }
+
+    public function controlPostSended($user, $controlUserForm) : void
+    {
+        if(isset($_POST['delete'])){
+            $this->delete($user);
+
+        }else if (isset($_POST['update'])){
+            $this->update($user, $controlUserForm);
+
+        }else if(isset($_POST['insert'])){
+            $this->insert($user, $controlUserForm);
+            
+        }else if (isset($_POST['logout']) && $_POST['logout'] === "true" ){
+            $this->logout();
+        }
+    }
+
+    public function createUserSessionWithCookie() : void
+    {
+        if (!empty($_COOKIE['remember_user'])  && !empty($_COOKIE['remember_roles']) ){
+            $this->setIsConnected("username","remember_user" );
+            $this->setIsConnected("roles","remember_roles" );
+            $_SESSION['user'] = [
+                "username" => $this->isConnected['username'],       
+                "roles" => $this->isConnected['roles'], 
+            ];
         }
     }
 

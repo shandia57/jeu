@@ -1,18 +1,13 @@
 {% extends "layout.html.twig" %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="../assets/style/style.css">
+{% endblock %}
 
-{% block head %} {{ parent() }} {% endblock %}
-
-{% block bootstrap %} {{ parent() }}  {% endblock %}
-
-{% block fontawesome %} {{ parent() }}  {% endblock %}
-
-{% block css %} {{ parent() }}  {% endblock %}
-
-
-{% block title %}Home page{% endblock %}
+{% block title %}
+	Inscription
+{% endblock %}
 
 {% block body %}
-    {% block header %}
     <header>
         <nav class="navbar navbar-light bg-light">
             <div class="container-fluid">
@@ -20,63 +15,65 @@
             </div>
         </nav>
     </header> 
+
+
+
+    {% block content  %} 
+        <main>
+    
+            <h1>Formulaire d'inscription</h1>
+
+            <div id="containerForm">
+                <form  method="post" name="formulaire">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Username</label>
+                        <input type="text" class="form-control textAligneCenter" aria-describedby="emailHelp" name="username" maxlength="100" required>
+
+                        <div class="invalid-feedback" style="display: block">{{username}}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control textAligneCenter" aria-describedby="emailHelp" name="password" maxlength="100" required>
+                        <div class="form-text">{{ errors.password }}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Confirmation du mot de passe</label>
+                        <input type="password" class="form-control textAligneCenter" aria-describedby="emailHelp" name="passwordConfirm" maxlength="100" required>
+                        <div class="invalid-feedback" style="display: block">{{passwordConfirm}}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Nom</label>
+                        <input type="text" class="form-control textAligneCenter" aria-describedby="emailHelp" name="lastName" maxlength="100" required>
+                        <div class="form-text">{{ errors.lastName}}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Prénom</label>
+                        <input type="text" class="form-control textAligneCenter" aria-describedby="emailHelp" name="firstName" maxlength="100" required>
+                        <div class="form-text">{{ errors.firstName }}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Adresse mail</label>
+                        <input type="email" class="form-control textAligneCenter" aria-describedby="emailHelp" name="mail" maxlength="100" required>
+                        <div class="form-text">{{ error.mail }}</div>
+                    </div>
+
+                    <button type="submit" href="connecToGame" class="btn btn-outline-success">Inscription</button>
+                </form>
+            </div>
+
+
+    
+        </main>
+    
     {% endblock %}
 
-
-    <main>
-    
-    <h1>Formulaire d'inscription</h1>
-
-        <div id="containerForm">
-            <form  method="post" name="formulaire">
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Username</label>
-                    <input type="text" class="form-control textAligneCenter" aria-describedby="emailHelp" name="username" maxlength="100" required>
-
-                    <div class="invalid-feedback" style="display: block">{{username}}</div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Password</label>
-                    <input type="password" class="form-control textAligneCenter" aria-describedby="emailHelp" name="password" maxlength="100" required>
-                    <div class="form-text">{{ errors.password }}</div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Password confirm</label>
-                    <input type="password" class="form-control textAligneCenter" aria-describedby="emailHelp" name="passwordConfirm" maxlength="100" required>
-                    <div class="invalid-feedback" style="display: block">{{passwordConfirm}}</div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Lastname</label>
-                    <input type="text" class="form-control textAligneCenter" aria-describedby="emailHelp" name="lastName" maxlength="100" required>
-                    <div class="form-text">{{ errors.lastName}}</div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Firstname</label>
-                    <input type="text" class="form-control textAligneCenter" aria-describedby="emailHelp" name="firstName" maxlength="100" required>
-                    <div class="form-text">{{ errors.firstName }}</div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control textAligneCenter" aria-describedby="emailHelp" name="mail" maxlength="100" required>
-                    <div class="form-text">{{ error.mail }}</div>
-                </div>
-
-                <button type="submit" href="connecToGame" class="btn btn-outline-success">Inscription</button>
-            </form>
-        </div>
-
-
-    
-    </main>
-
-    {% block modalConnection %}
-        {{ parent() }} 
-    {% endblock %}
 
 {% endblock %}
+
+
 

@@ -3,10 +3,12 @@
 namespace Framework\Controller;
 
 use Framework\Templating\Twig;
-
 abstract class AbstractController
 {
+    
     protected string $anyErrors = "";
+    protected mixed $isConnected;
+
 
     public function render(string $template, array $args = []): string
     {
@@ -18,10 +20,14 @@ abstract class AbstractController
     {
         return strtoupper($_SERVER['REQUEST_METHOD])']) === $_POST;
     }
+
+    
     public function redirect(string $url):void{
         header('location'.$url) ;
         exit();
     }
+
+
     public function isAdmin(): bool
     {
         if(isset($_SESSION['user']) && $_SESSION['user']['roles'] === "ROLES_ADMIN" ){
@@ -44,4 +50,10 @@ abstract class AbstractController
         } 
         header("Location: /");
     }
+
+    public function setIsConnected($key, $cookieName) : void
+    {
+        $this->isConnected[$key]  = $_COOKIE[$cookieName];
+    }
+
 }

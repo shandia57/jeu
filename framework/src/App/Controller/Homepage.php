@@ -12,51 +12,102 @@ class Homepage extends AbstractController
 
     public function __invoke(): string
     {
-        // A mettre en commentaire pour tester le logout
+
         session_start();
-        if(isset($_POST['logout']) && $_POST['logout'] === "true"){
-            $this->logout();
+
+        if(!empty($_POST))
+        {
+            $this->controlPostSended();
         }
-        // FIN de commentaire
-
-
-
-        if (isset($_POST['username']) && isset($_POST['password'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $isConnected= (new User)->userConnection($username, $password);
-
-            if(isset($_POST['checkbox'])){
-                setcookie("remember_user",  $isConnected['username'], time() +
-                (10 * 365 * 24 * 60 * 60));
-                setcookie("remember_roles",  $isConnected['roles'], time() +
-                (10 * 365 * 24 * 60 * 60));
-            }
-    
-        }
+        
 
         $users = (new User)->getUsers();
         $questions = (new Questions)->getAllQuestions();
-        $isConnected = $_SESSION['user'] ?? null;
-
-        if (!empty($_COOKIE['remember_user'])  && !empty($_COOKIE['remember_roles']) ){
-            $isConnected['username']  = $_COOKIE['remember_user'];
-            $isConnected['roles']  = $_COOKIE['remember_roles'];
-            $_SESSION['user'] = [
-                "username" => $isConnected['username'],       
-                "roles" => $isConnected['roles'] 
-            ];
-        }
+        
+        $this->isConnected = $_SESSION['user'] ?? null;
+        $this->createUserSessionWithCookie();
 
 
         $result = (new User)->filterArrayByKeyValue($users, 'username',$isConnected??null['username']??null);
             return $this->render('/home.html.twig', [
-                "user" => $isConnected['username']?? null,
-                "user_roles" => $isConnected['roles']?? null,
+                "user" => $this->isConnected['username']?? null,
+                "user_roles" => $this->isConnected['roles']?? null,
                 "usersNumber" => sizeOf($result),
                 "nbrUsers" => count($users),
                 "nbrQuestions" => count($questions),
+                "anyErrors" => $this->anyErrors,
 
             ]);
         }
+
+        public function sendError() : void
+        {
+            $this->anyErrors = "La connexion à échoué, l'identifiant ou le mot de passe est incorrecte";
+        }
+
+        public function createCookie($cookieName, $value) : void
+        {
+            setcookie($cookieName,   $value, time() +
+            (10 * 365 * 24 * 60 * 60));
+        }
+
+
+        public function tryToConnect() : void
+        {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            if((new User)->userExists($username) == null)
+            {
+                $this->sendError();
+            }
+
+            else
+            {
+                $this->isConnected= (new User)->userConnection($username, $password);
+
+                if (empty($this->isConnected))
+                {
+                    $this->sendError();  
+                }
+
+                else
+                {
+                    if(isset($_POST['checkbox']))
+                    {
+                        $this->createCookie("remember_user",$this->isConnected['username']);
+                        $this->createCookie("remember_roles",$this->isConnected['roles']);
+                    }
+                }
+
+            }
+        }
+
+        public function controlPostSended() : void
+        {
+            if(isset($_POST['logout']))
+            {
+                if ($_POST['logout'] === "true")
+                {
+                    $this->logout();
+                }
+            }
+            else if (isset($_POST['connect']))
+            {
+                $this->tryToConnect();
+            }
+        }
+
+        public function createUserSessionWithCookie() : void
+        {
+            if (!empty($_COOKIE['remember_user'])  && !empty($_COOKIE['remember_roles']) ){
+                $this->setIsConnected("username","remember_user" );
+                $this->setIsConnected("roles","remember_roles" );
+                $_SESSION['user'] = [
+                    "username" => $this->isConnected['username'],       
+                    "roles" => $this->isConnected['roles'], 
+                ];
+            }
+        }
+
 }

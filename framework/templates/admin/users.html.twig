@@ -1,74 +1,63 @@
 {% extends "layout.html.twig" %}
 
-{% block head %} {{ parent() }} {% endblock %}
-
-{% block bootstrap %} {{ parent() }}  {% endblock %}
-
-{% block fontawesome %} {{ parent() }}  {% endblock %}
 
 {% block css %} 
     {{ parent() }}  
     <link rel="stylesheet" type="text/css" href="assets/style/user.css">
-
 {% endblock %}
 
 
-{% block title %}Home page{% endblock %}
+{% block title %}Users{% endblock %}
 
-{% block body %}
-    {% block header %}
-        {{ parent() }} 
-    {% endblock %}
-
-
-<main>
+{% block content %}
+    <main>
         <h1>Users</h1>
 
-        <div class="filter">
-            <div class="input-group mb-3">
-                <input type="text" id="searchbar" class="form-control" placeholder="username">
-                <button class="btn btn-outline-secondary" type="button" id="buttonSearch"><i
-                        class="fas fa-search"></i></button>
+            <div class="filter">
+                <div class="input-group mb-3">
+                    <input type="text" id="searchbar" class="form-control" placeholder="username">
+                    <button class="btn btn-outline-secondary" type="button" id="buttonSearch"><i
+                            class="fas fa-search"></i></button>
+                </div>
+
+                <select id="selectFilter" class="form-select">
+                    <option selected value="ascendant">ID : ascendant</option>
+                    <option value="descendant">ID : descendant</option>
+                    <option value="az">Username:  A - Z</option>
+                    <option value="za">Username:  Z - A</option>
+                </select>
             </div>
 
-            <select id="selectFilter" class="form-select">
-                <option selected value="ascendant">ID : ascendant</option>
-                <option value="descendant">ID : descendant</option>
-                <option value="az">Username:  A - Z</option>
-                <option value="za">Username:  Z - A</option>
-            </select>
-        </div>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#ID</th>
-                    <th scope="col">userName</th>
-                    <th scope="col">firstName</th>
-                    <th scope="col">lastName</th>
-                    <th scope="col">email</th>
-                    <th scope="col">Roles</th>
-                    <th scope="col"></th>
-                    
-                </tr>
-            </thead>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#ID</th>
+                        <th scope="col">username</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Adresse mail</th>
+                        <th scope="col">Roles</th>
+                        <th scope="col"></th>
+                        
+                    </tr>
+                </thead>
+                
+                <tbody id="tbody">
+                        {% for user in users %}
+                            <tr class="dataTr">
+                                <td scope="row">{{user.id_user}} </td>
+                                <td name="username">{{user.username}}</td>
+                                <td>{{user.firstName}}</td>
+                                <td>{{user.lastName}}</td>
+                                <td>{{user.mail}}</td>
+                                <td>{{user.roles}}</td>
+                                <td><button type="button" class="btn btn-outline-info dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setInfoUser(this)">Modifier</button></td>
+                            </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
             
-            <tbody id="tbody">
-                    {% for user in users %}
-                        <tr class="dataTr">
-                            <td scope="row">{{user.id_user}} </td>
-                            <td name="username">{{user.username}}</td>
-                            <td>{{user.firstName}}</td>
-                            <td>{{user.lastName}}</td>
-                            <td>{{user.mail}}</td>
-                            <td>{{user.roles}}</td>
-                            <td><button type="button" class="btn btn-outline-info dataUser" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="setInfoUser(this)">Modifier</button></td>
-                         </tr>
-                    {% endfor %}
-            </tbody>
-        </table>
-        
-        <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#modalSubscribe">Ajouter un nouvel utilisateur</button>
+            <button type="button" class="btn btn-outline-success"  data-bs-toggle="modal" data-bs-target="#modalSubscribe">Ajouter un nouvel utilisateur</button>
 
     </main>
 
@@ -86,15 +75,15 @@
                     <input name="id_user"  id="id_user" type="hidden">
                     {# <input name="username" id="username" type="hidden"> #}
 
-                    <label for="firstName" class="form-label" >first name</label>
+                    <label for="firstName" class="form-label" >Prénom</label>
                     <input id="firstName" class="form-control" name="firstName" type="text">
                     <div class="form-text">{{firstName}}</div>
 
-                    <label for="lastName" class="form-label">last name</label>
+                    <label for="lastName" class="form-label">Nom</label>
                     <input id="lastName" class="form-control" name="lastName" type="text">
                     <div class="form-text">{{lastName}}</div>
 
-                    <label for="mail" class="form-label">email</label>
+                    <label for="mail" class="form-label">Adresse mail</label>
                     <input id="mail" class="form-control" name="mail" type="text">
                     <div class="form-text">{{mail}}</div>
 
@@ -105,10 +94,19 @@
                     </select>
                     <div class="form-text">{{roles}}</div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="update">Save changes</button>
-                    <button type="submit" id="btnDelete" class="btn btn-danger" data-bs-dismiss="modal" name="delete">Delete</button>
+
+
+                <div class="position-relative">
+                    <hr>
+                    <div id="containerBtn">
+                        <button type="submit" id="btnDelete" class="btn btn-danger " data-bs-dismiss="modal" name="delete">Supprimer</button>
+                        <button type="submit" id="btnModifier" class="btn btn-primary" name="update">Modifier</button>
+                    </div>
+                </div>
+                
+
+
+                
                 </div>
                 </form>
 
@@ -130,23 +128,23 @@
                         <input  id="usernameSub" class="form-control" type="text" name="username">
                         <div class="form-text">{{username}}</div>
 
-                        <label for="passwordSub" class="form-label">Password</label>
+                        <label for="passwordSub" class="form-label">Mot de passe</label>
                         <input  id="passwordSub" class="form-control" type="password" name="password">
                         <div class="form-text">{{password}}</div>
 
-                        <label for="passwordConfSub" class="form-label">Password</label>
+                        <label for="passwordConfSub" class="form-label">Confirmation du mot de passe</label>
                         <input  id="passwordConfSub" class="form-control" type="password" name="passwordConfirm">
                         <div class="form-text">{{passwordConfirm}}</div>
 
-                        <label for="firstNameSub" class="form-label">First name</label>
+                        <label for="firstNameSub" class="form-label">Prénom</label>
                         <input  id="firstNameSub" class="form-control" type="text" name="firstName">
                         <div class="form-text">{{firstName}}</div>
 
-                        <label for="lastNameSub" class="form-label">Last name</label>
+                        <label for="lastNameSub" class="form-label">Nom</label>
                         <input  id="lastNameSub" class="form-control" type="text" name="lastName">
                         <div class="form-text">{{lastName}}</div>
 
-                        <label for="mailSub" class="form-label">Mail</label>
+                        <label for="mailSub" class="form-label">Adresse mail</label>
                         <input  id="mailSub" class="form-control" type="text" name="mail">
                         <div class="form-text">{{mail}}</div>
                         
@@ -157,8 +155,7 @@
                         <div class="form-text">{{roles}}</div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" name="insert">Insert new user</button>
+                        <button type="submit" class="btn btn-success" name="insert">Ajotuer cet utilisateur</button>
                     </div>
                 </form>
             </div>
@@ -166,19 +163,15 @@
     </div>
 
 
-  
-    {% block scriptjs %}
+    {% endblock %}
+
+    {% block javascript %}
         {{ parent() }} 
         <script type="text/javascript" src="assets/script/scripts/users.js"></script>
         <script type="module" src="assets/script/modules/users/users.js"></script>
     {% endblock %}
 
 
-    {% block modalConnection %}
-        {{ parent() }} 
-    {% endblock %}
-
-{% endblock %}
 
 
 

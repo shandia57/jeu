@@ -19,13 +19,13 @@ class Question extends AbstractController
 
     public function __invoke(): string
     {
-        // A mettre en commentaire pour tester le logout
+ 
         session_start();
-        // Fin de commentaire
-        Question::isAdmin();
-        
 
-        $userLogged = $_SESSION['user'] ?? null;
+        $this->isConnected = $_SESSION['user'] ?? null;
+        $this->createUserSessionWithCookie();
+        Question::isAdmin();
+
 
 
         $question = new Questions();
@@ -34,27 +34,19 @@ class Question extends AbstractController
         $controlQuestionsForm = new ControlQuestionsForm();
         $controlAnswersForm = new ControlAnswersForm();
 
-
-        if (isset($_POST['insertQuestion'])) {
-            $this->insert($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers);
-        
-        }else if (isset($_POST['UpdateQuestions'])){
-
-            $this->update($question, $controlQuestionsForm);
-
-        }else if (isset($_POST['deleteQuestions']) && $_POST['deleteQuestions'] === "true"){
-            $this->delete($question);
-
-        }else if (isset($_POST['logout']) && $_POST['logout'] === "true"){
-            $this->logout();
+        if(!empty($_POST))
+        {
+            $this->controlPostSended($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers);
         }
+
+
 
         $users = (new User)->getUsers();
         $questions = $question->getAllQuestions();
 
         return $this->render('admin/questions.html.twig', [
-            'user' => $userLogged['username'],
-            'user_roles' => $userLogged['roles'],
+            'user' => $this->isConnected['username'],
+            'user_roles' => $this->isConnected['roles'],
             'title' => "Questions",
             'questions' => $questions, 
             'label' =>  $controlQuestionsForm->displayErrors("label"),
@@ -118,6 +110,34 @@ class Question extends AbstractController
         $question->deleteQuestion($_POST['idQuestionsUpdate']);
     }
 
+    public function controlPostSended($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers) : void
+    {
+        if (isset($_POST['insertQuestion'])) {
+            $this->insert($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers);
+        
+        }else if (isset($_POST['UpdateQuestions'])){
+
+            $this->update($question, $controlQuestionsForm);
+
+        }else if (isset($_POST['deleteQuestions']) && $_POST['deleteQuestions'] === "true"){
+            $this->delete($question);
+
+        }else if (isset($_POST['logout']) && $_POST['logout'] === "true"){
+            $this->logout();
+        }
+    }
+
+    public function createUserSessionWithCookie() : void
+    {
+        if (!empty($_COOKIE['remember_user'])  && !empty($_COOKIE['remember_roles']) ){
+            $this->setIsConnected("username","remember_user" );
+            $this->setIsConnected("roles","remember_roles" );
+            $_SESSION['user'] = [
+                "username" => $this->isConnected['username'],       
+                "roles" => $this->isConnected['roles'], 
+            ];
+        }
+    }
 
   
 }

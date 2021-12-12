@@ -1,25 +1,17 @@
 {% extends "layout.html.twig" %}
 
-{% block head %} {{ parent() }} {% endblock %}
-
-{% block bootstrap %} {{ parent() }}  {% endblock %}
-
-{% block fontawesome %} {{ parent() }}  {% endblock %}
 
 {% block css %} 
-
     {{ parent() }} 
     <link rel="stylesheet" type="text/css" href="assets/style/questions.css">
-
 {% endblock %}
 
 
-{% block title %}Home page{% endblock %}
+{% block title %}Questions{% endblock %}
 
-{% block body %}
-    {% block header %}
-        {{ parent() }} 
-    {% endblock %}
+
+
+{% block content %}
 
         <main>
         <h1>Questions</h1>
@@ -83,7 +75,7 @@
         <form action="questions" method="post">
             <div class="modal-body list-group list-group-flush">
                 <div class="list-group-item">
-                    <label for="exampleInputEmail1" class="form-label">Label question</label>
+                    <label for="exampleInputEmail1" class="form-label">Thème question</label>
                     <input class="form-control" type="text" name="label">
                     <div class="form-text">{{label}}</div>
                 </div>
@@ -127,8 +119,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" name="insertQuestion">Submit</button>
+                <button type="submit" class="btn btn-primary" name="insertQuestion">Envoyer</button>
             </div>
         </form>
 
@@ -172,30 +163,31 @@
 
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                        <button type="submit" id="btnDelete" class="btn btn-danger"  name="deleteQuestions">Supprimer</button>
-                        <button type="submit" class="btn btn-primary" name="UpdateQuestions">Modifier</button>
+                    <div class="position-relative">
+                        <hr>
+                        <div id="containerBtn">
+                            <button type="submit" id="btnDelete" class="btn btn-danger " data-bs-dismiss="modal" name="deleteQuestions">Supprimer</button>
+                            <button type="submit" id="btnModifier" class="btn btn-primary" name="UpdateQuestions">Modifier</button>
+                        </div>
                     </div>
             </form>
 
             </div>
         </div>
     </div>
+{% endblock %}
 
-    {% block scriptjs %}
+
+
+
+{% block javascript %}
         {{ parent() }} 
         <script type="text/javascript" src="assets/script/scripts/questions.js"></script>
         <script type="module" src="assets/script/modules/questions/questions.js"></script>
-    {% endblock %}
-
-
-
-    {% block modalConnection %}
-        {{ parent() }} 
-    {% endblock %}
-
 {% endblock %}
+
+
+
 
 
 

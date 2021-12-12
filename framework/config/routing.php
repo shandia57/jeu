@@ -1,15 +1,16 @@
 <?php
 
 use App\Controller\Homepage;
-use App\Controller\Fail;
+use App\Controller\Fail\Fail;
 
 use App\Controller\Admin\Question;
 use App\Controller\Admin\Answer;
 use App\Controller\Admin\Users;
 
+use App\Controller\Subscribe\Subscribe;
+
 use App\Controller\Logout;
 use App\Controller\UserLogin;
-use App\Controller\Subscribe;
 
 use Framework\Routing\Route;
 

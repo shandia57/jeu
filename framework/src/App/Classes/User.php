@@ -224,13 +224,10 @@ class User
                     "username" => $result[0]['username'],       
                     "roles" => $result[0]['roles'] 
                 ];
-                // echo $_SESSION['test']['username'];
                 return $_SESSION['user']; 
-                
-                
             }
         }
-        return false;
+        return [];
 
     }
     public function filterArrayByKeyValue($array, $key, $keyValue)

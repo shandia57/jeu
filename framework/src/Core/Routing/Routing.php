@@ -27,7 +27,7 @@ class Routing
         $routeInfo = $this->dispatcher->dispatch($method, $uri);
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                echo 'Route non trouvée';die;
+                header("Location: /");die;
                 break;
             case Dispatcher::METHOD_NOT_ALLOWED:
                 $allowedMethods = $routeInfo[1];

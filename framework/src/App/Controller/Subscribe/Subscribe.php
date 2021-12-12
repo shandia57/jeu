@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Subscribe;
 
 use Framework\Controller\AbstractController;
 use App\Classes\User;
@@ -10,6 +10,7 @@ class Subscribe extends AbstractController
 {
     public function __invoke(): string
     {
+        session_start();
         $user = new User();
         $controlUserSubForm = new ControlUserSubForm();
         if (!empty($_POST)) {
@@ -21,6 +22,10 @@ class Subscribe extends AbstractController
                 $_POST['roles'] = "ROLES_USER";
                 $user->insertUser($_POST);
                 if ($user) {
+                    $_SESSION['user'] = [
+                        "username" => $_POST['username'],       
+                        "roles" => $_POST['roles'] 
+                    ];
                     header("Location: /");
                 } else {
                     echo 'Une erreur est survenue pendant votre inscription !';

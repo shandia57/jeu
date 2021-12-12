@@ -42,4 +42,10 @@ select{
     color:red;
     margin-bottom:3%;
 }
-
+#containerBtn{
+    padding:10px;
+}
+#btnModifier{
+    position: absolute;
+    right:2%;
+}
