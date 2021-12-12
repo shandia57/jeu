@@ -13,6 +13,7 @@ class Homepage extends AbstractController
     public function __invoke(): string
     {
 
+
         session_start();
 
         if(!empty($_POST))
