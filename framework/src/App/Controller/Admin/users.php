@@ -90,16 +90,5 @@ class Users extends AbstractController
         }
     }
 
-    public function createUserSessionWithCookie() : void
-    {
-        if (!empty($_COOKIE['remember_user'])  && !empty($_COOKIE['remember_roles']) ){
-            $this->setIsConnected("username","remember_user" );
-            $this->setIsConnected("roles","remember_roles" );
-            $_SESSION['user'] = [
-                "username" => $this->isConnected['username'],       
-                "roles" => $this->isConnected['roles'], 
-            ];
-        }
-    }
 
 }
