@@ -44,7 +44,7 @@ class Question extends AbstractController
         $users = (new User)->getUsers();
         $questions = $question->getAllQuestions();
 
-        return $this->render('admin/questions.html.twig', [
+        return $this->render('Admin/questions.html.twig', [
             'user' => $this->isConnected['username'],
             'user_roles' => $this->isConnected['roles'],
             'title' => "Questions",

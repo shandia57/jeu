@@ -14,7 +14,7 @@ class Fail extends AbstractController
         if(isset($_SESSION['user']) && $_SESSION['user']['roles'] === "ROLES_ADMIN" ){
             header("Location: /");
         }
-            return $this->render('/fail/fail.html.twig', [
+            return $this->render('/Fail/fail.html.twig', [
             ]);
         }
 }

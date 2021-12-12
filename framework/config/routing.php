@@ -38,6 +38,5 @@ return [
     new Route('PUT','/connectToGame', Logout::class),
 
     new Route('GET','/subscribe', Subscribe::class),
-    new Route('POST','/subscribe', Subscribe::class)
-
+    new Route('POST','/subscribe', Subscribe::class),
 ];

@@ -44,7 +44,7 @@ class Answer extends AbstractController
             header("location: /questions");
         }
         
-        return $this->render('admin/answer.html.twig', [
+        return $this->render('Admin/answer.html.twig', [
             'title' => "Questions",
             'questions' => $questions??null,
             'answers' => $answers??null,
