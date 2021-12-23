@@ -1,8 +1,7 @@
 <?php 
 
-namespace App\Classes\ControlDataForm;
-use PDO;
-use App\Classes\ControlDataForm\ControlDataForm;
+namespace App\Class\ControlDataForm\ControlDataEntity;
+use App\Class\ControlDataForm\ControlDataForm;
 
 class ControlQuestionsForm extends ControlDataForm
 {

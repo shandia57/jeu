@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Classes;
-  use PDO;
-  require(dirname(__DIR__) . '/Page/handleErrors.php');
+namespace App\Class\Connection;
+use PDO;
+  require(dirname(__DIR__) . '../../Page/handleErrors.php');
 
   class Connection{
 
@@ -33,7 +33,7 @@ namespace App\Classes;
 
       public static function get(): ?PDO
       {
-          $config = require(dirname(__DIR__) . '/../../config/app.conf.php');
+          $config = require(dirname(__DIR__) . '../../../../config/app.conf.php');
           $config = $config['database'];
           $dsn = $config['connection'];
           $username = $config['username'];

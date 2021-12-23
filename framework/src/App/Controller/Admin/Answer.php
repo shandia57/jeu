@@ -3,11 +3,14 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-use App\Classes\Admin\Questions\Questions;
-use App\Classes\Admin\Answers\Answers;
-use App\Classes\Admin\Questions_Answers\QuestionsAnswers;
-use  App\Classes\ControlDataForm\ControlAnswersForm;
+use App\Class\Admin\Questions\Questions;
+use App\Class\Admin\Answers\Answers;
+use App\Class\Admin\Questions_Answers\QuestionsAnswers;
+use  App\Class\ControlDataForm\ControlDataEntity\ControlAnswersForm;
 
+use App\Manager\Answers\Insert;
+use App\Manager\Answers\Update;
+use App\Manager\Answers\Delete;
 
 
 class Answer extends AbstractController
@@ -30,7 +33,7 @@ class Answer extends AbstractController
 
         if(!empty($_POST))
         {
-            $this->controlPostSended($id);
+            $this->controlPostSended($id, $controlAnswersForm);
         }
 
 
@@ -96,16 +99,24 @@ class Answer extends AbstractController
         }
     }
 
-    public function controlPostSended($id) : void
+    public function controlPostSended($id, $controlAnswersForm) : void
     {
         if(isset($_POST ['updateAnswer'])){
-            $this->update();
+            // $this->update();
+            $update = (new Update)->update();
+            if($update !== true){
+                $controlAnswersForm->setErrors($update);
+            }
 
-        }else if (isset($_POST ['deleteAnswer'])){
-            $this->delete();
+        }else if (isset($_POST['deleteAnswer'])){
+            $this->delete();    
 
         }else if (isset($_POST ['insertAnswer'])){
-            $this->insert($id);            
+            // $this->insert($id);    
+            $insert = (new Insert)->insert($id);
+            if($insert !== true){
+                $controlAnswersForm->setErrors($insert);
+            }        
         }
     }
 

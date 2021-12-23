@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Classes;
-require_once "Connection.php";
+namespace App\Class\User;
+use App\Class\Connection\Connection;
 use PDO;
 
 class User

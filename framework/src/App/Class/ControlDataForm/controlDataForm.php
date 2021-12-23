@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Classes\ControlDataForm;
+namespace App\Class\ControlDataForm;
 
 
 

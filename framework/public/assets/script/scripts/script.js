@@ -1,13 +1,13 @@
 let logout = document.getElementById("logout");
 let anyErrors = document.getElementById("anyErrors");
-
+console.log("FONCTIONNE FILS DE PUTE");
 
 if (logout) {
-    logout.addEventListener("click", () => {
+    logout.addEventListener("click", (e) => {
         if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?  ")) {
-            logout.value = "true";
+            e.target.type = "submit";
+            e.target.value = "true";
         }
-
     })
 }
 

@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Classes\Admin\Questions;
+namespace App\Class\Admin\Questions;
+use  App\Class\Connection\Connection;
 use PDO;
-use  App\Classes\Connection;
 
 class Questions
 {
@@ -126,12 +126,14 @@ class Questions
 
     public function updateQuestion($dataQuestion) : bool
     {
+        $label = addslashes($dataQuestion['label']);
+        $question = addslashes($dataQuestion['question']);
         $connection = Connection::get();
         $sql = "UPDATE `questions` SET 
-         `label`=  '$dataQuestion[label]', 
+         `label`=  '$label', 
          `level` = '$dataQuestion[level]', 
-         `question` = '$dataQuestion[question]' 
-          WHERE `questions`.`id_question` = '$dataQuestion[idQuestionsUpdate]' ;";
+         `question` = '$question' 
+          WHERE `questions`.`id_question` = $dataQuestion[idQuestionsUpdate] ;";
         $stmt = $connection->prepare($sql);
         return $stmt->execute();
     }

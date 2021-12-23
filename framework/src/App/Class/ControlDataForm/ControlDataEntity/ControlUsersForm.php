@@ -1,12 +1,11 @@
 <?php 
 
-namespace App\Classes\ControlDataForm;
+namespace App\Class\ControlDataForm\ControlDataEntity;
+use App\Class\ControlDataForm\ControlDataForm;
 
-use App\Classes\ControlDataForm\ControlDataForm;
-
-class ControlUserSubForm extends ControlDataForm
+class ControlUsersForm extends ControlDataForm
 {
-
+    // protected $errors = [];
     protected $validationsSubscription = [
         'username' => [
             'rules' => [
@@ -49,14 +48,53 @@ class ControlUserSubForm extends ControlDataForm
                 ['name' => 'maxlength', 'value' => 100],
                 ['name' => 'mail'],
             ]
+        ],
+        'roles' => [
+            'rules' => [
+                ['name' => 'required'],
+                ['name' => 'shouldBe', 'value' => ["ROLES_ADMIN", "ROLES_USER"]]
+            ]
         ]
     ];
 
+    protected $validationUpdate =[
 
+        'firstName' => [
+            'rules' => [
+                ['name' => 'required'],
+                ['name' => 'maxlength', 'value' => 100]
+            ]
+        ],
+        'lastName' => [
+            'rules' => [
+                ['name' => 'required'],
+                ['name' => 'maxlength', 'value' => 100]
+            ]
+        ],
+        'mail' => [
+            'rules' => [
+                ['name' => 'required'],
+                ['name' => 'maxlength', 'value' => 100],
+                ['name' => 'mail'],
+            ]
+        ],
+        'roles' => [
+            'rules' => [
+                ['name' => 'required'],
+                ['name' => 'shouldBe', 'value' => ["ROLES_ADMIN", "ROLES_USER"]]
+            ]
+        ]
+    ];
+
+    
     public function getValidationsSubscription() : array
     {
         return $this->validationsSubscription;
     }
 
+    public function getValidationUpdate() : array
+    {
+        return $this->validationUpdate;
+    }
     
 }

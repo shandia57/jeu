@@ -3,9 +3,14 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-use App\Classes\User;
-use App\Classes\Admin\Questions\Questions;
-use  App\Classes\ControlDataForm\ControlUsersForm;
+use App\Class\User\User;
+use App\Class\Admin\Questions\Questions;
+use App\Class\ControlDataForm\ControlDataEntity\ControlUsersForm;
+
+use App\Manager\Users\Insert;
+use App\Manager\Users\Update;
+use App\Manager\Users\Delete;
+use App\Manager\Users\Get;
 
 
 class Users extends AbstractController
@@ -14,10 +19,7 @@ class Users extends AbstractController
     {
         
         session_start();
-
-
-
-        $user = new User();
+        
         $controlUserForm = new ControlUsersForm();
 
         $this->isConnected = $_SESSION['user'] ?? null;
@@ -26,10 +28,10 @@ class Users extends AbstractController
 
         if(!empty($_POST))
         {
-            $this->controlPostSended($user, $controlUserForm);
+            $this->controlPostSended($controlUserForm);
         }
 
-        $users = $user->getUsers();
+        $users = (new Get)->get();
         $questions = (new Questions)->getAllQuestions();
         
 
@@ -50,40 +52,28 @@ class Users extends AbstractController
         ]);        
     }
 
-    public function insert($user, $controlUserForm) : void
-    {
-        $controlUserForm->findError($controlUserForm->getValidationsSubscription(),$_POST, $user);
-        if(empty($controlUserForm->getErrors())){
-            $user->insertUser($_POST);
-        }else{
-            $this->anyErrors = "L'inscription à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
-        }
-    }
-    public function update($user, $controlUserForm) : void
-    {
-        $controlUserForm->findError($controlUserForm->getValidationUpdate(), $_POST, $user);
-        if(empty($controlUserForm->getErrors())){
-            $user->updateUser($_POST);
-        }
-    }
-    public function delete($user) : void
-    {
-        if($_POST['delete'] === "true"){
-            $user->deleteUser($_POST['id_user']);
-
-        }
-    }
-
-    public function controlPostSended($user, $controlUserForm) : void
+    public function controlPostSended($controlUserForm) : void
     {
         if(isset($_POST['delete'])){
-            $this->delete($user);
+            $delete = (new Delete)->delete();
+            if($delete !== true){
+                $this->anyErrors = "La suppression à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+            }
+
 
         }else if (isset($_POST['update'])){
-            $this->update($user, $controlUserForm);
+            $update = (new Update)->update();
+            if($update !== true){
+                $controlUserForm->setErrors($update);
+                $this->anyErrors = "La modification à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+            }
 
         }else if(isset($_POST['insert'])){
-            $this->insert($user, $controlUserForm);
+            $insert = (new Insert)->insert();
+            if($insert !== true){
+                $controlUserForm->setErrors($insert);
+                $this->anyErrors = "L'inscription à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+            }
             
         }else if (isset($_POST['logout']) && $_POST['logout'] === "true" ){
             $this->logout();

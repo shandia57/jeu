@@ -3,19 +3,20 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-use App\Classes\User;
-use App\Classes\Admin\Questions\Questions;
-use App\Classes\Admin\Answers\Answers;
-use App\Classes\Admin\Questions_Answers\QuestionsAnswers;
-use  App\Classes\ControlDataForm\ControlQuestionsForm;
-use  App\Classes\ControlDataForm\ControlAnswersForm;
+use App\Class\User\User;
+use App\Class\Admin\Questions\Questions;
+use App\Class\Admin\Answers\Answers;
+use  App\Class\ControlDataForm\ControlDataEntity\ControlQuestionsForm;
+use  App\Class\ControlDataForm\ControlDataEntity\ControlAnswersForm;
 
-
+use App\Manager\Questions\Insert;
+use App\Manager\Questions\Update;
+use App\Manager\Questions\Delete;
+use App\Manager\Questions\Get;
 
 
 class Question extends AbstractController
 {
-
 
     public function __invoke(): string
     {
@@ -26,23 +27,21 @@ class Question extends AbstractController
         $this->createUserSessionWithCookie();
         Question::isAdmin();
 
-
-
         $question = new Questions();
         $answer = new Answers();
-        $questionsAnswers = new QuestionsAnswers();
+
         $controlQuestionsForm = new ControlQuestionsForm();
         $controlAnswersForm = new ControlAnswersForm();
 
         if(!empty($_POST))
         {
-            $this->controlPostSended($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers);
+            $this->controlPostSended($controlAnswersForm, $controlQuestionsForm, $question, $answer);
         }
 
 
 
         $users = (new User)->getUsers();
-        $questions = $question->getAllQuestions();
+        $questions = (new Get)->get();
 
         return $this->render('Admin/questions.html.twig', [
             'user' => $this->isConnected['username'],
@@ -61,66 +60,25 @@ class Question extends AbstractController
     }
 
 
-    public function insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $details) : void
-    {
-            $id_question = $question->getMaxNumberIdQuestions();
-            $id_question = $question->returnNumberIfEmptyID($id_question);
-
-            $question->insertQuestion($details, $id_question);
-
-            for($i = 0; $i < count($details['answer']); $i++){
-
-                if(isset($_POST["validAnswer" .$i + 1])){
-                    $validAnswer = 1;
-                    $answer->insertAnswer($details['answer'][$i], $validAnswer);
-        
-                }else{
-                    $validAnswer = 0;
-                    $answer->insertAnswer($details['answer'][$i], $validAnswer);
-                }
-
-                $id_answer = $answer->getNumberIdAnswer();
-                $id_answer = $answer->returnNumberIfEmptyID($id_answer);
-
-                $questionsAnswers->linkQuestionWithAnswer($id_question, $id_answer);
-            }
-    }
-
-    public function insert($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers): void
-    {
-        $controlAnswersForm->findErrosIntoArray($_POST['answer']);
-        $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);
-        if(empty($controlQuestionsForm->getErrors())){
-            $this->insertQuestionsAndAnswers($question, $answer, $questionsAnswers, $_POST);
-        }else{
-            $this->anyErrors = "L'ajout d'une nouvelle question à échoué, cliquez sur 'Ajouter une nouvelle question' pour avoir plus de détails";
-        }
-    }
-
-    public function update($question, $controlQuestionsForm) : void
-    {
-        $controlQuestionsForm->findError($controlQuestionsForm->getValidations(), $_POST, null);            
-        if(empty($controlQuestionsForm->getErrors())){
-            $question->updateQuestion($_POST);
-        }
-    }
-
-    public function delete($question) : void
-    {
-        $question->deleteQuestion($_POST['idQuestionsUpdate']);
-    }
-
-    public function controlPostSended($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers) : void
+    public function controlPostSended($controlAnswersForm, $controlQuestionsForm) : void
     {
         if (isset($_POST['insertQuestion'])) {
-            $this->insert($controlAnswersForm, $controlQuestionsForm, $question, $answer, $questionsAnswers);
-        
+            $insert = (new Insert)->insert();
+            if($insert !== true){
+               $controlQuestionsForm->setErrors($insert[0]); 
+               $controlAnswersForm->setErrors($insert[1]); 
+               $this->anyErrors = "L'insertion de la question à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+            }
         }else if (isset($_POST['UpdateQuestions'])){
 
-            $this->update($question, $controlQuestionsForm);
+            $update = (new Update)->update();
+            if($update !== true){
+                $controlQuestionsForm->setErrors($update);
+               $this->anyErrors = "La modification de la question à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+            }
 
         }else if (isset($_POST['deleteQuestions']) && $_POST['deleteQuestions'] === "true"){
-            $this->delete($question);
+            $delete = (new Delete)->delete();   
 
         }else if (isset($_POST['logout']) && $_POST['logout'] === "true"){
             $this->logout();

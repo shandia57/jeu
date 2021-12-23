@@ -1,9 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Classes\User;
-use App\Classes\Admin\Questions\Questions;
-
+use App\Class\User\User;
+use App\Class\Admin\Questions\Questions;
 use Framework\Controller\AbstractController;
 
 class Homepage extends AbstractController
@@ -12,7 +11,6 @@ class Homepage extends AbstractController
 
     public function __invoke(): string
     {
-
 
         session_start();
 

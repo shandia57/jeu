@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Classes\Admin\Answers;
+namespace App\Class\Admin\Answers;
+use  App\Class\Connection\Connection;
 use PDO;
-use  App\Classes\Connection;
 
 
 class Answers
@@ -111,9 +111,11 @@ class Answers
 
     public function updateAnswer($dataAnswer, $validAnswer) : bool
     {
+
+        $answer = addslashes($dataAnswer['answer']);
         $connection = Connection::get();
         $sql = "UPDATE `answer` SET 
-         `answer`=  '$dataAnswer[answer]', 
+         `answer`=  '$answer', 
          `valid` = '$validAnswer' 
           WHERE `answer`.`id_answer` = '$dataAnswer[idAnswerUpdate]' ;";
         $stmt = $connection->prepare($sql);

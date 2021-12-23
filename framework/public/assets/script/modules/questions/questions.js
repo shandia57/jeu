@@ -12,6 +12,7 @@ document.getElementById("selectFilter").addEventListener("change", (e) => {
 
 document.getElementById("btnDelete").addEventListener("click", (e) => {
     if (confirm("Êtes vous sûr de vouloir supprimer cette question ? ")) {
+        e.target.type = "submit";
         e.target.value = true;
     }
 })

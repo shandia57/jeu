@@ -3,8 +3,8 @@
 namespace App\Controller\Subscribe;
 
 use Framework\Controller\AbstractController;
-use App\Classes\User;
-use App\Classes\ControlDataForm\ControlUserSubForm;
+use App\Class\User\User;
+use App\Class\ControlDataForm\ControlDataEntity\ControlUserSubForm;
 
 class Subscribe extends AbstractController
 {

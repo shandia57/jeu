@@ -1,8 +1,8 @@
 <?php 
 
-namespace App\Classes\Admin\Questions_Answers;
+namespace App\Class\Admin\Questions_Answers;
+use  App\Class\Connection\Connection;
 use PDO;
-use  App\Classes\Connection;
 
 class QuestionsAnswers
 {
