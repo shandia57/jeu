@@ -15,7 +15,8 @@ function updateAnswer(data) {
 
 
 document.getElementById("btnDelete").addEventListener("click", (e) => {
-    if (confirm("Êtes vous sûr de vouloir supprimer cette question ? ")) {
+    if (confirm("Baise ta mère la pute vous sûr de vouloir supprimer cette question ? ")) {
         e.target.value = true;
+        e.target.type = "submit";
     }
 })

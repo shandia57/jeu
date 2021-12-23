@@ -10,4 +10,10 @@ class Get
         $question = new Questions();
         return $question->getAllQuestions();
     }
+
+    public function getSingle($id)
+    {
+        $question = new Questions();
+        return $question->getSingleQuestion($id);
+    }
 }
