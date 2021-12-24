@@ -64,7 +64,7 @@ class ControlDataForm
                         // $user = null if we do not want to check this case
                         if ($user !== null) {
                             if ($user->userExists($dataPosted[$fieldName])) {
-                                $this->errors[$fieldName][] = $rule['validationMessage'] ?? 'Username déjà existante !';
+                                $this->errors[$fieldName][] = $rule['validationMessage'] ?? 'Username déjà existant !';
                             }
                         }
                         break;

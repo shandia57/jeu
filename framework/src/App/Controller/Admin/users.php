@@ -57,7 +57,7 @@ class Users extends AbstractController
         if(isset($_POST['delete'])){
             $delete = (new Delete)->delete();
             if($delete !== true){
-                $this->anyErrors = "La suppression à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+                $this->anyErrors = "La suppression a échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
             }
 
 
@@ -65,14 +65,14 @@ class Users extends AbstractController
             $update = (new Update)->update();
             if($update !== true){
                 $controlUserForm->setErrors($update);
-                $this->anyErrors = "La modification à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+                $this->anyErrors = "La modification a échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
             }
 
         }else if(isset($_POST['insert'])){
             $insert = (new Insert)->insert();
             if($insert !== true){
                 $controlUserForm->setErrors($insert);
-                $this->anyErrors = "L'inscription à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+                $this->anyErrors = "L'inscription a échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
             }
             
         }else if (isset($_POST['logout']) && $_POST['logout'] === "true" ){

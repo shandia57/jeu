@@ -67,14 +67,14 @@ class Question extends AbstractController
             if($insert !== true){
                $controlQuestionsForm->setErrors($insert[0]); 
                $controlAnswersForm->setErrors($insert[1]); 
-               $this->anyErrors = "L'insertion de la question à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+               $this->anyErrors = "L'insertion de la question a échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
             }
         }else if (isset($_POST['UpdateQuestions'])){
 
             $update = (new Update)->update();
             if($update !== true){
                 $controlQuestionsForm->setErrors($update);
-               $this->anyErrors = "La modification de la question à échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
+               $this->anyErrors = "La modification de la question a échoué, cliquez sur 'Ajouter un nouvel utilisateur' pour avoir plus de détails";
             }
 
         }else if (isset($_POST['deleteQuestions']) && $_POST['deleteQuestions'] === "true"){

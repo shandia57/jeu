@@ -41,7 +41,7 @@ class Homepage extends AbstractController
 
         public function sendError() : void
         {
-            $this->anyErrors = "La connexion à échoué, l'identifiant ou le mot de passe est incorrecte";
+            $this->anyErrors = "La connexion a échoué, l'identifiant ou le mot de passe est incorrect";
         }
 
         public function createCookie($cookieName, $value) : void
