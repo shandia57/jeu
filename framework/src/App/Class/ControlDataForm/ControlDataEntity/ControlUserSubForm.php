@@ -12,7 +12,7 @@ class ControlUserSubForm extends ControlDataForm
                 ['name' => 'required'],
                 ['name' => 'maxlength', 'value' => 20],
                 ['name' => 'isString'],
-                ['name' => 'unique', 'dbname' => 'jeudeloieV2', 'validationMessage' => 'Utilisateur déjà existant !'],
+                ['name' => 'unique'],
             ]
         ],
         'password' => [

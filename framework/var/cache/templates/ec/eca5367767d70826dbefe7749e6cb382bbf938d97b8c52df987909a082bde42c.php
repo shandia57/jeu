@@ -113,7 +113,7 @@ class __TwigTemplate_f9d98189deee3f1c1c982a821d1f4c5fc7bc4b1f2a5bd38e3a6f78b4650
                         <input type=\"password\" class=\"form-control textAligneCenter\" aria-describedby=\"emailHelp\" name=\"password\" maxlength=\"100\" required>
                         <div class=\"form-text\">";
         // line 38
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["errors"] ?? null), "password", [], "any", false, false, false, 38), "html", null, true);
+        echo twig_escape_filter($this->env, ($context["password"] ?? null), "html", null, true);
         echo "</div>
                     </div>
 
@@ -131,7 +131,7 @@ class __TwigTemplate_f9d98189deee3f1c1c982a821d1f4c5fc7bc4b1f2a5bd38e3a6f78b4650
                         <input type=\"text\" class=\"form-control textAligneCenter\" aria-describedby=\"emailHelp\" name=\"lastName\" maxlength=\"100\" required>
                         <div class=\"form-text\">";
         // line 50
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["errors"] ?? null), "lastName", [], "any", false, false, false, 50), "html", null, true);
+        echo twig_escape_filter($this->env, ($context["lastName"] ?? null), "html", null, true);
         echo "</div>
                     </div>
 
@@ -140,7 +140,7 @@ class __TwigTemplate_f9d98189deee3f1c1c982a821d1f4c5fc7bc4b1f2a5bd38e3a6f78b4650
                         <input type=\"text\" class=\"form-control textAligneCenter\" aria-describedby=\"emailHelp\" name=\"firstName\" maxlength=\"100\" required>
                         <div class=\"form-text\">";
         // line 56
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["errors"] ?? null), "firstName", [], "any", false, false, false, 56), "html", null, true);
+        echo twig_escape_filter($this->env, ($context["firstName"] ?? null), "html", null, true);
         echo "</div>
                     </div>
 
@@ -149,7 +149,7 @@ class __TwigTemplate_f9d98189deee3f1c1c982a821d1f4c5fc7bc4b1f2a5bd38e3a6f78b4650
                         <input type=\"email\" class=\"form-control textAligneCenter\" aria-describedby=\"emailHelp\" name=\"mail\" maxlength=\"100\" required>
                         <div class=\"form-text\">";
         // line 62
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["error"] ?? null), "mail", [], "any", false, false, false, 62), "html", null, true);
+        echo twig_escape_filter($this->env, ($context["mail"] ?? null), "html", null, true);
         echo "</div>
                     </div>
 
