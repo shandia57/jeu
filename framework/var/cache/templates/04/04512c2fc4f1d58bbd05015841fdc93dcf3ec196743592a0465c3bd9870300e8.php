@@ -73,9 +73,12 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
         echo "
         <main>
         <h1>Questions</h1>
+        
+        <button type=\"button\" class=\"btn btn-outline-success\"  data-bs-toggle=\"modal\" data-bs-target=\"#modalQuestions\">Ajouter une nouvelle question</button>
+
         <div class=\"filter\">
             <div class=\"input-group mb-3\">
-                <input type=\"text\" id=\"searchbar\" class=\"form-control\" placeholder=\"Chercher un ID, un thème, une couleur ou une question\"
+                <input type=\"text\" id=\"searchbar\" class=\"form-control\" placeholder=\"Chercher un ID, un label, une couleur ou une question\"
                     aria-label=\"Recipient's username\" aria-describedby=\"button-addon2\">
                 <button class=\"btn btn-outline-secondary\" type=\"button\" id=\"button-addon2\"><i
                         class=\"fas fa-search\"></i></button>
@@ -102,35 +105,35 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
 
             <tbody id=\"tbody\">
             ";
-        // line 46
+        // line 49
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["questions"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["singleQuestion"]) {
-            // line 47
+            // line 50
             echo "
                 <tr class=\"dataQuestion\">
                     <td scope=\"row\"> ";
-            // line 49
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "id_question", [], "any", false, false, false, 49), "html", null, true);
+            // line 52
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "id_question", [], "any", false, false, false, 52), "html", null, true);
             echo "</td> </th>
                     <td>";
-            // line 50
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "label", [], "any", false, false, false, 50), "html", null, true);
+            // line 53
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "label", [], "any", false, false, false, 53), "html", null, true);
             echo "</td>
                     <td class=\"colorLevel\" data-colorValue=\"";
-            // line 51
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "level", [], "any", false, false, false, 51), "html", null, true);
+            // line 54
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "level", [], "any", false, false, false, 54), "html", null, true);
             echo "\">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "level", [], "any", false, false, false, 51), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "level", [], "any", false, false, false, 54), "html", null, true);
             echo "</td>
                     <td>";
-            // line 52
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "question", [], "any", false, false, false, 52), "html", null, true);
+            // line 55
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "question", [], "any", false, false, false, 55), "html", null, true);
             echo "</td>
                     <td><button type=\"button\" class=\"btn btn-outline-info\" data-bs-toggle=\"modal\" data-bs-target=\"#updateModalQuestions\" onclick=\"updateQuestion(this)\">Modifier</button></td>
                     <td><a class=\"btn btn-outline-success\" href=\"questions/";
-            // line 54
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "id_question", [], "any", false, false, false, 54), "html", null, true);
+            // line 57
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "id_question", [], "any", false, false, false, 57), "html", null, true);
             echo "\">Voir les réponses</a></td>
 
                     
@@ -141,15 +144,14 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['singleQuestion'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 60
+        // line 63
         echo "
             </tbody>
         </table>
-        <button type=\"button\" class=\"btn btn-outline-success\"  data-bs-toggle=\"modal\" data-bs-target=\"#modalQuestions\">Ajouter une nouvelle question</button>
 
     </main>
 ";
-        // line 67
+        // line 69
         echo "<div class=\"modal fade\" id=\"modalQuestions\" tabindex=\"-1\"  aria-hidden=\"true\">
   <div class=\"modal-dialog\">
     <div class=\"modal-content\">
@@ -162,9 +164,9 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
             <div class=\"modal-body list-group list-group-flush\">
                 <div class=\"list-group-item\">
                     <label for=\"exampleInputEmail1\" class=\"form-label\">Thème question</label>
-                    <input class=\"form-control\" type=\"text\" name=\"label\">
+                    <input class=\"form-control\" type=\"text\" name=\"label\" required>
                     <div class=\"form-text\">";
-        // line 80
+        // line 82
         echo twig_escape_filter($this->env, ($context["label"] ?? null), "html", null, true);
         echo "</div>
                 </div>
@@ -180,15 +182,15 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
                         <option value=\"Noir\">6 - Noir</option>
                     </select>
                     <div class=\"form-text\">";
-        // line 93
+        // line 95
         echo twig_escape_filter($this->env, ($context["level"] ?? null), "html", null, true);
         echo "</div>
                 </div>
                 <div class=\"list-group-item\">
                     <label for=\"exampleInputEmail1\" class=\"form-label\">Question</label>
-                    <input class=\"form-control\" type=\"text\" name=\"question\">
+                    <input class=\"form-control\" type=\"text\" name=\"question\" required>
                     <div class=\"form-text\">";
-        // line 98
+        // line 100
         echo twig_escape_filter($this->env, ($context["question"] ?? null), "html", null, true);
         echo "</div>
                 </div>
@@ -206,12 +208,12 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
                             </div>
                         </div>
                         <div class=\"form-text\">";
-        // line 113
+        // line 115
         echo twig_escape_filter($this->env, ($context["answer"] ?? null), "html", null, true);
         echo "</div>
 
 
-                        <input class=\"form-control\" type=\"text\" name=\"answer[]\">
+                        <input class=\"form-control\" type=\"text\" name=\"answer[]\" required>
                     </div>
                     <button id=\"btnCreateAnswer\" class=\"btn btn-outline-success marginBtn\" type=\"button\" >Ajouter une réponse</button>
                 </div>
@@ -238,9 +240,9 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
                         <input class=\"idQuestions\" type=\"hidden\" name=\"idQuestionsUpdate\">
                         <div class=\"list-group-item\">
                             <label for=\"exampleInputEmail1\" class=\"form-label\">Label question</label>
-                            <input class=\"form-control labelUpdate\" type=\"text\" name=\"label\">
+                            <input class=\"form-control labelUpdate\" type=\"text\" name=\"label\" required>
                             <div class=\"form-text\">";
-        // line 144
+        // line 146
         echo twig_escape_filter($this->env, ($context["label"] ?? null), "html", null, true);
         echo "</div>
                         </div>
@@ -255,15 +257,15 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
                                 <option value=\"Noir\">6 - Noir</option>
                             </select>
                             <div class=\"form-text\">";
-        // line 156
+        // line 158
         echo twig_escape_filter($this->env, ($context["level"] ?? null), "html", null, true);
         echo "</div>
                         </div>
                         <div class=\"list-group-item\">
                             <label for=\"exampleInputEmail1\" class=\"form-label\">Question</label>
-                            <input class=\"form-control questionUpdate\" type=\"text\" name=\"question\">
+                            <input class=\"form-control questionUpdate\" type=\"text\" name=\"question\" required>
                             <div class=\"form-text\">";
-        // line 161
+        // line 163
         echo twig_escape_filter($this->env, ($context["question"] ?? null), "html", null, true);
         echo "</div>
                         </div>
@@ -285,11 +287,11 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
 ";
     }
 
-    // line 183
+    // line 185
     public function block_javascript($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 184
+        // line 186
         echo "        ";
         $this->displayParentBlock("javascript", $context, $blocks);
         echo " 
@@ -310,7 +312,7 @@ class __TwigTemplate_f67f979ee21104d198c443d5b5e5b80168ef9053a012cc8dadc752ef2da
 
     public function getDebugInfo()
     {
-        return array (  293 => 184,  289 => 183,  267 => 161,  259 => 156,  244 => 144,  210 => 113,  192 => 98,  184 => 93,  168 => 80,  153 => 67,  145 => 60,  133 => 54,  128 => 52,  122 => 51,  118 => 50,  114 => 49,  110 => 47,  106 => 46,  73 => 15,  69 => 14,  62 => 10,  55 => 5,  49 => 4,  38 => 1,);
+        return array (  295 => 186,  291 => 185,  269 => 163,  261 => 158,  246 => 146,  212 => 115,  194 => 100,  186 => 95,  170 => 82,  155 => 69,  148 => 63,  136 => 57,  131 => 55,  125 => 54,  121 => 53,  117 => 52,  113 => 50,  109 => 49,  73 => 15,  69 => 14,  62 => 10,  55 => 5,  49 => 4,  38 => 1,);
     }
 
     public function getSourceContext()

@@ -56,6 +56,7 @@ class __TwigTemplate_622ea6ef397ac8f97aa1678eb7246cab3f2ae0324c07f2ddcd8c4a14f78
     <script src=\"https://kit.fontawesome.com/4ad0f6d59d.js\" crossorigin=\"anonymous\"></script>
 
     <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/style/style.css\">
+    <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/style/answer.css\">
 
 </head>
 
@@ -74,13 +75,12 @@ class __TwigTemplate_622ea6ef397ac8f97aa1678eb7246cab3f2ae0324c07f2ddcd8c4a14f78
 
         <div>
             ";
-        // line 40
+        // line 41
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable(($context["questions"] ?? null));
         foreach ($context['_seq'] as $context["_key"] => $context["singleQuestion"]) {
-            // line 41
+            // line 42
             echo "
-
             <h2>";
             // line 43
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["singleQuestion"], "question", [], "any", false, false, false, 43), "html", null, true);
@@ -153,9 +153,9 @@ class __TwigTemplate_622ea6ef397ac8f97aa1678eb7246cab3f2ae0324c07f2ddcd8c4a14f78
                     <div class=\"modal-body\">
                         <div class=\"form-check form-switch\">
                             <label class=\"form-check-label\">Réponse valide</label>
-                            <input class=\"form-check-input\" type=\"checkbox\" name=\"validAnswer\">
+                            <input class=\"form-check-input\" type=\"checkbox\" name=\"validAnswer\" required>
                         </div>
-                        <input class=\"form-control\" type=\"text\" name=\"answer\">
+                        <input class=\"form-control\" type=\"text\" name=\"answer\" required>
                         <div class=\"form-text\">";
         // line 79
         echo twig_escape_filter($this->env, ($context["answer"] ?? null), "html", null, true);
@@ -184,11 +184,11 @@ class __TwigTemplate_622ea6ef397ac8f97aa1678eb7246cab3f2ae0324c07f2ddcd8c4a14f78
                             <input type=\"hidden\" id=\"idAnswerUpdate\" name=\"idAnswerUpdate\">
                             <div class=\"form-check form-switch\">
                                 <input id=\"validAnswerUpdate\" class=\"form-check-input\" type=\"checkbox\"
-                                    name=\"validAnswer\">
+                                    name=\"validAnswer\" required>
                                 <label class=\"form-check-label\">Réponse valide</label>
                             </div>
 
-                            <input id=\"answerUpdate\" class=\"form-control\" type=\"text\" name=\"answer\">
+                            <input id=\"answerUpdate\" class=\"form-control\" type=\"text\" name=\"answer\" required>
                             <div class=\"form-text\">";
         // line 109
         echo twig_escape_filter($this->env, ($context["answer"] ?? null), "html", null, true);
@@ -230,7 +230,7 @@ class __TwigTemplate_622ea6ef397ac8f97aa1678eb7246cab3f2ae0324c07f2ddcd8c4a14f78
 
     public function getDebugInfo()
     {
-        return array (  194 => 109,  161 => 79,  138 => 58,  132 => 57,  127 => 55,  119 => 53,  114 => 51,  110 => 50,  105 => 49,  102 => 48,  98 => 47,  95 => 46,  86 => 43,  82 => 41,  78 => 40,  37 => 1,);
+        return array (  194 => 109,  161 => 79,  138 => 58,  132 => 57,  127 => 55,  119 => 53,  114 => 51,  110 => 50,  105 => 49,  102 => 48,  98 => 47,  95 => 46,  86 => 43,  83 => 42,  79 => 41,  37 => 1,);
     }
 
     public function getSourceContext()

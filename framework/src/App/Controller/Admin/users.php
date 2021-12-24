@@ -17,9 +17,8 @@ class Users extends AbstractController
 {
     public function __invoke()
     {
-        
+        $test = new User();
         session_start();
-        
         $controlUserForm = new ControlUsersForm();
 
         $this->isConnected = $_SESSION['user'] ?? null;
@@ -32,6 +31,7 @@ class Users extends AbstractController
         }
 
         $users = (new Get)->get();
+        
         $questions = (new Questions)->getAllQuestions();
         
 

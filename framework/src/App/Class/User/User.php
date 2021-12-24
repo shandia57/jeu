@@ -163,6 +163,19 @@ class User
 
     }
 
+    public function mailExists(string $mail): bool
+    {
+        $db = Connection::get();
+        $stmt = $db->prepare("SELECT COUNT(*) as nb FROM `users` WHERE `mail` = :mail");
+        $stmt->bindParam('mail', $mail, PDO::FETCH_ASSOC);
+        if ($stmt->execute()) {
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result[0]['nb'] > 0;
+        }
+        return false;
+
+    }
+
     public function insertUser($data): bool
     {
         $date = date("Y-m-d");
@@ -201,7 +214,7 @@ class User
     public function deleteUser($id_user) : array
     {
         $connection = Connection::get();
-        $sql = "DELETE FROM `jeuDeLoieV2`.`users` WHERE `users`.`id_user` = $id_user";
+        $sql = "DELETE FROM `users` WHERE `users`.`id_user` = $id_user";
         $stmt = $connection->prepare($sql);
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

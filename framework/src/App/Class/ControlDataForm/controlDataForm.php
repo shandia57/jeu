@@ -1,19 +1,17 @@
-<?php 
+<?php
 
 namespace App\Class\ControlDataForm;
-
-
 
 class ControlDataForm
 {
     protected $errors = [];
 
-    public function getErrors() : array
+    public function getErrors(): array
     {
         return $this->errors;
     }
 
-    public function setErrors($errors) : ControlDataForm
+    public function setErrors($errors): ControlDataForm
     {
         $this->errors = $errors;
 
@@ -57,16 +55,24 @@ class ControlDataForm
                         }
                         break;
                     case "shouldBe":
-                        if($dataPosted[$fieldName] !== $rule['value'] ){
-                            if(!in_array($dataPosted[$fieldName],$rule['value'])){
+                        if ($dataPosted[$fieldName] !== $rule['value']) {
+                            if (!in_array($dataPosted[$fieldName], $rule['value'])) {
                                 $this->errors[$fieldName][] = 'Vous devez obligatoirement choisir une des valeurs données dans le sélecteur !';
                             }
                         }
                     case 'unique':
                         // $user = null if we do not want to check this case
-                        if($user !== null){
+                        if ($user !== null) {
                             if ($user->userExists($dataPosted[$fieldName])) {
-                                $this->errors[$fieldName][] = $rule['validationMessage'] ?? 'Entité déjà existante !';
+                                $this->errors[$fieldName][] = $rule['validationMessage'] ?? 'Username déjà existante !';
+                            }
+                        }
+                        break;
+                    case 'uniqueMail':
+                        // $user = null if we do not want to check this case
+                        if ($user !== null) {
+                            if ($user->mailExists($dataPosted[$fieldName])) {
+                                $this->errors[$fieldName][] = $rule['validationMessage'] ?? 'adresse mail déjà existante !';
                             }
                         }
                         break;
@@ -80,14 +86,10 @@ class ControlDataForm
         $return = '';
         if (isset($this->errors[$fieldName])) {
             foreach ($this->errors[$fieldName] as $error) {
-                $return = $return .$error ;
+                $return = $return . $error;
             }
         }
 
         return $return;
     }
-
-
-
-
 }
