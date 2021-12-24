@@ -1,4 +1,3 @@
-console.log("test coucou");
 function updateAnswer(data) {
     let answerUpdate = document.getElementById("answerUpdate");
     let validAnswer = document.getElementById("validAnswerUpdate");

@@ -77,7 +77,6 @@ class ControlUsersForm extends ControlDataForm
                 ['name' => 'required'],
                 ['name' => 'maxlength', 'value' => 100],
                 ['name' => 'mail'],
-                ['name' => 'uniqueMail'],
 
             ]
         ],

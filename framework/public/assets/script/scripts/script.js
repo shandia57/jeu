@@ -1,6 +1,5 @@
 let logout = document.getElementById("logout");
 let anyErrors = document.getElementById("anyErrors");
-console.log("FONCTIONNE FILS DE PUTE");
 
 if (logout) {
     logout.addEventListener("click", (e) => {

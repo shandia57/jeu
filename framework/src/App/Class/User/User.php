@@ -2,9 +2,10 @@
 
 namespace App\Class\User;
 use App\Class\Connection\Connection;
+use App\Interface\User\UserInterface;
 use PDO;
 
-class User
+class User implements UserInterface
 {
 
     private int $id;
