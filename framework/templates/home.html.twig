@@ -11,12 +11,32 @@
 
 {% block content %}
 	<main>
-
+		<input id="numberOfUsers"  value="{{ usersNumber }}" readonly/>
 		<h1>Bienvenue sur la page d'accueil</h1>
 
 		{% if  not user %}
 			<p>Veuillez vous connecter ou vous inscrire pour démarrer une partie</p>
 		{% else %}
+		<div style="display: inline-flex" id="containerForm">
+			<form method="POST" name="formulaire">
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Username</label>
+					<input type="text" class="form-control textAligneCenter" aria-describedby="emailHelp" value="{{ user }}" name="username" maxlength="100" required>
+
+					<div class="invalid-feedback" style="display: block">{{username}}</div>
+				</div>
+					<select id="listOfColors" name="listOfColors" data-dropdown-auto="true">
+						<option value="" selected="selected">-- Select Color --</option>
+						{% for color in colors%}
+							<option class="dropdown-item" value="{{ color }}" style="background-color: {{ color }}"></option>
+						{% endfor %}
+					</select>
+
+
+				<input type="submit" value="Submit" />
+			</form>
+			<p >You have choosen this color:<i style="background-color: {{ player }};width: 3em;">{{ player }}</i></p>
+		</div>
 			<button class="glow-on-hover" type="button">Créer une partie</button>
 		{% endif %}
 	</main>
@@ -51,6 +71,13 @@
 					</form>
 				</div>
 			</div>
+		</div>
+	</div>
+	{% if user %}
+		<h2>Player one is <b>{{ user }}</b></h2><br/>
+	{% endif %}
+	<div id="main">
+		<div id="container">
 		</div>
 	</div>
 {% endblock %}

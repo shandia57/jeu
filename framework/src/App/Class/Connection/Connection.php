@@ -33,7 +33,7 @@ use PDO;
 
       public static function get(): ?PDO
       {
-          $config = require(dirname(__DIR__) . '../../../../config/app.conf.php');
+          $config = require(dirname(__DIR__) . '../../../../config/app.local.php');
           $config = $config['database'];
           $dsn = $config['connection'];
           $username = $config['username'];

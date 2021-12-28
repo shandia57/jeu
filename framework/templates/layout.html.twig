@@ -8,6 +8,7 @@
 {% endblock %}
 {% block css %}
 	{{ parent() }}
+	<link rel="stylesheet" type="text/css" href="assets/style/style2.css">
 {% endblock %}
 
 
@@ -22,7 +23,7 @@
 					</span>
 				{% else %}
 					<span class="navbar-brand">
-						<b>Bonjour
+						<b id="loggedIn" data-value="{{ user }}">Bonjour
 							{{ user }}</b>
 					</span>
 				{% endif %}
@@ -86,7 +87,8 @@
 
     {% block content  %} {% endblock %}
         {% block javascript %}
-            {{ parent() }}  
+            {{ parent() }}
+            <script type="text/javascript" src="assets/script/scripts/renderGrid.js"></script>
         {% endblock %}
 {% endblock %}
 
