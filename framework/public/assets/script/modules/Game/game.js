@@ -112,15 +112,7 @@ if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
 
                     // get and set the ppints to the current player !
                     let currentPlayer = game.getCurrentPlayer()
-                    if (boolAnswer) {
-                        let numberPoint = game.getNumberPointsToAttribute(getLevel);
-                        currentPlayer.setPoints(numberPoint)
-                        // afficher un message sur le coté;
-                    } else {
-                        currentPlayer.setPoints(0);
-                        // afficher unn message sur le coté 
-                    }
-
+                    boolAnswer ? currentPlayer.setPoints(game.getNumberPointsToAttribute(getLevel)) : currentPlayer.setPoints(0);
 
                     // Control if the current player won 
                     if (currentPlayer.controlPointsOfTheCurrentPlayer()) {
@@ -139,6 +131,8 @@ if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
 
                     // RESET SOME THINGS
                     gameInterface.removeInterface();
+
+
                 })
                 break;
             }
@@ -148,10 +142,6 @@ if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
     } else {
         console.log("Mauvaise couleur !");
     }
-}
-
-while (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
-
 }
 
 
