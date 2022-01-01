@@ -149,4 +149,58 @@ class Questions
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
+
+    public function getGreenQuestions(): array
+    {
+        $connection = Connection::get();
+        $stmt = $connection->prepare("SELECT * FROM questions WHERE level = 'vert' ");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } 
+    }
+
+    public function getYellowQuestions(): array
+    {
+        $connection = Connection::get();
+        $stmt = $connection->prepare("SELECT * FROM questions WHERE level = 'jaune' ");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } 
+    }
+
+    public function getBlueQuestions(): array
+    {
+        $connection = Connection::get();
+        $stmt = $connection->prepare("SELECT * FROM questions WHERE level = 'bleu' ");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } 
+    }
+
+    public function getOrangeQuestions(): array
+    {
+        $connection = Connection::get();
+        $stmt = $connection->prepare("SELECT * FROM questions WHERE level = 'orange' ");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } 
+    }
+
+    public function getRedQuestions(): array
+    {
+        $connection = Connection::get();
+        $stmt = $connection->prepare("SELECT * FROM questions WHERE level = 'rouge' ");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } 
+    }
+
+    public function getBlackQuestions(): array
+    {
+        $connection = Connection::get();
+        $stmt = $connection->prepare("SELECT * FROM questions WHERE level = 'noir' ");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } 
+    }
 }

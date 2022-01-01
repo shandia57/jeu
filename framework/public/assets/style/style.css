@@ -53,3 +53,8 @@ select{
     position: absolute;
     right:2%;
 }
+
+/* ---------- GAME ---------- */
+.row{
+    margin-bottom: 2%;
+}

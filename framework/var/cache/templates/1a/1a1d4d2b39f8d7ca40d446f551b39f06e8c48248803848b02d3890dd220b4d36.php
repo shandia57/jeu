@@ -13,7 +13,7 @@ use Twig\Source;
 use Twig\Template;
 
 /* base.html.twig */
-class __TwigTemplate_473c7317210a6141d36f4b848a83687c4106be1da72637a196c9f8cad2876245 extends Template
+class __TwigTemplate_e970e87fee3645135d50ac62ae7d2cc63a0456965234eebdbc85d9a0f4dfe325 extends Template
 {
     private $source;
     private $macros = [];
@@ -169,6 +169,6 @@ class __TwigTemplate_473c7317210a6141d36f4b848a83687c4106be1da72637a196c9f8cad28
 
     public function getSourceContext()
     {
-        return new Source("", "base.html.twig", "C:\\xampp\\htdocs\\jeuDeLoieV2\\framework\\templates\\base.html.twig");
+        return new Source("", "base.html.twig", "C:\\wamp64\\www\\jeuDeLoieV2\\framework\\templates\\base.html.twig");
     }
 }

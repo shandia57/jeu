@@ -13,7 +13,7 @@ use Twig\Source;
 use Twig\Template;
 
 /* /home.html.twig */
-class __TwigTemplate_465c4ba9f4e041326ab2b0c104bd9c123cdb35c3e673cbbd17d89497329de475 extends Template
+class __TwigTemplate_b5fae4b6e10f58aa593c8d6745f08bd18f78651b552ce63d5068ef502e43d514 extends Template
 {
     private $source;
     private $macros = [];
@@ -28,6 +28,7 @@ class __TwigTemplate_465c4ba9f4e041326ab2b0c104bd9c123cdb35c3e673cbbd17d89497329
             'title' => [$this, 'block_title'],
             'css' => [$this, 'block_css'],
             'content' => [$this, 'block_content'],
+            'javascript' => [$this, 'block_javascript'],
         ];
     }
 
@@ -86,11 +87,25 @@ class __TwigTemplate_465c4ba9f4e041326ab2b0c104bd9c123cdb35c3e673cbbd17d89497329
 \t\t";
         }
         // line 22
-        echo "\t</main>
+        echo "
+
+\t\t<div class=\"modal-dialog\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 id=\"questionGame\" class=\"modal-title\">Question</h5>
+                </div>
+                <div class=\"modal-body\">
+                    <div id=\"containerModal\" class=\"container\"></div>
+                </div>
+
+            </div>
+        </div>
+
+\t</main>
 
         
     ";
-        // line 26
+        // line 40
         echo "\t<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
 \t\t<div class=\"modal-dialog\">
 \t\t\t<div class=\"modal-content\">
@@ -124,6 +139,21 @@ class __TwigTemplate_465c4ba9f4e041326ab2b0c104bd9c123cdb35c3e673cbbd17d89497329
 ";
     }
 
+    // line 72
+    public function block_javascript($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        // line 73
+        echo "
+    ";
+        // line 74
+        $this->displayParentBlock("javascript", $context, $blocks);
+        echo "  
+\t<script type=\"module\" src=\"assets/script/modules/Game/game.js\"></script>
+
+";
+    }
+
     public function getTemplateName()
     {
         return "/home.html.twig";
@@ -136,11 +166,11 @@ class __TwigTemplate_465c4ba9f4e041326ab2b0c104bd9c123cdb35c3e673cbbd17d89497329
 
     public function getDebugInfo()
     {
-        return array (  94 => 26,  89 => 22,  85 => 20,  81 => 18,  79 => 17,  73 => 13,  69 => 12,  61 => 8,  57 => 7,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  150 => 74,  147 => 73,  143 => 72,  109 => 40,  90 => 22,  86 => 20,  82 => 18,  80 => 17,  74 => 13,  70 => 12,  62 => 8,  58 => 7,  53 => 4,  49 => 3,  38 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("", "/home.html.twig", "C:\\xampp\\htdocs\\jeuDeLoieV2\\framework\\templates\\home.html.twig");
+        return new Source("", "/home.html.twig", "C:\\wamp64\\www\\jeuDeLoieV2\\framework\\templates\\home.html.twig");
     }
 }

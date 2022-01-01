@@ -69,4 +69,12 @@ class QuestionsAnswers
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
+
+    public function getAnswer($id_question){
+        $connection = Connection::get();
+        $stmt = $connection->prepare("SELECT * FROM answer, questions_answers WHERE questions_answers.id_question = $id_question AND questions_answers.id_answer = answer.id_answer;");
+        if ($stmt->execute()) {
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
 }
