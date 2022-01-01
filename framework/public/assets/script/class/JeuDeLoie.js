@@ -92,14 +92,14 @@ export class JeuDeLoie extends Player {
 
     /////// END QUESTIONS
 
-    /// CRUD QUESTION
+
 
     getSingleQuestion(index, arrayQuestions) {
         return arrayQuestions[index];
     }
 
     removeSingleQuestion(index, arrayQuestions) {
-        return arrayQuestions.filter(value => arrayQuestions.indexOf(value) !== index);;
+        return arrayQuestions.filter(value => arrayQuestions.indexOf(value) !== index);
     }
 
 
@@ -138,6 +138,29 @@ export class JeuDeLoie extends Player {
                 return 5;
             case "noir":
                 return 6;
+        }
+    }
+
+    removeTheQuestion(levelQuestion, index) {
+        switch (levelQuestion.trim().toLowerCase()) {
+            case "vert":
+                this.#questionsLevel1 = this.#questionsLevel1.filter(value => this.#questionsLevel1.indexOf(value) !== index);
+                break;
+            case "jaune":
+                this.#questionsLevel2 = this.#questionsLevel2.filter(value => this.#questionsLevel2.indexOf(value) !== index);
+                break;
+            case "bleu":
+                this.#questionsLevel3 = this.#questionsLevel3.filter(value => this.#questionsLevel3.indexOf(value) !== index);
+                break;
+            case "orange":
+                this.#questionsLevel4 = this.#questionsLevel4.filter(value => this.#questionsLevel4.indexOf(value) !== index);
+                break;
+            case "rouge":
+                this.#questionsLevel5 = this.#questionsLevel5.filter(value => this.#questionsLevel5.indexOf(value) !== index);
+                break;
+            case "noir":
+                this.#questionsLevel6 = this.#questionsLevel6.filter(value => this.#questionsLevel6.indexOf(value) !== index);
+                break;
         }
     }
 }

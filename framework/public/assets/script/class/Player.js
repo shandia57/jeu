@@ -4,8 +4,12 @@ export class Player {
     #username;
     #role;
     #points = 0;
+    #maxPoints = 49;
     #players = [];
+    #maxPlayers = 6;
     #currentIndexPlayer = 0;
+    #numberOfActuelPlayers;
+
 
     constructor(username, role) {
         this.setUsername(username);
@@ -37,11 +41,19 @@ export class Player {
     }
 
     setPoints(points) {
-        this.#points += points;
+        if (this.#points + points > this.#maxPoints) {
+            this.#points = this.#maxPoints;
+        } else {
+            this.#points += points;
+        }
     }
 
     getPoints() {
         return this.#points;
+    }
+
+    getMaxPoints() {
+        return this.#maxPoints;
     }
 
     setPlayers(...players) {
@@ -52,6 +64,10 @@ export class Player {
         return this.#players;
     }
 
+    getMaxPlayers() {
+        return this.#maxPlayers;
+    }
+
     getNumberPlayer() {
         return this.#players.length;
     }
@@ -60,15 +76,27 @@ export class Player {
         return this.#players[index];;
     }
 
-    setCurrentIndexPlayer(index) {
-        this.#currentIndexPlayer = index;
+    IncrementCurrentIndexPlayer() {
+        this.#currentIndexPlayer === this.#maxPlayers - 1 ? this.#currentIndexPlayer = 0 : this.#currentIndexPlayer += 1;
     }
 
-    getcurrentIndexPlayer() {
+    getCurrentIndexPlayer() {
         return this.#currentIndexPlayer;
     }
 
     getCurrentPlayer() {
         return this.#players[this.#currentIndexPlayer];
+    }
+
+    setNumberOfActuelPlayers(number) {
+        this.#numberOfActuelPlayers = number;
+    }
+
+    getNumberOfActuelPlayers() {
+        return this.#numberOfActuelPlayers;
+    }
+
+    controlPointsOfTheCurrentPlayer() {
+        return this.#points === this.#maxPoints;
     }
 }

@@ -21,6 +21,7 @@ let game = new JeuDeLoie();
 game.setPlayers(player1, player2, player3, player4, player5, player6);
 console.log(game.getPlayers());
 console.log("number Player : ", game.getNumberPlayer());
+game.setNumberOfActuelPlayers(game.getNumberPlayer());
 
 // SECOND STEP get Questions from the data base
 questions.getBlackQuestions("Green");
@@ -40,7 +41,7 @@ game.setQuestionsLevel6(JSON.parse(localStorage.getItem("Black")));
 
 //////////////////////// GAME INITIALIZED
 
-if (game.getNumberPlayer() === game.getEndGameWithNumberPlayer()) {
+if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
     console.log("C'est la fin là non ? ")
 } else {
     console.log("Que la fête continue ! ")
@@ -72,12 +73,29 @@ if (game.getNumberPlayer() === game.getEndGameWithNumberPlayer()) {
                 btns[i].addEventListener('click', () => {
                     let rep = btns[i].innerText;
                     let boolAnswer = game.isAGoodAnser(rep, goodAnswer);
-                    gameInterface.sendMessage(boolAnswer);
+                    gameInterface.sendMessageIfGoodAnswer(boolAnswer);
 
-                    // get the current player !
+                    // get and set the ppints to the current player !
                     let currentPlayer = game.getCurrentPlayer()
                     boolAnswer ? currentPlayer.setPoints(game.getNumberPointsToAttribute(getLevel)) : currentPlayer.setPoints(0);
-                    console.log(currentPlayer);
+
+                    // Control if the current player won 
+                    if (currentPlayer.controlPointsOfTheCurrentPlayer()) {
+                        console.log("Yes, tu as gagné");
+                        game.setNumberOfActuelPlayers(game.getNumberOfActuelPlayers() - 1);
+                        console.log("Et hop, un joueur en moins", game.getNumberOfActuelPlayers());
+
+                    }
+
+                    // change de current player
+                    game.IncrementCurrentIndexPlayer();
+
+
+                    // delete the question from the array
+                    game.removeTheQuestion(getLevel, index);
+
+                    // RESET SOME THINGS
+                    gameInterface.removeInterface();
                 })
             }
         } else {
@@ -88,24 +106,41 @@ if (game.getNumberPlayer() === game.getEndGameWithNumberPlayer()) {
             for (let i = 0; i < btns.length; i++) {
                 btns[i].addEventListener('click', () => {
                     let rep = btns[i].innerText;
+
                     let boolAnswer = game.isAGoodAnser(rep, goodAnswer);
-                    gameInterface.sendMessage(boolAnswer);
+                    gameInterface.sendMessageIfGoodAnswer(boolAnswer);
 
                     // get and set the ppints to the current player !
                     let currentPlayer = game.getCurrentPlayer()
-                    boolAnswer ? currentPlayer.setPoints(game.getNumberPointsToAttribute(getLevel)) : currentPlayer.setPoints(0);
-                    console.log(currentPlayer);
+                    if (boolAnswer) {
+                        let numberPoint = game.getNumberPointsToAttribute(getLevel);
+                        currentPlayer.setPoints(numberPoint)
+                        // afficher un message sur le coté;
+                    } else {
+                        currentPlayer.setPoints(0);
+                        // afficher unn message sur le coté 
+                    }
+
 
                     // Control if the current player won 
-                    // -> if he won, increment the numberOf actuels players !  
+                    if (currentPlayer.controlPointsOfTheCurrentPlayer()) {
+                        console.log("Yes, tu as gagné");
+                        game.setNumberOfActuelPlayers(game.getNumberOfActuelPlayers() - 1);
+                        console.log("Et hop, un joueur en moins", game.getNumberOfActuelPlayers());
 
-                    // 
+                    }
+
+                    // change de current player
+                    game.IncrementCurrentIndexPlayer();
 
 
                     // delete the question from the array
+                    game.removeTheQuestion(getLevel, index);
 
-
+                    // RESET SOME THINGS
+                    gameInterface.removeInterface();
                 })
+                break;
             }
         }
 
@@ -115,6 +150,9 @@ if (game.getNumberPlayer() === game.getEndGameWithNumberPlayer()) {
     }
 }
 
+while (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
+
+}
 
 
 

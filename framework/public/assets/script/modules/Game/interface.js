@@ -61,6 +61,14 @@ export function controlLevelQuestion(levelChoose) {
     return levels.includes(levelChoose.trim().toLowerCase());
 }
 
-export function sendMessage(userAnswer) {
-    userAnswer ? console.log("Félécitation, c'est une bonne réponse") : console.log("Dommage, mauvaise réponse ! ");
+export function sendMessageIfGoodAnswer(boolUserAnswer) {
+    boolUserAnswer ? console.log("Félécitation, c'est une bonne réponse") : console.log("Dommage, mauvaise réponse ! ");
+}
+
+export function removeInterface() {
+    let parrent = document.getElementById("containerModal");
+    document.getElementById("questionGame").innerText = "Question";
+    while (parrent.children.length > 0) {
+        parrent.removeChild(parrent.firstChild);
+    }
 }
