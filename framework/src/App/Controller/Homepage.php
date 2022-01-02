@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Class\Color\Color;
@@ -30,116 +31,129 @@ class Homepage extends AbstractController
         );
 
         $users = (new User)->getUsers();
+        $username = [];
+        foreach ($users as $user) {
+            array_push($username, $user['username']);
+        }
+        print_r($username);
 
-        if(!empty($_POST)) {
+
+        if (!empty($_POST)) {
             $this->controlPostSended();
             $this->isConnected = $_SESSION['user'];
             $this->createUserSessionWithCookie();
-            $isOnline =[];
-            print_r("\n".($this->isConnected['username'])."\n");
-            array_push($isOnline,$this->isConnected['username']??null);
+            // $isOnline =[];
+            // print_r("\n".($this->isConnected['username'])."\n");
+            // array_push($isOnline,$this->isConnected['username']??null);
         }
-        if(!empty($_POST['listOfColors'])) {
-            $colorList = [];
-            $selected = $_POST['listOfColors'];
-            array_push($colorList,$selected);
-            echo "\nYou have chosen: " . $selected."\n";
-        } else {
-            echo 'Please select one color';
+
+        if (isset ($_POST['username'])) {
+            $allPlayers = [];
+            $nickname = $_POST['username'];
+            array_push($allPlayers, $nickname);
+            print_r($nickname . "is the best!");
+
+            if (isset($_POST['listOfColors'])) {
+
+                $colorList = [];
+                $selected = $_POST['listOfColors'];
+                array_push($colorList, $selected);
+                foreach (array_keys($colors, $selected) as $key) {
+                    unset($colors[$key]);
+                }
+                print_r($colorList);
+                $res = array();
+                foreach ($allPlayers as $i => $key) {
+                    $res[$key] = $colorList[$i];
+                }
+                print_r($res);
+                echo "\nYou have chosen: " . $selected . "\n";
+            } else {
+                echo 'Please select one color';
+            }
         }
-        if(isset($colorList) && isset($isOnline)) {
-            $res = array_map(null, $colorList ?? null, $isOnline ?? null);
+        if (isset($colorList) && isset($username)) {
+            $res = array_map(null, $colorList ?? null, $username ?? null);
             print_r(sizeof($res));
             echo "Good job!";
-        }else{
+        } else {
             echo "this is shiiiiit!";
         }
         function testy(): array
         {
             $res = [];
-            foreach ($isOnline??null as $key => $value) {
+            foreach ($isOnline ?? null as $key => $value) {
                 $res[$key]['username'] = $value;
-                $res[$key]['color'] = $colorList??null[$key];
+                $res[$key]['color'] = $colorList ?? null[$key];
                 echo "player credentials are:" . $res;
             }
             return $res;
         }
+
         $questions = (new Questions)->getAllQuestions();
-        $choiceOfColor = $selected??null;
-        print_r($choiceOfColor);
+        $choiceOfColor = $selected ?? null;
+        //print_r($choiceOfColor);
 
-        $result = (new User)->filterArrayByKeyValue($users, 'username',$this->isConnected['username']??null);
-       print_r($result);
+        $result = (new User)->filterArrayByKeyValue($users, 'username', $this->isConnected['username'] ?? null);
+        print_r($result);
 
 
-            return $this->render('/home.html.twig', [
-                "user" => $this->isConnected['username']?? null,
-                "user_roles" => $this->isConnected['roles']?? null,
-                "usersNumber" => sizeof($result),
-                "nbrUsers" => count($users),
-                "nbrQuestions" => count($questions),
-                "anyErrors" => $this->anyErrors,
-                "colors"  => $colors,
-                "player" => $choiceOfColor,
-            ]);
-        }
+        return $this->render('/home.html.twig', [
+            "user" => $this->isConnected['username'] ?? null,
+            "user_roles" => $this->isConnected['roles'] ?? null,
+            "usersNumber" => sizeof($result),
+            "nbrUsers" => count($users),
+            "nbrQuestions" => count($questions),
+            "anyErrors" => $this->anyErrors,
+            "colors" => $colors,
+            "player" => $choiceOfColor,
+            "username" => $username
+        ]);
+    }
 
-        public function sendError() : void
-        {
-            $this->anyErrors = "La connexion a échoué, l'identifiant ou le mot de passe est incorrect";
-        }
+    public function sendError(): void
+    {
+        $this->anyErrors = "La connexion a échoué, l'identifiant ou le mot de passe est incorrect";
+    }
 
-        public function createCookie($cookieName, $value) : void
-        {
-            setcookie($cookieName,   $value, time() +
+    public function createCookie($cookieName, $value): void
+    {
+        setcookie($cookieName, $value, time() +
             (10 * 365 * 24 * 60 * 60));
-        }
+    }
 
 
-        public function tryToConnect() : void
-        {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+    public function tryToConnect(): void
+    {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-            if((new User)->userExists($username) == null)
-            {
+        if ((new User)->userExists($username) == null) {
+            $this->sendError();
+        } else {
+            $this->isConnected = (new User)->userConnection($username, $password);
+
+            if (empty($this->isConnected)) {
                 $this->sendError();
+            } else {
+                if (isset($_POST['checkbox'])) {
+                    $this->createCookie("remember_user", $this->isConnected['username']);
+                    $this->createCookie("remember_roles", $this->isConnected['roles']);
+                }
             }
 
-            else
-            {
-                $this->isConnected= (new User)->userConnection($username, $password);
-
-                if (empty($this->isConnected))
-                {
-                    $this->sendError();
-                }
-
-                else
-                {
-                    if(isset($_POST['checkbox']))
-                    {
-                        $this->createCookie("remember_user",$this->isConnected['username']);
-                        $this->createCookie("remember_roles",$this->isConnected['roles']);
-                    }
-                }
-
-            }
         }
+    }
 
-        public function controlPostSended() : void
-        {
-            if(isset($_POST['logout']))
-            {
-                if ($_POST['logout'] === "true")
-                {
-                    $this->logout();
-                }
+    public function controlPostSended(): void
+    {
+        if (isset($_POST['logout'])) {
+            if ($_POST['logout'] === "true") {
+                $this->logout();
             }
-            else if (isset($_POST['connect']))
-            {
-                $this->tryToConnect();
-            }
+        } else if (isset($_POST['connect'])) {
+            $this->tryToConnect();
         }
+    }
 
 }
