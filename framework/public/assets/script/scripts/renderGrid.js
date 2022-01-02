@@ -67,8 +67,7 @@ for (let i = 0; i < colorSelector.length; i++) {
             makeRows(50);
             makeColumns(1);
             console.log(readyToPlay);
-            let test = container.children.length;
-            console.log(test);
+
             return readyToPlay;
         }
 
@@ -109,10 +108,10 @@ function getColorV1(){
 //Takes (rows, columns) input and makes a grid
 function makeRows(rowNum) {
     //Creates rows
-        for (let r = 0; r < rowNum; r++) {
-            let row = document.createElement("div");
-            container.appendChild(row).className = "gridRow";
-        }
+    for (let r = 0; r < rowNum; r++) {
+        let row = document.createElement("div");
+        container.appendChild(row).className = "gridRow";
+    }
 }
 
 //check contrast ratio of color for font color in cells
@@ -141,11 +140,10 @@ function makeColumns(cellNum) {
     let color = colorSelector[i].value;
     console.log(color);
     let contrastColor = getContrast(color);
-    let pos = 34;
+
     for (let i = 0; i < rows.length; i++) {
         for (let j = 0; j < cellNum; j++) {
             if(i <= 49) {
-                let pos = userSelector[i].value
                 let newCell = document.createElement("div");
                 newCell.textContent = i.toString();
                 newCell.style.textAlign = "center";
@@ -154,9 +152,6 @@ function makeColumns(cellNum) {
                 newCell.style.backgroundColor = color;
                 newCell.style.color = contrastColor;
                 rows[j].appendChild(newCell).className = "cell";
-                if(i === 0){
-                    newCell.textContent = userSelector[i].value;
-                }
             }else{
                 return false;
             }
