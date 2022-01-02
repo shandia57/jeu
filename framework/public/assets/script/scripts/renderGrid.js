@@ -2,6 +2,8 @@ const container = document.getElementById("container");
 let rows = document.getElementsByClassName("gridRow");
 let cells = document.getElementsByClassName("cell");
 
+
+
 let userSelector = document.querySelectorAll('.listOfUsers')
 let label1 = document.getElementById('player1');
 let label2 = document.getElementById('player2');
@@ -64,8 +66,7 @@ for (let i = 0; i < colorSelector.length; i++) {
             let allPlayers = Object.keys(readyToPlay).length;
             let numberOfUsers = document.getElementById('numberOfUsers')
             numberOfUsers.value = allPlayers;
-            makeRows(50);
-            makeColumns(1);
+            makeGrid();
             console.log(readyToPlay);
 
             return readyToPlay;
@@ -105,14 +106,7 @@ function getColorV1(){
 }
 
 
-//Takes (rows, columns) input and makes a grid
-function makeRows(rowNum) {
-    //Creates rows
-    for (let r = 0; r < rowNum; r++) {
-        let row = document.createElement("div");
-        container.appendChild(row).className = "gridRow";
-    }
-}
+
 
 //check contrast ratio of color for font color in cells
 function getContrast (hexcolor){
@@ -133,28 +127,19 @@ function getContrast (hexcolor){
     return (yiq >= 128) ? 'black' : 'white';
 
 }
-
 //Creates columns
-function makeColumns(cellNum) {
-    let i =0;
-    let color = colorSelector[i].value;
-    console.log(color);
-    let contrastColor = getContrast(color);
+function makeGrid() {
+    let table =document.getElementById('myTable')
+    for (let i = 0; i < 2; i++) {
+        // creates a table row
+        let row = document.createElement("tr");
+        row.id = userSelector[i].value;
 
-    for (let i = 0; i < rows.length; i++) {
-        for (let j = 0; j < cellNum; j++) {
-            if(i <= 49) {
-                let newCell = document.createElement("div");
-                newCell.textContent = i.toString();
-                newCell.style.textAlign = "center";
-                newCell.style.lineHeight = "55px";
-                newCell.style.fontWeight = "600";
-                newCell.style.backgroundColor = color;
-                newCell.style.color = contrastColor;
-                rows[j].appendChild(newCell).className = "cell";
-            }else{
-                return false;
-            }
+        for (let j = 0; j < 49; j++) {
+            let cell = document.createElement("td");
+            cell.style.border = "4px solid" + colorSelector[i].value;
+            row.appendChild(cell);
+            table.appendChild(row);
         }
     }
 }
