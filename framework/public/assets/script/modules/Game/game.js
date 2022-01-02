@@ -1,8 +1,10 @@
 import { Player } from "./../../class/Player.js";
 import { JeuDeLoie } from "./../../class/JeuDeLoie.js";
 import * as questions from "./../librairie/questions.js";
+
 import * as answers from "./../librairie/answers.js";
-import * as gameInterface from "./interface";
+import * as gameInterface from "./interface.js";
+
 
 //////////////////////// START GAME INITIALIZE
 
@@ -11,16 +13,15 @@ let MJ = new Player("Admin", "Admin");
 let player1 = new Player("Shandia", "Player");
 let player2 = new Player("Slykillah", "Player");
 let player3 = new Player("Shimotsuki", "Player");
-let player4 = new Player("Kaiyo", "Player");
-let player5 = new Player("Toran", "Player");
-let player6 = new Player("Kenitoh", "Player");
+// let player4 = new Player("Kaiyo", "Player");
+// let player5 = new Player("Toran", "Player");
+// let player6 = new Player("Kenitoh", "Player");
 let game = new JeuDeLoie();
 
-
 // FIRST STEP add players into the game
-game.setPlayers(player1, player2, player3, player4, player5, player6);
-console.log(game.getPlayers());
-console.log("number Player : ", game.getNumberPlayer());
+
+game.setPlayers(player1, player2, player3);
+//  , player4, player5, player6
 game.setNumberOfActuelPlayers(game.getNumberPlayer());
 
 // SECOND STEP get Questions from the data base
@@ -31,6 +32,7 @@ questions.getBlackQuestions("Orange");
 questions.getBlackQuestions("Red");
 questions.getBlackQuestions("Black");
 
+
 // THRID STEP set Questions to class game
 game.setQuestionsLevel1(JSON.parse(localStorage.getItem("Green")));
 game.setQuestionsLevel2(JSON.parse(localStorage.getItem("Yellow")));
@@ -40,14 +42,33 @@ game.setQuestionsLevel5(JSON.parse(localStorage.getItem("Red")));
 game.setQuestionsLevel6(JSON.parse(localStorage.getItem("Black")));
 
 //////////////////////// GAME INITIALIZED
+document.getElementById("currentPlayer").innerText = game.getCurrentPlayer().getUsername();
+document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
-if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
-    console.log("C'est la fin là non ? ")
-} else {
-    console.log("Que la fête continue ! ")
-    let getLevel = prompt("Quelle niveau de jeu souhaitez vous jouer ? ");
-    let questions = game.getQuestionsWithLevel(getLevel);
+alert("Veuillez choisir une couleur");
+
+document.getElementById("buttonSearch").addEventListener("click", () => {
+    play();
+})
+
+function play() {
+    let buttonSearch = document.getElementById("buttonSearch");
+    let getLevel = document.getElementById("searchbar").value;
+
     if (gameInterface.controlLevelQuestion(getLevel)) {
+
+        // button removed to anticheat
+        buttonSearch.parentNode.removeChild(buttonSearch);
+
+        gameInterface.insertLi(game.getCurrentPlayer().getUsername() + " a choisi le niveau : " + getLevel);
+
+        // Search questions
+        if (game.getQuestionsWithLevel(getLevel).length === 0) {
+            getAndSetTheEmptyArrayQuestions(getLevel)
+        }
+
+        var questions = game.getQuestionsWithLevel(getLevel);
+
         // FOURTH STEP get a random index from 0 to length Of arrayQuestions
         let index = game.getRandomIndex(questions.length);
 
@@ -55,94 +76,139 @@ if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
         let singleQuestion = game.getSingleQuestion(index, questions);
         document.getElementById("questionGame").innerText = singleQuestion.question;
 
-
-        // SIXTH SETP get answer(s)
+        // SIXTH STEP get answer(s)
         answers.getAnswers(singleQuestion.id_question);
-
-        // SEVENTH STEP control the length of the arrayAnswers
         game.setAnswers(JSON.parse(localStorage.getItem("answer")));
 
 
-        // HEIGTH STEP ask to answer the question
+        // SEVENTH STEP control the length of the arrayAnswers
         if (game.getAnswers().length === 1) {
-            gameInterface.createInterfaceSingleAnswer();
-            let goodAnswer = game.findGoodAnswer();
-            console.log("answer : ", goodAnswer);
-            const btns = document.getElementsByClassName("btn-outline-info");
-            for (let i = 0; i < btns.length; i++) {
-                btns[i].addEventListener('click', () => {
-                    let rep = btns[i].innerText;
-                    let boolAnswer = game.isAGoodAnser(rep, goodAnswer);
-                    gameInterface.sendMessageIfGoodAnswer(boolAnswer);
-
-                    // get and set the ppints to the current player !
-                    let currentPlayer = game.getCurrentPlayer()
-                    boolAnswer ? currentPlayer.setPoints(game.getNumberPointsToAttribute(getLevel)) : currentPlayer.setPoints(0);
-
-                    // Control if the current player won 
-                    if (currentPlayer.controlPointsOfTheCurrentPlayer()) {
-                        console.log("Yes, tu as gagné");
-                        game.setNumberOfActuelPlayers(game.getNumberOfActuelPlayers() - 1);
-                        console.log("Et hop, un joueur en moins", game.getNumberOfActuelPlayers());
-
-                    }
-
-                    // change de current player
-                    game.IncrementCurrentIndexPlayer();
-
-
-                    // delete the question from the array
-                    game.removeTheQuestion(getLevel, index);
-
-                    // RESET SOME THINGS
-                    gameInterface.removeInterface();
-                })
-            }
+            gameInterface.createInterfaceSingleAnswer(game.getAnswers());
         } else {
             gameInterface.createInterfaceAnswers(game.getAnswers());
-            let goodAnswer = game.findGoodAnswer();
-            console.log("answer : ", goodAnswer);
-            const btns = document.getElementsByClassName("btn-outline-info");
-            for (let i = 0; i < btns.length; i++) {
-                btns[i].addEventListener('click', () => {
-                    let rep = btns[i].innerText;
-
-                    let boolAnswer = game.isAGoodAnser(rep, goodAnswer);
-                    gameInterface.sendMessageIfGoodAnswer(boolAnswer);
-
-                    // get and set the ppints to the current player !
-                    let currentPlayer = game.getCurrentPlayer()
-                    boolAnswer ? currentPlayer.setPoints(game.getNumberPointsToAttribute(getLevel)) : currentPlayer.setPoints(0);
-
-                    // Control if the current player won 
-                    if (currentPlayer.controlPointsOfTheCurrentPlayer()) {
-                        console.log("Yes, tu as gagné");
-                        game.setNumberOfActuelPlayers(game.getNumberOfActuelPlayers() - 1);
-                        console.log("Et hop, un joueur en moins", game.getNumberOfActuelPlayers());
-
-                    }
-
-                    // change de current player
-                    game.IncrementCurrentIndexPlayer();
-
-
-                    // delete the question from the array
-                    game.removeTheQuestion(getLevel, index);
-
-                    // RESET SOME THINGS
-                    gameInterface.removeInterface();
-
-
-                })
-                break;
-            }
         }
 
+        //// FOUND THE GOOD ANSWER
+        let goodAnswer = game.findGoodAnswer();
+        console.log("answer : ", goodAnswer);
+
+
+        // HEIGTH STEP ask to answer the question
+        const btns = document.getElementsByClassName("btn-outline-info");
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('click', () => {
+                let rep = btns[i].value;
+
+                let boolAnswer = game.isAGoodAnser(rep, goodAnswer);
+                gameInterface.sendMessageIfGoodAnswer(boolAnswer);
+
+                // get and set the points to the current player !
+
+                if (boolAnswer) {
+                    game.getCurrentPlayer().setPoints(game.getNumberPointsToAttribute(getLevel))
+
+                    // message
+                    gameInterface.insertLi(game.getCurrentPlayer().getUsername() + " a gagné : " + game.getNumberPointsToAttribute(getLevel));
+
+                } else {
+                    game.getCurrentPlayer().setPoints(0);
+                }
+
+
+                // Control if the current player won 
+                if (game.getCurrentPlayer().controlPointsOfTheCurrentPlayer()) {
+
+                    // messages 
+                    alert("Bravo ! " + game.getCurrentPlayer().getUsername() + " a gagné");
+                    gameInterface.insertLi(game.getCurrentPlayer().getUsername() + " a gagné");
+                    gameInterface.insertLi("Et hop, un joueur en moins, il reste" + game.getNumberOfActuelPlayers() + " joueurs");
+
+                    game.setNumberOfActuelPlayers(game.getNumberOfActuelPlayers() - 1);
+                    game.getCurrentPlayer().setStatePlaying();
+                }
+
+                // change de current player
+                game.IncrementCurrentIndexPlayer();
+
+
+                // delete the question from the array
+                game.removeTheQuestion(getLevel, index);
+
+                // RESET a part of the interface
+                gameInterface.removeInterface();
+
+                // RESET the game
+                if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
+
+                    if (confirm("La partie est fini, souhaitez-vous recommencez une nouvelle partie ?")) {
+                        game.resetAllPoints();
+                        resetQuestions();
+                        game.setNumberOfActuelPlayers(game.getNumberPlayer());
+                    } else {
+                        gameInterface.clearAllInterface();
+                    }
+                }
+
+                while (!game.getCurrentPlayer().getStatePlaying()) {
+                    game.IncrementCurrentIndexPlayer();
+                }
+
+                let newButtonSearch = gameInterface.createBtnSearch();
+                gameInterface.insertAfter(newButtonSearch, document.getElementById("searchbar"));
+
+                document.getElementById("currentPlayer").innerText = game.getCurrentPlayer().getUsername();
+                document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
+
+                alert("Vous pouvez conserver ou changer couleur de difficulté");
+
+
+
+
+                newButtonSearch.addEventListener("click", () => {
+                    play();
+                })
+
+
+            })
+        }
 
     } else {
-        console.log("Mauvaise couleur !");
+        alert("Incorrect, le niveau doit à choisir doit être l'un des niveaux suivants : vert, jaune bleu orange rouge noir");
     }
 }
+
+function getAndSetTheEmptyArrayQuestions(level) {
+    switch (level.trim().toLowerCase()) {
+        case "vert":
+            game.setQuestionsLevel1(JSON.parse(localStorage.getItem("Green")));
+            break;
+        case "jaune":
+            game.setQuestionsLevel2(JSON.parse(localStorage.getItem("Yellow")));
+            break;
+        case "bleu":
+            game.setQuestionsLevel3(JSON.parse(localStorage.getItem("Blue")));
+            break;
+        case "orange":
+            game.setQuestionsLevel4(JSON.parse(localStorage.getItem("Orange")));
+            break;
+        case "rouge":
+            game.setQuestionsLevel5(JSON.parse(localStorage.getItem("Red")));
+            break;
+        case "noir":
+            game.setQuestionsLevel6(JSON.parse(localStorage.getItem("Black")));
+            break;
+    }
+}
+
+
+
+function resetQuestions() {
+    let questions = ["vert", "jaune", "bleu", "orange", "rouge", "noir"];
+    for (let i = 0; i < questions.length; i++) {
+        getAndSetTheEmptyArrayQuestions(questions[i])
+    }
+}
+
 
 
 

@@ -1,0 +1,95 @@
+body{
+    background: linear-gradient(to right, #1b2735 0%, #181b2b );
+    color: rgb(230, 230, 230);
+}
+
+h1{
+    text-align: center;
+}
+h2{
+    text-align: center;
+}
+
+.container{
+    background-color: rgb(85, 85, 85);
+    color: black;
+    padding: 20px;
+}
+.containerModals{
+    position: relative;
+    height: 300px;
+
+}
+
+.containerModals > div{
+    display: inline-block;
+}
+
+
+/* 
+    Modal Questions
+*/
+.modalQuestions{
+    background-color: white;
+    border-radius: 10px;
+    width: 60%;
+    vertical-align: top;
+    padding:10px;
+}
+
+.headerModal{
+    border-bottom: 1px solid black;
+}
+
+.bodyModal{
+    text-align: center;
+    padding:0 10px 10px 10px;
+}
+
+.row{
+    margin-top: 10px;
+}
+
+.footerModal{
+    border-top: 1px solid black;
+    text-align: center;
+    position: relative;
+}
+.footerModal div{
+    display: inline-block;
+}
+
+.left{
+    float: left;
+
+}
+.right{
+    float: right;
+}
+
+/* 
+    CONSOLE MODAL
+*/
+
+.modalConsole{
+    background-color: white;
+    border-radius: 10px;
+    width: 30%;
+    height: 200px;
+    overflow:auto;
+    position: absolute;
+    right:0;
+}
+.headerModalConsole{
+    border-bottom: 1px solid black;
+}
+.contentModal{
+    text-align: left;
+}
+.modalConsole ul{
+    /* padding:10px; */
+}
+.modalConsole ul li{
+    font-size: 15px;
+}
+

@@ -9,6 +9,7 @@ export class Player {
     #maxPlayers = 6;
     #currentIndexPlayer = 0;
     #numberOfActuelPlayers;
+    #statePlaying = true;
 
 
     constructor(username, role) {
@@ -48,6 +49,16 @@ export class Player {
         }
     }
 
+    resetPoints() {
+        this.#points = 0;
+    }
+
+    resetAllPoints() {
+        for (let i = 0; i < this.#players.length; i++) {
+            this.#players[i].#points = 0;
+        }
+    }
+
     getPoints() {
         return this.#points;
     }
@@ -77,7 +88,7 @@ export class Player {
     }
 
     IncrementCurrentIndexPlayer() {
-        this.#currentIndexPlayer === this.#maxPlayers - 1 ? this.#currentIndexPlayer = 0 : this.#currentIndexPlayer += 1;
+        this.#currentIndexPlayer === this.#players.length - 1 ? this.#currentIndexPlayer = 0 : this.#currentIndexPlayer += 1;
     }
 
     getCurrentIndexPlayer() {
@@ -98,5 +109,13 @@ export class Player {
 
     controlPointsOfTheCurrentPlayer() {
         return this.#points === this.#maxPoints;
+    }
+
+    setStatePlaying() {
+        this.#statePlaying = !this.#statePlaying;
+    }
+
+    getStatePlaying() {
+        return this.#statePlaying;
     }
 }

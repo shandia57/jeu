@@ -6,6 +6,21 @@ export function createButton(text) {
     return button;
 }
 
+export function createBtnSearch() {
+
+    let button = document.createElement('button');
+    let i = document.createElement('i');
+    button.setAttribute("class", "btn btn-outline-secondary")
+    button.setAttribute("type", "button")
+    button.setAttribute("id", "buttonSearch")
+
+    i.setAttribute("class", "fas fa-search");
+    button.appendChild(i);
+    return button;
+}
+
+
+
 export function createRow() {
     let row = document.createElement('div');
     row.setAttribute("class", "row justify-content-md-center")
@@ -18,6 +33,12 @@ export function createCol() {
     return col;
 }
 
+export function insertLi(text) {
+    let ul = document.getElementById("listOutput");
+    let li = document.createElement('li');
+    li.innerText = text;
+    ul.appendChild(li);
+}
 
 export function createInterfaceAnswers(answers) {
     let parrent = document.getElementById("containerModal");
@@ -28,6 +49,7 @@ export function createInterfaceAnswers(answers) {
 
         let col = createCol();
         let button = createButton(answers[i].answer);
+        button.value = answers[i].answer;
         col.appendChild(button);
         row.appendChild(col);
 
@@ -37,7 +59,7 @@ export function createInterfaceAnswers(answers) {
         }
     }
 }
-export function createInterfaceSingleAnswer() {
+export function createInterfaceSingleAnswer(answers) {
     let parrent = document.getElementById("containerModal");
 
     let row = createRow();
@@ -46,7 +68,9 @@ export function createInterfaceSingleAnswer() {
     let col2 = createCol();
 
     let button = createButton("Bonne réponse");
+    button.value = answers[0].answer;
     let button2 = createButton("Mauvaise réponse");
+    button2.value = "Mauvaise réponse";
 
     col.appendChild(button);
     col2.appendChild(button2);
@@ -62,7 +86,7 @@ export function controlLevelQuestion(levelChoose) {
 }
 
 export function sendMessageIfGoodAnswer(boolUserAnswer) {
-    boolUserAnswer ? console.log("Félécitation, c'est une bonne réponse") : console.log("Dommage, mauvaise réponse ! ");
+    boolUserAnswer ? insertLi("Félécitation, c'est une bonne réponse") : insertLi("Dommage, mauvaise réponse ! ");
 }
 
 export function removeInterface() {
@@ -70,5 +94,15 @@ export function removeInterface() {
     document.getElementById("questionGame").innerText = "Question";
     while (parrent.children.length > 0) {
         parrent.removeChild(parrent.firstChild);
+    }
+}
+
+export function insertAfter(newNode, existingNode) {
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
+export function clearAllInterface() {
+    while (document.body.children.length > 0) {
+        document.body.removeChild(document.body.firstChild);
     }
 }
