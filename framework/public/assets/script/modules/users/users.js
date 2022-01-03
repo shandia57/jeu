@@ -1,5 +1,6 @@
 import * as utils from "../librairie/utils.js";
 
+
 document.getElementById("searchbar").addEventListener("keyup", (e) => {
     utils.searchValueFromSearchbar(e, "dataTr");
 })

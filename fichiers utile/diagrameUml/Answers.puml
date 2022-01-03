@@ -1,0 +1,11 @@
+Class Answers{
+    #id_answer : int
+    #answer : string
+    #valid : bool
+
+    +getNumberIdAnswer(): array
+    +returnNumberIfEmptyID(): int
+    +InsertAnswer(): bool
+    +getSingleAnswer($id_answer): array
+    +updateAnswer($dataAnswer, $validAnswer):bool
+}

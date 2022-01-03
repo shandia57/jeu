@@ -1,0 +1,29 @@
+Class ControlDataForm{
+    #errors : array
+    +getErrors(): array
+    +setErrors($errors): ControlDataForm:void
+    +findError($validation, $dataPosted, $user)
+    +displayErrors($fieldName): string
+}
+
+Class ControlUsersForm extends ControlDataForm{
+    #validationsSubscription : array
+    #validationUpdate: array
+
+    +getValidationsSubscription() : array
+    +getValidationUpdate() : array
+}
+
+
+Class ControlAnswersForm extends ControlDataForm{
+    #validations: array
+    +getValidations() : array
+    +indErrosIntoArray($array) : void
+
+}
+
+class ControlQuestionsForm extends ControlDataForm
+{
+    #validations: array
+    +getValidations() : array
+}

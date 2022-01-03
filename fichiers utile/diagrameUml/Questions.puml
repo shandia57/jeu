@@ -1,0 +1,13 @@
+Class Questions{
+    #id_question: int
+    #answer: string
+    #valid:bool
+
+    +getMaxNumberIdQuestions(): array
+    +returnNumberIfEmptyID($isEmptyID) : int
+    +insertQuestion($dataQuestion, $id_question) : bool
+    +getAllQuestions() : Array
+    +getSingleQuestion($id) : array
+    +updateQuestion($dataQuestion) : bool
+    +deleteQuestion($id_question) : array
+}

@@ -1,0 +1,8 @@
+Class QuestionsAnswers{
+    #id_question : int
+    #id_answer : int
+
+    +linkQuestionWithAnswer($id_question, $id_answer) : bool
+    +getQuestionsAnswer() : Array
+    +deleteQuestion($id_answer) : Array
+}

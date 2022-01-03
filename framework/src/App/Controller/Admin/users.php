@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use Framework\Controller\AbstractController;
-use App\Class\User\User;
 use App\Class\Admin\Questions\Questions;
 use App\Class\ControlDataForm\ControlDataEntity\ControlUsersForm;
 
@@ -17,7 +16,6 @@ class Users extends AbstractController
 {
     public function __invoke()
     {
-        $test = new User();
         session_start();
         $controlUserForm = new ControlUsersForm();
 

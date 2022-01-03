@@ -1,0 +1,5 @@
+Class Connections {
+    -db: static
+
+    +get(): PDO
+}

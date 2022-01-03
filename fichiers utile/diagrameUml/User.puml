@@ -1,0 +1,74 @@
+Class User implements UserInterface{
+    - $id: int
+    - $username: string
+    - $password: string
+    - $lastName: string
+    - $firstName: string
+    - $mail: string
+    - $roles: string
+    - $createA: string;
+
+    +getUsers(): array
+    +userExists(string $username): bool
+    +mailExists(string $mail): bool
+    +insertUser($data): bool
+    +updateUser($dataUser) : bool
+    +deleteUser($id_user) : array
+    +userConnection(string $username, string $password)
+}
+
+interface UserInterface
+{
+    - $id: int
+    - $username: string
+    - $password: string
+    - $lastName: string
+    - $firstName: string
+    - $mail: string
+    - $roles: string
+    - $createA: string;
+    +getId();
+    +setId(int $id);
+
+    +getUsername();
+    +setUsername(string $username);
+
+
+    +getPassword();
+    +setPassword(string $password);
+
+
+    +getLastName();
+    +setLastName(string $lastName);
+
+
+    +getFirstName();
+    +setFirstName(string $firstName);
+
+    +getMail();
+    +setMail(string $mail);
+
+
+    +getCreateAt();
+    +setCreateAt(string $createAt);
+
+
+    public function getRoles();
+    public function setRoles(string $roles);
+
+    +userExists(string $username);
+    
+    +mailExists(string $mail);
+
+    +getUsers();
+
+    +insertUser($data);
+
+    +updateUser($dataUser);
+   
+    +deleteUser($id_user);
+
+    
+    +userConnection(string $username, string $password);
+
+}

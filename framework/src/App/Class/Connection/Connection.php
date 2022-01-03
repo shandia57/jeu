@@ -6,30 +6,7 @@ use PDO;
 
   class Connection{
 
-      private string $dsn;
-      private string $username;
-      private string $password;
-      private string $charset;
-      private array  $options;
       private static $db;
-
-      /**
-       * Connection constructor.
-       * @param string $dsn
-       * @param string $username
-       * @param string $password
-       * @param string $charset
-       * @param array $options
-       */
-      public function __construct(string $dsn, string $username, string $password, string $charset, array $options)
-      {
-          $this->dsn = $dsn;
-          $this->username = $username;
-          $this->password = $password;
-          $this->charset = $charset;
-          $this->options = $options;
-      }
-
 
       public static function get(): ?PDO
       {
