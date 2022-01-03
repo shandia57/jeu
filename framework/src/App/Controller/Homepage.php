@@ -31,11 +31,6 @@ class Homepage extends AbstractController
         );
 
         $users = (new User)->getUsers();
-        $username = [];
-        foreach ($users as $user) {
-            array_push($username, $user['username']);
-        }
-        print_r($username);
 
 
         if (!empty($_POST)) {
@@ -51,7 +46,7 @@ class Homepage extends AbstractController
             $allPlayers = [];
             $nickname = $_POST['username'];
             array_push($allPlayers, $nickname);
-            print_r($nickname . "is the best!");
+
 
             if (isset($_POST['listOfColors'])) {
 
@@ -75,19 +70,7 @@ class Homepage extends AbstractController
         if (isset($colorList) && isset($username)) {
             $res = array_map(null, $colorList ?? null, $username ?? null);
             print_r(sizeof($res));
-            echo "Good job!";
-        } else {
-            echo "this is shiiiiit!";
-        }
-        function testy(): array
-        {
-            $res = [];
-            foreach ($isOnline ?? null as $key => $value) {
-                $res[$key]['username'] = $value;
-                $res[$key]['color'] = $colorList ?? null[$key];
-                echo "player credentials are:" . $res;
-            }
-            return $res;
+
         }
 
         $questions = (new Questions)->getAllQuestions();
@@ -96,6 +79,13 @@ class Homepage extends AbstractController
 
         $result = (new User)->filterArrayByKeyValue($users, 'username', $this->isConnected['username'] ?? null);
         print_r($result);
+
+        $username = [];
+            foreach ($users as $user) {
+                    array_push($username, $user['username']);
+        }
+       print_r($username);
+
 
 
         return $this->render('/home.html.twig', [

@@ -1,19 +1,12 @@
-const container = document.getElementById("container");
-let rows = document.getElementsByClassName("gridRow");
-let cells = document.getElementsByClassName("cell");
+// Making Connection
+const socket = io.connect("http://192.168.1.12:8080");
+socket.emit("joined");
 
 
+let allPlayers = []; // All players in the game
+let currentPlayer; // Player object for individual players
 
 let userSelector = document.querySelectorAll('.listOfUsers')
-let label1 = document.getElementById('player1');
-let label2 = document.getElementById('player2');
-let label3 = document.getElementById('player3');
-let label4 = document.getElementById('player4');
-let label5 = document.getElementById('player5');
-let label6 = document.getElementById('player6');
-
-let players = [label1, label2, label3, label4, label5, label6];
-
 
 let colorSelector = document.querySelectorAll('.selectColor')
 let input1 = document.getElementById('showColor1');
@@ -25,7 +18,7 @@ let input6 = document.getElementById('showColor6');
 
 let divs = [input1, input2, input3, input4, input5, input6];
 let count = -1
-let readyToPlay = [];
+let players = [];
 for (let i = 0; i < colorSelector.length; i++) {
     colorSelector[i].addEventListener('change', () => {
         if (colorSelector[i].value) {
@@ -58,18 +51,18 @@ for (let i = 0; i < colorSelector.length; i++) {
                 divs[5].value = userSelector[i].value;
 
             }
-            readyToPlay.push({
+            players.push({
                 username: userSelector[i].value,
                 color: colorSelector[i].value
             })
 
-            let allPlayers = Object.keys(readyToPlay).length;
+            let allPlayers = Object.keys(players).length;
             let numberOfUsers = document.getElementById('numberOfUsers')
             numberOfUsers.value = allPlayers;
             makeGrid();
-            console.log(readyToPlay);
+            console.log(players);
 
-            return readyToPlay;
+            return players;
         }
 
     });
@@ -127,19 +120,54 @@ function getContrast (hexcolor){
     return (yiq >= 128) ? 'black' : 'white';
 
 }
+console.log(players);
 //Creates columns
 function makeGrid() {
     let table =document.getElementById('myTable')
-    for (let i = 0; i < 2; i++) {
-        // creates a table row
-        let row = document.createElement("tr");
-        row.id = userSelector[i].value;
+        for (let i = 0; i < 2; i++) {
+                // creates a table row
+                let row = document.createElement("tr");
+                let attrib = document.createAttribute('id');
+                attrib.value = userSelector[i].value;
+                row.setAttributeNode(attrib);
+                console.log(attrib.value);
 
-        for (let j = 0; j < 49; j++) {
-            let cell = document.createElement("td");
-            cell.style.border = "4px solid" + colorSelector[i].value;
-            row.appendChild(cell);
-            table.appendChild(row);
-        }
+                for (let j = 0; j < 49; j++) {
+                    let cell = document.createElement("td");
+                    cell.style.border = "4px solid" + colorSelector[i].value;
+                    console.log(colorSelector[i].value)
+                    row.appendChild(cell);
+                    table.appendChild(row);
+
+                    if (attrib.value === "Coucou") {
+                        if(j === 7) {
+                            cell.style.backgroundColor = "#000";
+                        }
+                    }
+                    if (attrib.value === "tactac57") {
+                        if(j === 47) {
+                            cell.style.backgroundColor = "silver";
+                        }
+                    }
+                }
+            }
+}
+class Player {
+    constructor(id, name, pos, img) {
+        this.id = id;
+        this.name = name;
+        this.pos = pos;
+        //this.img = img;
     }
 }
+document.getElementById("start-btn").addEventListener("click", () => {
+    const name = document.getElementById("name").value;
+    document.getElementById("name").disabled = true;
+    document.getElementById("start-btn").hidden = true;
+    document.getElementById("roll-button").hidden = false;
+   currentPlayer = new Player(allPlayers.length, name, 0);
+    document.getElementById(
+        "current-player"
+    ).innerHTML = `<p>Anyone can roll</p>`;
+    socket.emit("join", currentPlayer);
+});
