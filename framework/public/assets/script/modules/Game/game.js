@@ -28,15 +28,15 @@ const socket = io("http://localhost:3000", {
 socket.on("init", (id) => {
     player1.setId(id);
     socket.emit("players", [player1.getUsername(), player1.getId()]);
-    socket.on("players", function (arrayPlayer) {
-        console.log(arrayPlayer);
-        for (let i = 0; i < arrayPlayer.length; i++) {
-            players.push(arrayPlayer[i]);
-        }
-        document.getElementById("numberOfUsers").innerText = players.length;
-    })
-
 });
+
+socket.on("playersLength", function (arrayPlayer) {
+    console.log(arrayPlayer);
+    // for (let i = 0; i < arrayPlayer.length; i++) {
+    //     players.push(arrayPlayer[i]);
+    // }
+    document.getElementById("numberOfUsers").innerText = arrayPlayer;
+})
 
 var messages = document.getElementById('messages');
 var form = document.getElementById('form');

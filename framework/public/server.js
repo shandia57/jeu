@@ -8,19 +8,8 @@ app.get('/', (req, res) => {
     res.sendFile("../templates/test.html.twig");
 })
 
-
-
 let players = [];
 
-// io.on("connection", client => {
-//     client.emit("init", client.id);
-
-//     client.on("players", (player) => {
-//         players.push(player);
-//         client.emit("players", players);
-//         console.log(players);
-//     })
-// })
 
 io.on('connection', (socket) => {
     console.log('a user connected');
@@ -35,10 +24,9 @@ io.on('connection', (socket) => {
     socket.emit("init", socket.id);
     socket.on("players", (player) => {
         players.push(player);
-        socket.emit("players", players);
+        socket.emit("playersLength", players.length);
         console.log(players);
     })
-
 
 
 });
