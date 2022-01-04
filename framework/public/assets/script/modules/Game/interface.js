@@ -106,3 +106,26 @@ export function clearAllInterface() {
         document.body.removeChild(document.body.firstChild);
     }
 }
+
+export function createNavBarOfPlayers() {
+    let header = document.createElement("header");
+    let nav = document.createElement("nav");
+    let p = document.createElement("p");
+    let label = document.createElement("label");
+
+    p.innerText = "Players connected : ";
+    label.setAttribute("id", "numberOfUsers");
+    label.innerText = "0";
+    p.appendChild(label);
+    nav.appendChild(p);
+    header.appendChild(nav);
+    document.body.appendChild(header);
+}
+
+export function deleteUsernameInput() {
+    let main = document.body.children[0];
+    while (main.children.length > 0) {
+        main.removeChild(main.firstChild);
+    }
+}
+
