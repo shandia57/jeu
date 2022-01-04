@@ -10,6 +10,7 @@ use App\Controller\Admin\Users;
 use App\Controller\Subscribe\Subscribe;
 
 use App\Controller\Logout;
+use App\Controller\Test;
 use App\Controller\UserLogin;
 
 use Framework\Routing\Route;
@@ -39,4 +40,7 @@ return [
 
     new Route('GET','/subscribe', Subscribe::class),
     new Route('POST','/subscribe', Subscribe::class),
+
+    new Route('GET', '/test', Test::class),
+    new Route('POST', '/test', Test::class),
 ];

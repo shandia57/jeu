@@ -11,6 +11,7 @@
 
 {% block content %}
 	<main>
+
 		<input id="numberOfUsers"  value="" readonly/>
 		<h1>Bienvenue sur la page d'accueil</h1>
 
@@ -18,46 +19,48 @@
 			<p>Veuillez vous connecter ou vous inscrire pour démarrer une partie</p>
 		{% else %}
 			<div class="wrapper" id="formData">
-					<form method="POST" name="formulaire">
+				<form action="/test" method="post">
 
 						<div id="playerList" style="display: inline-flex;margin: 0 2em">
 							<div class="child">
-							      <input id="showColor1"/>
+							      <input id="showColor1" name="player1"/>
 							</div>
 							<div class="child">
-							      <input id="showColor2"/>
+							      <input id="showColor2" name="player2"/>
 							</div>
 							<div class="child">
-							    <input id="showColor3"/>
+							    <input id="showColor3" name="player3"/>
 						   </div>
 							<div class="child">
-									<input id="showColor4"/>
+									<input id="showColor4" name="player4"/>
 							</div>
 							<div class="child">
-									<input id="showColor5"/>
+									<input id="showColor5" name="player5"/>
 							</div>
 							<div class="child">
-									<input id="showColor6"/>
+									<input id="showColor6" name="player6"/>
 							</div>
 						</div>
 
 						<select id="players" class="listOfUsers">
-							<option selected="selected">username</option>
 							{% for name in username%}
-								<option class="dropdown-item" value="{{ name }}" >{{ name }}</option>
+								<option class="dropdown-item" value="{{ name }}">{{ name }}</option>
 							{% endfor %}
 						</select>
 
-						<select id="colorList" class="selectColor">
+						<select id="colorList" class="selectColor" name="color">
 							<option style="background-color: {{ color }}" value="{{ color }}" selected="selected">color</option>
 							{% for color in colors%}
 								<option class="dropdown-item" value="{{ color }}" style="background-color: {{ color }}"></option>
 							{% endfor %}
 						</select>
 						<input type=button onclick="deleteColor()" value='Remove color'>
+					<input class="btn btn-success" name="submit" type="submit" value="Add player">
 					</form>
 
 			</div>
+
+
 			<button class="glow-on-hover" type="button">Créer une partie</button>
 		{% endif %}
 	</main>

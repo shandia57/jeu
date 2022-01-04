@@ -1,6 +1,6 @@
 // Making Connection
-const socket = io.connect("http://192.168.1.12:8080");
-socket.emit("joined");
+//const socket = io.connect("http://192.168.1.12:8080");
+//socket.emit("joined");
 
 
 let allPlayers = []; // All players in the game
@@ -15,40 +15,40 @@ let input3 = document.getElementById('showColor3');
 let input4 = document.getElementById('showColor4');
 let input5 = document.getElementById('showColor5');
 let input6 = document.getElementById('showColor6');
-
+let players = [];
 let divs = [input1, input2, input3, input4, input5, input6];
 let count = -1
-let players = [];
+
 for (let i = 0; i < colorSelector.length; i++) {
     colorSelector[i].addEventListener('change', () => {
         if (colorSelector[i].value) {
             count += 1;
             if (count === 0) {
                 divs[0].style.backgroundColor = colorSelector[i].value;
-                divs[0].value = userSelector[i].value;
+                divs[0].value = [userSelector[i].value,colorSelector[i].value];
             }
             if (count === 1) {
                 divs[1].style.backgroundColor = colorSelector[i].value;
-                divs[1].value = userSelector[i].value;
+                divs[1].value = [userSelector[i].value,colorSelector[i].value];
             }
             if (count === 2) {
                 divs[2].style.backgroundColor = colorSelector[i].value;
-                divs[2].value = userSelector[i].value;
+                divs[2].value = [userSelector[i].value,colorSelector[i].value]
 
             }
             if (count === 3) {
                 divs[3].style.backgroundColor = colorSelector[i].value;
-                divs[3].value = userSelector[i].value;
+                divs[3].value = [userSelector[i].value,colorSelector[i].value];
 
             }
             if (count === 4) {
                 divs[4].style.backgroundColor = colorSelector[i].value;
-                divs[4].value = userSelector[i].value;
+                divs[4].value = [userSelector[i].value,colorSelector[i].value];
 
             }
             if (count === 5) {
                 divs[5].style.backgroundColor = colorSelector[i].value;
-                divs[5].value = userSelector[i].value;
+                divs[5].value = [userSelector[i].value,colorSelector[i].value];
 
             }
             players.push({
@@ -57,15 +57,31 @@ for (let i = 0; i < colorSelector.length; i++) {
             })
 
             let allPlayers = Object.keys(players).length;
+            console.log(allPlayers);
             let numberOfUsers = document.getElementById('numberOfUsers')
             numberOfUsers.value = allPlayers;
             makeGrid();
             console.log(players);
-
-            return players;
         }
-
     });
+}
+
+function savePlayers(){
+    players.push({
+        username: userSelector[i].value,
+        color: colorSelector[i].value
+    })
+    fetch('http://localhost:3000/test/', {
+        method: 'POST',
+        body: JSON.stringify(players),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+        });
 }
 
 //delete color after selection on click
@@ -120,7 +136,8 @@ function getContrast (hexcolor){
     return (yiq >= 128) ? 'black' : 'white';
 
 }
-console.log(players);
+//console.log(players);
+
 //Creates columns
 function makeGrid() {
     let table =document.getElementById('myTable')
@@ -139,35 +156,7 @@ function makeGrid() {
                     row.appendChild(cell);
                     table.appendChild(row);
 
-                    if (attrib.value === "Coucou") {
-                        if(j === 7) {
-                            cell.style.backgroundColor = "#000";
-                        }
-                    }
-                    if (attrib.value === "tactac57") {
-                        if(j === 47) {
-                            cell.style.backgroundColor = "silver";
-                        }
-                    }
                 }
             }
 }
-class Player {
-    constructor(id, name, pos, img) {
-        this.id = id;
-        this.name = name;
-        this.pos = pos;
-        //this.img = img;
-    }
-}
-document.getElementById("start-btn").addEventListener("click", () => {
-    const name = document.getElementById("name").value;
-    document.getElementById("name").disabled = true;
-    document.getElementById("start-btn").hidden = true;
-    document.getElementById("roll-button").hidden = false;
-   currentPlayer = new Player(allPlayers.length, name, 0);
-    document.getElementById(
-        "current-player"
-    ).innerHTML = `<p>Anyone can roll</p>`;
-    socket.emit("join", currentPlayer);
-});
+

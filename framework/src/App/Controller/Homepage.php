@@ -56,15 +56,15 @@ class Homepage extends AbstractController
                 foreach (array_keys($colors, $selected) as $key) {
                     unset($colors[$key]);
                 }
-                print_r($colorList);
+               // print_r($colorList);
                 $res = array();
                 foreach ($allPlayers as $i => $key) {
                     $res[$key] = $colorList[$i];
                 }
                 print_r($res);
-                echo "\nYou have chosen: " . $selected . "\n";
-            } else {
-                echo 'Please select one color';
+               // echo "\nYou have chosen: " . $selected . "\n";
+           // } else {
+               // echo 'Please select one color';
             }
         }
         if (isset($colorList) && isset($username)) {
@@ -79,12 +79,18 @@ class Homepage extends AbstractController
 
         $result = (new User)->filterArrayByKeyValue($users, 'username', $this->isConnected['username'] ?? null);
         print_r($result);
-
+        $connected = [];
+        foreach ($result as $online){
+            array_push($connected, $online['username']);
+        }
+        print_r($connected);
         $username = [];
             foreach ($users as $user) {
                     array_push($username, $user['username']);
         }
        print_r($username);
+            $res = array_diff($username,$connected);
+            print_r($res);
 
 
 
@@ -97,7 +103,7 @@ class Homepage extends AbstractController
             "anyErrors" => $this->anyErrors,
             "colors" => $colors,
             "player" => $choiceOfColor,
-            "username" => $username
+            "username" => $res
         ]);
     }
 
