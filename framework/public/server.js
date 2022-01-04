@@ -31,6 +31,16 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
+
+    socket.emit("init", socket.id);
+    socket.on("players", (player) => {
+        players.push(player);
+        socket.emit("players", players);
+        console.log(players);
+    })
+
+
+
 });
 
 

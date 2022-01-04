@@ -36,7 +36,6 @@ socket.on("init", (id) => {
         document.getElementById("numberOfUsers").innerText = players.length;
     })
 
-
 });
 
 var messages = document.getElementById('messages');
