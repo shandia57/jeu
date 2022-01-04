@@ -1,3 +1,9 @@
+function createDiv(className) {
+    let div = document.createElement('div');
+    div.setAttribute("class", className);
+    return div;
+}
+
 export function createButton(text) {
     let button = document.createElement('button');
     button.setAttribute('type', 'button');
@@ -113,6 +119,7 @@ export function createNavBarOfPlayers() {
     let p = document.createElement("p");
     let label = document.createElement("label");
 
+
     p.innerText = "Players connected : ";
     label.setAttribute("id", "numberOfUsers");
     label.innerText = "0";
@@ -120,6 +127,13 @@ export function createNavBarOfPlayers() {
     nav.appendChild(p);
     header.appendChild(nav);
     document.body.appendChild(header);
+
+    let h1 = document.createElement("h1");
+    let main = document.body.children[0];
+    h1.innerText = "En attente que les autres joueurs se connectent";
+    main.appendChild(h1);
+    document.body.appendChild(main);
+
 }
 
 export function deleteUsernameInput() {
@@ -127,5 +141,91 @@ export function deleteUsernameInput() {
     while (main.children.length > 0) {
         main.removeChild(main.firstChild);
     }
+}
+
+
+
+function createModalInput() {
+
+
+    let divInputLevel = createDiv("input-group mb-3");
+    let input = document.createElement('input');
+    input.setAttribute("type", "text")
+    input.setAttribute("id", "searchbar")
+    input.setAttribute("class", "form-control")
+    input.setAttribute("placeholder", "Level question");
+
+    let button = document.createElement('button');
+    button.setAttribute("class", "btn btn-outline-secondary")
+    button.setAttribute("type", "button")
+    button.setAttribute("id", "buttonSearch");
+    let i = document.createElement("i");
+    i.setAttribute("class", "fas fa-search")
+    button.append(i);
+
+    divInputLevel.appendChild(input)
+    divInputLevel.appendChild(button);
+
+
+    return divInputLevel;
+
+}
+
+function createContainerModals() {
+    let modalQuestions = createDiv("modalQuestions");
+    let header = createDiv("headerModal");
+    let h2 = document.createElement("h2");
+    h2.setAttribute("id", "questionGame");
+    h2.innerText = "Questions";
+    header.appendChild(h2);
+
+    let body = createDiv("bodyModal");
+    let containerModal = document.createElement("div");
+    containerModal.setAttribute("id", "containerModal");
+    body.appendChild(containerModal);
+
+    let footer = createDiv("footerModal");
+    let left = createDiv("left")
+    let pleft = document.createElement("p");
+    let bleft = document.createElement("b");
+    bleft.innerText = "Joueur : ";
+    let labelleft = document.createElement("label");
+    labelleft.setAttribute("id", "currentPlayer");
+    pleft.appendChild(bleft)
+    pleft.appendChild(labelleft)
+    left.appendChild(pleft);
+
+    let right = createDiv("right")
+    let pright = document.createElement("p");
+    let bright = document.createElement("b");
+    bright.innerText = "Score : ";
+    let labelright = document.createElement("label");
+    labelright.setAttribute("id", "currentPlayerScore");
+    pright.appendChild(bright)
+    pright.appendChild(labelright)
+    right.appendChild(pright);
+
+    footer.appendChild(left)
+    footer.appendChild(right);
+
+    modalQuestions.appendChild(header)
+    modalQuestions.appendChild(body)
+    modalQuestions.appendChild(footer);
+
+    return modalQuestions;
+
+
+}
+
+export function createDomGame() {
+    let container = createDiv("container")
+    let divCenter = createDiv("justify-content-md-center");
+    let divInputLevel = createModalInput()
+    let modalQuestions = createContainerModals();
+    divCenter.appendChild(divInputLevel);
+    divCenter.appendChild(modalQuestions);
+    container.appendChild(divCenter);
+    document.body.children[document.body.children.length - 1].appendChild(container);
+
 }
 

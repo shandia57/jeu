@@ -67,8 +67,9 @@ export class Player {
         return this.#maxPoints;
     }
 
-    setPlayers(...players) {
-        this.#players = players;
+
+    setPlayers(player) {
+        this.#players.push(player);
     }
 
     getPlayers() {

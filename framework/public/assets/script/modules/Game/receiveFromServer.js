@@ -1,3 +1,6 @@
+import * as gameInterface from "./interface.js";
+
+
 const socket = io("http://localhost:3000", {
     secure: true,
     transports: ['websocket', 'polling']
@@ -22,11 +25,12 @@ socket.on('chat message', function (msg) {
     window.scrollTo(0, document.body.scrollHeight);
 });
 
-socket.on("players", function (arrayPlayer) {
-    console.log(arrayPlayer);
+socket.on("players connected", function (arrayPlayer) {
     document.getElementById("numberOfUsers").innerText = arrayPlayer;
-
 })
+
+
+
 
 
 
