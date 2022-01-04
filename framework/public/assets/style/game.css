@@ -93,3 +93,13 @@ h2{
     font-size: 15px;
 }
 
+/* 
+    NEW
+
+*/
+
+nav{
+    background-color: lightgray;
+    width:100%;
+    color:black;
+}

@@ -6,9 +6,10 @@ import * as answers from "./../librairie/answers.js";
 import * as gameInterface from "./interface.js";
 
 
+
 //////////////////////// START GAME INITIALIZE
 
-
+let players = [];
 let MJ = new Player("Admin", "Admin");
 let player1 = new Player("Shandia", "Player");
 let player2 = new Player("Slykillah", "Player");
@@ -17,6 +18,29 @@ let player3 = new Player("Shimotsuki", "Player");
 // let player5 = new Player("Toran", "Player");
 // let player6 = new Player("Kenitoh", "Player");
 let game = new JeuDeLoie();
+
+////// SCOKET IO
+
+const socket = io("http://localhost:3000", {
+    secure: true,
+    transports: ['websocket', 'polling']
+});
+socket.on("init", (id) => {
+    player1.setId(id);
+    socket.emit("players", [player1.getUsername(), player1.getId()]);
+    socket.on("players", function (arrayPlayer) {
+        console.log(arrayPlayer);
+        for (let i = 0; i < arrayPlayer.length; i++) {
+            players.push(arrayPlayer[i]);
+        }
+        document.getElementById("numberOfUsers").innerText = players.length;
+    })
+
+
+});
+
+
+
 
 // FIRST STEP add players into the game
 
@@ -48,7 +72,7 @@ document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer(
 alert("Veuillez choisir une couleur");
 
 document.getElementById("buttonSearch").addEventListener("click", () => {
-    play();
+    // play();
 })
 
 function play() {
