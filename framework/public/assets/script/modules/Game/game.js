@@ -30,12 +30,13 @@ socket.on("init", (id) => {
     socket.emit("players", [player1.getUsername(), player1.getId()]);
 });
 
-socket.on("playersLength", function (arrayPlayer) {
+socket.on("players", function (arrayPlayer) {
     console.log(arrayPlayer);
     // for (let i = 0; i < arrayPlayer.length; i++) {
     //     players.push(arrayPlayer[i]);
     // }
     document.getElementById("numberOfUsers").innerText = arrayPlayer;
+
 })
 
 var messages = document.getElementById('messages');
