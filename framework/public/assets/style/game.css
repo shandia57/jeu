@@ -193,3 +193,6 @@ body {
     padding:15px;
     border-radius: 5px;
 }
+.centerButton{
+    text-align: center;
+}

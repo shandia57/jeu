@@ -78,42 +78,7 @@ socket.on("startGame", (startGame) => {
             let newButtonSearch = gameInterface.createBtnSearch();
             gameInterface.insertAfter(newButtonSearch, document.getElementById("searchbar"));
             document.getElementById("buttonSearch").addEventListener("click", () => {
-                let buttonSearch = document.getElementById("buttonSearch");
-                let getLevel = document.getElementById("searchbar").value;
-                if (gameInterface.controlLevelQuestion(getLevel)) {
-
-                    // Delete btn 
-                    buttonSearch.parentNode.removeChild(buttonSearch);
-
-
-                    // Search questions if empty array
-                    if (game.getQuestionsWithLevel(getLevel).length === 0) {
-                        getAndSetTheEmptyArrayQuestions(getLevel)
-                    }
-
-
-                    var questions = game.getQuestionsWithLevel(getLevel);
-                    // FIRST STEP get a random index from 0 to length Of arrayQuestions
-                    let index = game.getRandomIndex(questions.length);
-
-                    // SECOND STEP get a random question
-                    let singleQuestion = game.getSingleQuestion(index, questions);
-
-                    // THIRD STEP get answer(s)
-                    answers.getAnswers(singleQuestion.id_question);
-                    game.setAnswers(JSON.parse(localStorage.getItem("answer")));
-
-                    //// TAKE THE GOOD ANSWER
-                    let goodAnswer = game.findGoodAnswer();
-                    let array = [singleQuestion.question, game.getAnswers(), goodAnswer, getLevel, index];
-
-                    // send it to the server for controle 
-                    socket.emit("getQuestionsAndAnswers", array);
-
-
-                } else {
-                    alert("Incorrect, le niveau doit à choisir doit être l'un des niveaux suivants : vert, jaune bleu orange rouge noir");
-                }
+                play();
             })
         }
     }
@@ -174,7 +139,8 @@ socket.on("player answered", (answer) => {
 
 
         alert(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points")
-        game.getCurrentPlayer().addPoints(answer[2])
+        game.getCurrentPlayer().addPoints(48);
+        // game.getCurrentPlayer().addPoints(answer[2])
         document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
     } else {
@@ -202,6 +168,7 @@ socket.on("player answered", (answer) => {
         game.getCurrentPlayer().removePoints(answer[2]);
 
     }
+    document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
     if (game.getCurrentPlayer().controlPointsOfTheCurrentPlayer()) {
 
@@ -220,13 +187,43 @@ socket.on("player answered", (answer) => {
         game.IncrementCurrentIndexPlayer();
     }
 
-    setTimeout(() => {
-        if (socket.id === answer[3]) {
-            socket.emit("endOfTurn", game.getCurrentIndexPlayer());
-        }
-    }, 3000);
+    // RESET the game
+    if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
+        let button = document.createElement("button");
+        button.setAttribute("id", "test")
+        button.innerText = "Restart";
+        document.body.children[document.body.children.length - 1].appendChild(button);
+        document.getElementById("test").addEventListener("click", (e) => {
+            console.log("OUIIIIIIIIIIIIIIIIIIII");
+            e.target.parentNode.removeChild(e.target);
+            let buttonNo = document.getElementById("test2");
+            buttonNo.parentNode.removeChild(buttonNo);
+            socket.emit("endOfGame", [true, game.getCurrentIndexPlayer()]);
+
+        })
+
+        let button2 = document.createElement("button");
+        button2.setAttribute("id", "test2")
+        button2.innerText = "No";
+        document.body.children[document.body.children.length - 1].appendChild(button2);
+
+        document.getElementById("test2").addEventListener("click", (e) => {
+            console.log("NOOOOOOOOOOOOOOOOOON");
+            e.target.parentNode.removeChild(e.target);
+            let buttonYes = document.getElementById("test");
+            buttonYes.parentNode.removeChild(buttonYes);
+            socket.emit("endOfGame", [false, game.getCurrentIndexPlayer()]);
+        })
 
 
+
+    } else {
+        setTimeout(() => {
+            if (socket.id === answer[3]) {
+                socket.emit("endOfTurn", game.getCurrentIndexPlayer());
+            }
+        }, 3000);
+    }
 
 
 })
@@ -240,56 +237,51 @@ socket.on("newTurn", (dataNewTurn) => {
 
     // delete the question from the array
     game.removeTheQuestion(dataNewTurn[1], dataNewTurn[2]);
+
     if (socket.id === dataNewTurn[0]) {
         let newButtonSearch = gameInterface.createBtnSearch();
         gameInterface.insertAfter(newButtonSearch, document.getElementById("searchbar"));
+
         alert("Veuillez choisir une couleur");
 
-
         document.getElementById("buttonSearch").addEventListener("click", () => {
-            let buttonSearch = document.getElementById("buttonSearch");
-            let getLevel = document.getElementById("searchbar").value;
-            if (gameInterface.controlLevelQuestion(getLevel)) {
-
-                // Delete btn 
-                buttonSearch.parentNode.removeChild(buttonSearch);
-
-
-                // Search questions if empty array
-                if (game.getQuestionsWithLevel(getLevel).length === 0) {
-                    getAndSetTheEmptyArrayQuestions(getLevel)
-                }
-
-
-                var questions = game.getQuestionsWithLevel(getLevel);
-                // FIRST STEP get a random index from 0 to length Of arrayQuestions
-                let index = game.getRandomIndex(questions.length);
-
-                // SECOND STEP get a random question
-                let singleQuestion = game.getSingleQuestion(index, questions);
-
-                // THIRD STEP get answer(s)
-                answers.getAnswers(singleQuestion.id_question);
-                game.setAnswers(JSON.parse(localStorage.getItem("answer")));
-
-                //// TAKE THE GOOD ANSWER
-                let goodAnswer = game.findGoodAnswer();
-                let array = [singleQuestion.question, game.getAnswers(), goodAnswer, getLevel, index];
-
-                // send it to the server for controle 
-                socket.emit("getQuestionsAndAnswers", array);
-
-
-            } else {
-                alert("Incorrect, le niveau doit à choisir doit être l'un des niveaux suivants : vert, jaune bleu orange rouge noir");
-            }
+            play()
         });
-
-
 
     }
 
+});
+
+socket.on("restart", (idNewCurrentPlayer) => {
+
+    resetQuestions();
+    game.resetAllPoints();
+    game.setNumberOfActuelPlayers(game.getNumberPlayer());
+    game.resetAllStatePlaying();
+
+    // RESET a part of the interface
+    gameInterface.removeInterface();
+
+    document.getElementById("currentPlayer").innerText = game.getCurrentPlayer().getUsername();
+    document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
+
+
+    if (socket.id === idNewCurrentPlayer) {
+        let newButtonSearch = gameInterface.createBtnSearch();
+        gameInterface.insertAfter(newButtonSearch, document.getElementById("searchbar"));
+
+        alert("Veuillez choisir une couleur");
+
+        document.getElementById("buttonSearch").addEventListener("click", () => {
+            play()
+        });
+
+    }
 })
+
+socket.on("stopGame", (data) => {
+    gameInterface.clearAllInterface();
+});
 
 
 
@@ -323,6 +315,45 @@ function getAndSetTheEmptyArrayQuestions(level) {
     }
 }
 
+function play() {
+    let buttonSearch = document.getElementById("buttonSearch");
+    let getLevel = document.getElementById("searchbar").value;
+    if (gameInterface.controlLevelQuestion(getLevel)) {
+
+        // Delete btn 
+        buttonSearch.parentNode.removeChild(buttonSearch);
+
+
+        // Search questions if empty array
+        if (game.getQuestionsWithLevel(getLevel).length === 0) {
+            getAndSetTheEmptyArrayQuestions(getLevel)
+        }
+
+
+        var questions = game.getQuestionsWithLevel(getLevel);
+        // FIRST STEP get a random index from 0 to length Of arrayQuestions
+        let index = game.getRandomIndex(questions.length);
+
+        // SECOND STEP get a random question
+        let singleQuestion = game.getSingleQuestion(index, questions);
+
+        // THIRD STEP get answer(s)
+        answers.getAnswers(singleQuestion.id_question);
+        game.setAnswers(JSON.parse(localStorage.getItem("answer")));
+
+        //// TAKE THE GOOD ANSWER
+        let goodAnswer = game.findGoodAnswer();
+        let array = [singleQuestion.question, game.getAnswers(), goodAnswer, getLevel, index];
+
+        // send it to the server for controle 
+        socket.emit("getQuestionsAndAnswers", array);
+
+
+    } else {
+        alert("Incorrect, le niveau doit à choisir doit être l'un des niveaux suivants : vert, jaune bleu orange rouge noir");
+    }
+}
+
 
 
 function resetQuestions() {
@@ -332,6 +363,13 @@ function resetQuestions() {
     }
 }
 
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (input.value) {
+        socket.emit('chat message', player.getUsername() + " : " + input.value);
+        input.value = '';
+    }
+});
 
 
 

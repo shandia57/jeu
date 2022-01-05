@@ -4,7 +4,7 @@ export class Player {
     #username;
     #role;
     #points = 0;
-    #maxPoints = 49;
+    #maxPoints = 48;
     #players = [];
     #maxPlayers = 6;
     #currentIndexPlayer = 0;
@@ -124,5 +124,11 @@ export class Player {
 
     getStatePlaying() {
         return this.#statePlaying;
+    }
+
+    resetAllStatePlaying() {
+        for (let i = 0; i < this.#players.length; i++) {
+            this.#players[i].#statePlaying = true;
+        }
     }
 }

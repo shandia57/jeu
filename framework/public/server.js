@@ -13,14 +13,14 @@ let goodAnswer = "";
 let level = "";
 let indexQuestion = 0;
 let maxPoints = 48;
+let boolRestartGame = [];
 
 
 io.on('connection', (socket) => {
     console.log('a user connected');
 
     socket.on('chat message', (msg) => {
-        console.log('coucou: ' + msg);
-        io.emit('chat message', "Zoulette : " + msg);
+        io.emit('chat message', msg);
     });
 
 
@@ -50,7 +50,6 @@ io.on('connection', (socket) => {
         level = questionsAnswers[3];
         indexQuestion = questionsAnswers[4];
         questionsAnswers.push(players[currentPlayer].id);
-        console.log("this id", players[currentPlayer].id)
         io.emit("answerToTheQuestion", questionsAnswers);
 
     })
@@ -66,12 +65,29 @@ io.on('connection', (socket) => {
     })
 
     socket.on("endOfTurn", (newCurrentUser) => {
-        console.log("je suis le noueveau user", newCurrentUser);
         currentPlayer = newCurrentUser;
         io.emit("newTurn", [players[currentPlayer].id, level, indexQuestion]);
 
     })
 
+    socket.on("endOfGame", (conf) => {
+        console.log(conf);
+        boolRestartGame.push(conf);
+        if (boolRestartGame.length === players.length) {
+            let newArrayBool = boolRestartGame.filter((value) => {
+                return value[0] === true;
+            }).length
+            if (newArrayBool === players.length) {
+                currentPlayer = conf[1];
+                boolRestartGame = [];
+                console.log("Restart the game")
+                io.emit("restart", players[currentPlayer].id);
+            } else {
+                console.log("End game")
+                io.emit("stopGame", false);
+            }
+        }
+    })
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
