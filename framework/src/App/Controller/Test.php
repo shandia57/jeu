@@ -9,7 +9,7 @@ class Test extends AbstractController
 
     public function __invoke(): string
     {
-        $users = ["shandia", "slykillah", "kaiyo"];
+        $users = ["shandia,red", "slykillah,green", "kaiyo,blue"];
 
             return $this->render('/test.html.twig', [
 

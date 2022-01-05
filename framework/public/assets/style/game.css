@@ -59,27 +59,24 @@ h2{
     display: inline-block;
 }
 
-/* .left{
-    float: left;
-
+table {
+    border-collapse: separate;
 }
-.right{
-    float: right;
-} */
 
-/* 
-    CONSOLE MODAL
-*/
-
-.modalConsole{
-    background-color: white;
-    border-radius: 10px;
-    width: 30%;
-    height: 200px;
-    overflow:auto;
-    position: absolute;
-    right:0;
+tr {
+    border-spacing: 8px 1.5rem;
+    background: #fff;
+    margin-bottom: 10px;
 }
+
+td{
+    margin: .5em;
+    width: 50px;
+    height: 50px;
+    box-shadow: 2px 2px 2px 2px #ecd7ba;
+}
+
+
 .headerModalConsole{
     border-bottom: 1px solid black;
 }

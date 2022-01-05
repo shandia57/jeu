@@ -13,13 +13,20 @@ const socket = io("http://localhost:3000", {
 });
 
 
-var users = []
+var users = [];
+var usersWithColor = [];
+var indexColorArray = 0;
 var usersFromPhp = document.getElementsByName("users");
 let game = new JeuDeLoie();
 let player = new Player("Unkown", "Player");
 
 for (let i = 0; i < usersFromPhp.length; i++) {
-    users.push(usersFromPhp[i].value);
+    let temporaryArray = usersFromPhp[i].value.split(',');
+    users.push(temporaryArray[0])
+    usersWithColor.push({
+        username: temporaryArray[0],
+        color: temporaryArray[1]
+    })
 }
 
 socket.on("init", (id) => {
@@ -32,7 +39,8 @@ try {
             let value = e.target.value;
             if (controlGoodUser(value)) {
                 player.setUsername(value);
-                socket.emit("players", [player.getId(), player.getUsername()]);
+                indexColorArray = returnIndex(value)
+                socket.emit("players", [player.getId(), player.getUsername(), usersWithColor[indexColorArray].color]);
                 socket.emit("numberMaxPlayers", users.length);
                 gameInterface.deleteUsernameInput();
                 gameInterface.createNavBarOfPlayers();
@@ -51,6 +59,13 @@ socket.on("startGame", (startGame) => {
             let newPlayer = new Player(startGame[1][i].username, "Player");
             newPlayer.setId(startGame[1][i].id);
             game.setPlayers(newPlayer);
+        }
+
+        let table = document.createElement("tablled");
+        table.setAttribute("id", "myTable");
+        document.body.children[document.body.children.length - 1].appendChild(table);
+        for (let i = 0; i < startGame[1].length; i++) {
+            gameInterface.makeGrid(startGame[1][i].username, startGame[1][i].color);
         }
         game.setNumberOfActuelPlayers(game.getNumberPlayer());
 
@@ -137,11 +152,18 @@ socket.on("player answered", (answer) => {
             }
         }
 
+        let user = game.getCurrentPlayer().getUsername();
+        let index = game.getCurrentPlayer().getPoints();
+        document.getElementById(user).children[index].style.backgroundColor = "white";
+
 
         alert(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points")
-        game.getCurrentPlayer().addPoints(48);
-        // game.getCurrentPlayer().addPoints(answer[2])
+        // game.getCurrentPlayer().addPoints(48)
+        game.getCurrentPlayer().addPoints(answer[2])
         document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
+
+        index = game.getCurrentPlayer().getPoints();
+        document.getElementById(user).children[index].style.backgroundColor = returnColor(user);
 
     } else {
         if (socket.id === answer[3]) {
@@ -164,11 +186,26 @@ socket.on("player answered", (answer) => {
             }
         }
 
+
+        let user = game.getCurrentPlayer().getUsername();
+        let index = game.getCurrentPlayer().getPoints();
+        console.log("index", index);
+        console.log("la propriété en question : ", document.getElementById(user).children[index])
+        document.getElementById(user).children[index].style.backgroundColor = "white";
+
         alert(game.getCurrentPlayer().getUsername() + " a perdu " + answer[2] + " points")
         game.getCurrentPlayer().removePoints(answer[2]);
 
+
+
+
     }
-    document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
+
+    document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints()
+    let user = game.getCurrentPlayer().getUsername();
+    let index = game.getCurrentPlayer().getPoints();
+    document.getElementById(user).children[index].style.backgroundColor = returnColor(user);
+
 
     if (game.getCurrentPlayer().controlPointsOfTheCurrentPlayer()) {
 
@@ -261,6 +298,7 @@ socket.on("restart", (idNewCurrentPlayer) => {
 
     // RESET a part of the interface
     gameInterface.removeInterface();
+    gameInterface.resteTableColor();
 
     document.getElementById("currentPlayer").innerText = game.getCurrentPlayer().getUsername();
     document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
@@ -291,6 +329,22 @@ function controlGoodUser(username) {
     return users.includes(username.trim().toLowerCase());
 }
 
+function returnIndex(username) {
+    for (let i = 0; i < usersWithColor.length; i++) {
+        if (usersWithColor[i].username === username) {
+            return i;
+        }
+    }
+}
+
+function returnColor(username) {
+    for (let i = 0; i < usersWithColor.length; i++) {
+        if (usersWithColor[i].username === username) {
+            return usersWithColor[i].color;
+        }
+    }
+}
+
 
 function getAndSetTheEmptyArrayQuestions(level) {
     switch (level.trim().toLowerCase()) {
@@ -316,6 +370,10 @@ function getAndSetTheEmptyArrayQuestions(level) {
 }
 
 function play() {
+    let user = game.getCurrentPlayer().getUsername();
+    let index = game.getCurrentPlayer().getPoints();
+    document.getElementById(user).children[index].style.backgroundColor = returnColor(user);
+
     let buttonSearch = document.getElementById("buttonSearch");
     let getLevel = document.getElementById("searchbar").value;
     if (gameInterface.controlLevelQuestion(getLevel)) {

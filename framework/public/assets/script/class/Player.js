@@ -50,7 +50,7 @@ export class Player {
     }
     removePoints(points) {
         if (this.#points > points) {
-            this.#points - points;
+            this.#points -= points;
         } else {
             this.#points = 0;
         }

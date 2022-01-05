@@ -257,6 +257,36 @@ export function createDomGame() {
     divCenter.appendChild(modalQuestions);
     container.appendChild(divCenter);
     document.body.children[document.body.children.length - 1].appendChild(container);
+}
+
+export function makeGrid(username, color) {
+    let table = document.getElementById('myTable')
+    for (let i = 0; i < 1; i++) {
+        // creates a table row
+        let row = document.createElement("tr");
+        let attrib = document.createAttribute('id');
+        attrib.value = username;
+        row.setAttributeNode(attrib);
+        console.log(attrib.value);
+
+        for (let j = 0; j < 49; j++) {
+            let cell = document.createElement("td");
+            cell.style.border = "4px solid " + color;
+            console.log(color);
+            row.appendChild(cell);
+            table.appendChild(row);
+
+        }
+    }
+}
+
+export function resteTableColor() {
+    let table = document.getElementById('myTable');
+    for (let i = 0; i < table.children.length; i++) {
+        for (let j = 0; j < table.children[i].children.length; j++) {
+            table.children[i].children[j].style.backgroundColor = "white";
+        }
+    }
 
 }
 

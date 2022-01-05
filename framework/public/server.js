@@ -30,7 +30,8 @@ io.on('connection', (socket) => {
         players.push(
             {
                 "id": player[0],
-                "username": player[1]
+                "username": player[1],
+                "color": player[2],
             }
         );
         io.emit("players connected", players.length);
