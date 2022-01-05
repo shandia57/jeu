@@ -12,6 +12,13 @@ export function createButton(text) {
     return button;
 }
 
+export function createLabel(text) {
+    let label = document.createElement('label');
+    label.setAttribute('class', 'answersSpectator');
+    label.innerText = text;
+    return label;
+}
+
 export function createBtnSearch() {
 
     let button = document.createElement('button');
@@ -65,6 +72,26 @@ export function createInterfaceAnswers(answers) {
         }
     }
 }
+
+export function createInterfaceAnswersForSpectator(answers) {
+    let parrent = document.getElementById("containerModal");
+    let row = createRow();
+
+    for (let i = 0; i !== answers.length; i++) {
+
+
+        let col = createCol();
+        let label = createLabel(answers[i].answer);
+        label.value = answers[i].answer;
+        col.appendChild(label);
+        row.appendChild(col);
+
+        if (row.children.length == 2) {
+            parrent.appendChild(row);
+            row = createRow();
+        }
+    }
+}
 export function createInterfaceSingleAnswer(answers) {
     let parrent = document.getElementById("containerModal");
 
@@ -83,6 +110,18 @@ export function createInterfaceSingleAnswer(answers) {
 
     row.appendChild(col);
     row.appendChild(col2);
+    parrent.appendChild(row);
+}
+export function createInterfaceSingleAnswerForSpectator(answers) {
+    let parrent = document.getElementById("containerModal");
+
+    let row = createRow();
+
+    let col = createCol();
+    let label = createLabel("En attente d'une réponse");
+    col.appendChild(label);
+
+    row.appendChild(col);
     parrent.appendChild(row);
 }
 
@@ -155,16 +194,8 @@ function createModalInput() {
     input.setAttribute("class", "form-control")
     input.setAttribute("placeholder", "Level question");
 
-    let button = document.createElement('button');
-    button.setAttribute("class", "btn btn-outline-secondary")
-    button.setAttribute("type", "button")
-    button.setAttribute("id", "buttonSearch");
-    let i = document.createElement("i");
-    i.setAttribute("class", "fas fa-search")
-    button.append(i);
 
     divInputLevel.appendChild(input)
-    divInputLevel.appendChild(button);
 
 
     return divInputLevel;

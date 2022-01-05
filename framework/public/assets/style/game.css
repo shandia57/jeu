@@ -182,7 +182,14 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-#btnChatBox{
+#btnBottom{
     position: absolute;
     bottom:0;
+}
+
+.answersSpectator{
+    border:1px solid #1b2735;
+    color: #1b2735;
+    padding:15px;
+    border-radius: 5px;
 }

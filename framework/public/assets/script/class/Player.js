@@ -41,14 +41,20 @@ export class Player {
         return this.#role;
     }
 
-    setPoints(points) {
+    addPoints(points) {
         if (this.#points + points > this.#maxPoints) {
             this.#points = this.#maxPoints;
         } else {
             this.#points += points;
         }
     }
-
+    removePoints(points) {
+        if (this.#points > points) {
+            this.#points - points;
+        } else {
+            this.#points = 0;
+        }
+    }
     resetPoints() {
         this.#points = 0;
     }
