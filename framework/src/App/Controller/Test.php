@@ -11,7 +11,7 @@ class Test extends AbstractController
     public function __invoke(): string
     {
         $players =[];
-        $colors = [];
+
      if(!empty($_POST)){
         $player1 =$_POST['player1'];
         $player2 =$_POST['player2'];
@@ -23,7 +23,6 @@ class Test extends AbstractController
         array_push($players,$player1,$player2,$player3,$player4,$player5,$player6);
      }
      print_r($players);
-     print_r($colors);
         return $this->render('/test.html.twig', [
                 "players" => $players,
 
