@@ -37,45 +37,11 @@ class Homepage extends AbstractController
             $this->controlPostSended();
             $this->isConnected = $_SESSION['user'];
             $this->createUserSessionWithCookie();
-            // $isOnline =[];
-            // print_r("\n".($this->isConnected['username'])."\n");
-            // array_push($isOnline,$this->isConnected['username']??null);
         }
 
-        if (isset ($_POST['username'])) {
-            $allPlayers = [];
-            $nickname = $_POST['username'];
-            array_push($allPlayers, $nickname);
-
-
-            if (isset($_POST['listOfColors'])) {
-
-                $colorList = [];
-                $selected = $_POST['listOfColors'];
-                array_push($colorList, $selected);
-                foreach (array_keys($colors, $selected) as $key) {
-                    unset($colors[$key]);
-                }
-               // print_r($colorList);
-                $res = array();
-                foreach ($allPlayers as $i => $key) {
-                    $res[$key] = $colorList[$i];
-                }
-                print_r($res);
-               // echo "\nYou have chosen: " . $selected . "\n";
-           // } else {
-               // echo 'Please select one color';
-            }
-        }
-        if (isset($colorList) && isset($username)) {
-            $res = array_map(null, $colorList ?? null, $username ?? null);
-            print_r(sizeof($res));
-
-        }
 
         $questions = (new Questions)->getAllQuestions();
-        $choiceOfColor = $selected ?? null;
-        //print_r($choiceOfColor);
+
 
         $result = (new User)->filterArrayByKeyValue($users, 'username', $this->isConnected['username'] ?? null);
         print_r($result);
@@ -85,10 +51,18 @@ class Homepage extends AbstractController
         }
         print_r($connected);
         $username = [];
+        $email = [];
+        $userAndMail = [];
             foreach ($users as $user) {
                     array_push($username, $user['username']);
+                   array_push($email, $user['mail']);
+                   $userAndMail = array_map(null,$username,$email);
+
         }
        print_r($username);
+       print_r($email);
+
+      print_r($userAndMail);
             $res = array_diff($username,$connected);
             print_r($res);
 
@@ -102,8 +76,8 @@ class Homepage extends AbstractController
             "nbrQuestions" => count($questions),
             "anyErrors" => $this->anyErrors,
             "colors" => $colors,
-            "player" => $choiceOfColor,
-            "username" => $res
+            "username" => $res,
+            "test" => $userAndMail
         ]);
     }
 
@@ -151,5 +125,4 @@ class Homepage extends AbstractController
             $this->tryToConnect();
         }
     }
-
 }

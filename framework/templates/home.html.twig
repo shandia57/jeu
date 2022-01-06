@@ -47,14 +47,14 @@
 								<option class="dropdown-item" value="{{ name }}">{{ name }}</option>
 							{% endfor %}
 						</select>
-
+					    <input type=button class="btn-danger" onclick="deleteUsername()" value='del user'>
 						<select id="colorList" class="selectColor" name="color">
 							<option style="background-color: {{ color }}" value="{{ color }}" selected="selected">color</option>
 							{% for color in colors%}
 								<option class="dropdown-item" value="{{ color }}" style="background-color: {{ color }}"></option>
 							{% endfor %}
 						</select>
-						<input type=button onclick="deleteColor()" value='Remove color'>
+						<input type=button class="btn-danger" onclick="deleteColor()" value='del color'>
 					<input class="btn btn-success" name="submit" type="submit" value="Add player">
 					</form>
 

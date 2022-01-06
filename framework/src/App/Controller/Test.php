@@ -3,6 +3,7 @@ namespace App\Controller;
 
 
 use App\Class\Color\Color;
+use App\Class\User\User;
 use Framework\Controller\AbstractController;
 
 class Test extends AbstractController
@@ -10,6 +11,7 @@ class Test extends AbstractController
 
     public function __invoke(): string
     {
+
         $players =[];
 
      if(!empty($_POST)){
@@ -21,11 +23,13 @@ class Test extends AbstractController
         $player6 =$_POST['player6'];
 
         array_push($players,$player1,$player2,$player3,$player4,$player5,$player6);
+
      }
+
      print_r($players);
+
         return $this->render('/test.html.twig', [
                 "players" => $players,
-
             ]);
         }
 }

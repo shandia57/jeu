@@ -58,23 +58,6 @@ for (let i = 0; i < colorSelector.length; i++) {
     });
 }
 
-function savePlayers(){
-    players.push({
-        username: userSelector[i].value,
-        color: colorSelector[i].value
-    })
-    fetch('http://localhost:3000/test/', {
-        method: 'POST',
-        body: JSON.stringify(players),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        }
-    })
-        .then(response => response.json())
-        .then(json => {
-            console.log(json);
-        });
-}
 
 //delete color after selection on click
 function deleteColor() {
@@ -92,6 +75,20 @@ function deleteColor() {
     }
 }
 
+function deleteUsername() {
+    const usernames = document.querySelector('#players');
+    let selected = [];
+    for (let i = 0; i < usernames.options.length; i++) {
+        selected[i] = usernames.options[i].selected;
+
+        let index = usernames.options.length;
+        while (index--) {
+            if (selected[index]) {
+                usernames.remove(index);
+            }
+        }
+    }
+}
 
 //create an array from color list
 function getColorV1(){
