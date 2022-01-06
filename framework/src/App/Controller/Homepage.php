@@ -13,8 +13,7 @@ class Homepage extends AbstractController
     {
 
         session_start();
-        ini_set('display_errors', '1');
-        mail("alexandre57450@hotmail.fr", "coucou petite perruche", "je suis un lien", "", "");
+        
 
         if(!empty($_POST))
         {
