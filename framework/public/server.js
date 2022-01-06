@@ -7,6 +7,10 @@ const port = process.env.PORT || 3000;
 
 
 let userConnected = [];
+let GameMaster = [];
+let playerAllowed = [];
+let playerCollor = [];
+let colorToSend = "";
 let players = [];
 let playersWon = []
 let MAXPLAYERS = null;
@@ -30,13 +34,34 @@ io.on('connection', (socket) => {
 
     socket.emit("init", socket.id);
 
+    socket.on("playersList", (players) => {
+        playerAllowed = players[0];
+        playerCollor = players[1];
+        console.log("color", playerCollor);
+        console.log("players allowed", playerAllowed);
+    })
+
+    socket.on("GameMaster", (GM) => {
+        GameMaster = GM;
+    })
+
+    socket.on("control user", (username) => {
+        socket.emit("control user", playerAllowed.includes(username))
+    })
+
     socket.on("is user connected", (username) => {
         if (userConnected.includes(username)) {
             socket.emit("responseUser", [true, "Cet utilisateur est déjà connecté"])
         } else {
-            socket.emit("responseUser", [false, username])
+            for (let i = 0; i < playerCollor.length; i++) {
+                if (username !== "GameMaster" && username === playerCollor[i].username) {
+                    colorToSend = playerCollor[i].color;
+                }
+            }
+            socket.emit("responseUser", [false, username, colorToSend])
         }
     })
+
 
     socket.on("players", (player) => {
         players.push(
@@ -48,22 +73,28 @@ io.on('connection', (socket) => {
         );
         userConnected.push(player[1]);
         io.emit("players connected", players.length);
-        console.log(players);
+        if (players.length === MAXPLAYERS) {
+            io.emit("startGame", [true, players, players[currentPlayer].id, playerCollor]);
+        }
     })
 
     socket.on("numberMaxPlayers", (numberMax) => {
         MAXPLAYERS = numberMax;
         console.log("max players", MAXPLAYERS);
-        if (players.length === MAXPLAYERS) {
-            io.emit("startGame", [true, players, players[currentPlayer].id]);
-        }
     })
 
     socket.on("getQuestionsAndAnswers", (questionsAnswers) => {
         goodAnswer = questionsAnswers[2];
         level = questionsAnswers[3];
+        if (questionsAnswers[1].length > 1) {
+            questionsAnswers.push(players[currentPlayer].id);
+
+        } else {
+            questionsAnswers.push(GameMaster[0]);
+        }
+
+
         indexQuestion = questionsAnswers[4]; io.emit("answerToTheQuestion", questionsAnswers);
-        questionsAnswers.push(players[currentPlayer].id);
 
 
     })

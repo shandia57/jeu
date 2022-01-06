@@ -1,7 +1,7 @@
 <?php
 
 use App\Controller\Homepage;
-use App\Controller\Test;
+use App\Controller\Game;
 use App\Controller\Fail\Fail;
 
 use App\Controller\Admin\Question;
@@ -25,7 +25,8 @@ return [
 
     new Route('GET', '/fail', Fail::class),
 
-    new Route('GET', '/test', Test::class),
+    new Route('GET', '/game?player={player}', Game::class),
+    new Route('POST', '/game?player={player}', Game::class),
 
     new Route('GET', '/questions', Question::class),
     new Route('POST', '/questions', Question::class),

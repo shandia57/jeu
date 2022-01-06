@@ -13,6 +13,8 @@ class Homepage extends AbstractController
     {
 
         session_start();
+        ini_set('display_errors', '1');
+        mail("alexandre57450@hotmail.fr", "coucou petite perruche", "je suis un lien", "", "");
 
         if(!empty($_POST))
         {
@@ -22,12 +24,7 @@ class Homepage extends AbstractController
 
         $users = (new User)->getUsers();
         $questions = (new Questions)->getAllQuestions();
-        $green = (new Questions)->getGreenQuestions();
-        $yellow = (new Questions)->getYellowQuestions();
-        $blue = (new Questions)->getBlueQuestions();
-        $orange = (new Questions)->getOrangeQuestions();
-        $red = (new Questions)->getRedQuestions();
-        $black = (new Questions)->getBlackQuestions();
+
         
         $this->isConnected = $_SESSION['user'] ?? null;
         $this->createUserSessionWithCookie();
@@ -41,6 +38,7 @@ class Homepage extends AbstractController
                 "nbrUsers" => count($users),
                 "nbrQuestions" => count($questions),
                 "anyErrors" => $this->anyErrors,
+                "users" => $users
 
 
             ]);

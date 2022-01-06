@@ -7,6 +7,7 @@
 {% block css %}
     {{ parent() }}  
     <link rel="stylesheet" type="text/css" href="assets/style/buttonCreateGame.css">
+    <link rel="stylesheet" type="text/css" href="assets/style/homePage.css">
 {% endblock %}
 
 {% block content %}
@@ -14,10 +15,45 @@
 
 		<h1>Bienvenue sur la page d'accueil</h1>
 
+		{% for singleUser in users %}
+		<input type="hidden" name="users" value="{{singleUser.username}}">
+		{% endfor %}
+
 		{% if  not user %}
 			<p>Veuillez vous connecter ou vous inscrire pour démarrer une partie</p>
 		{% else %}
-			<button class="glow-on-hover" type="button">Créer une partie</button>
+			<div class="mb-3">
+				<label for="exampleInputEmail1" class="form-label">Username</label>
+				<div id="selectUserAndColor">
+					<div>
+						<input id="searchUser" class="form-control" type="text" autocomplete="off" >
+					</div>
+					<div>
+						<select id="selectColor" class="form-select" aria-label="Default select example">
+							<option value="default">Choisir une couleur</option>
+							<option id="red" value="red" style="background-color: red"></option>
+							<option id="blue" value="blue" style="background-color: blue"></option>
+							<option id="gren" value="green" style="background-color: green"></option>
+							<option id="yellow" value="yellow" style="background-color: yellow"></option>
+							<option id="orange" value="orange" style="background-color: orange"></option>
+							<option id="pink" value="pink" style="background-color: pink"></option>
+						</select>
+					</div>
+					<div>
+						<button id="addUser" type="button" class="btn btn-outline-success">Ajouter cet utilisateur</button>
+					</div>
+				</div>
+				<ul id="userList" class="list-group list-group-flush">
+				</ul>
+			</div>
+
+			<ul id="listPlayers">
+			</ul>
+
+			<form method="post" action="/game?player=GameMaster">
+				<div id="usersHidden"></div>
+				<button id="createTheGame" class="glow-on-hover" type="button">Créer une partie</button>
+			</form>
 		{% endif %}
 
 
@@ -55,7 +91,10 @@
 			</div>
 		</div>
 	</div>
+		<script type="text/javascript" src="assets/script/scripts/homePage.js"></script>	
+	
 {% endblock %}
+
 
 
 
