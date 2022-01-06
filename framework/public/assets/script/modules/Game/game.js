@@ -38,12 +38,7 @@ try {
         if (e.key === "Enter") {
             let value = e.target.value;
             if (controlGoodUser(value)) {
-                player.setUsername(value);
-                indexColorArray = returnIndex(value)
-                socket.emit("players", [player.getId(), player.getUsername(), usersWithColor[indexColorArray].color]);
-                socket.emit("numberMaxPlayers", users.length);
-                gameInterface.deleteUsernameInput();
-                gameInterface.createNavBarOfPlayers();
+                socket.emit("is user connected", value);
             }
             else document.getElementById("usernameHelp").innerText = "Mauvais username";
         }
@@ -51,6 +46,19 @@ try {
 } catch (err) {
     console.log(err)
 }
+
+socket.on("responseUser", (bool) => {
+    if (bool[0] === false) {
+        player.setUsername(bool[1]);
+        indexColorArray = returnIndex(bool[1])
+        socket.emit("players", [player.getId(), player.getUsername(), usersWithColor[indexColorArray].color]);
+        socket.emit("numberMaxPlayers", users.length);
+        gameInterface.deleteUsernameInput();
+        gameInterface.createNavBarOfPlayers();
+    } else {
+        alert(bool[1]);
+    }
+})
 
 socket.on("startGame", (startGame) => {
     if (startGame[0] === true) {
@@ -88,6 +96,11 @@ socket.on("startGame", (startGame) => {
         document.getElementById("currentPlayer").innerText = game.getCurrentPlayer().getUsername();
         document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
+
+
+
+
+
         if (socket.id === startGame[2]) {
             alert("Veuillez choisir une couleur");
             let newButtonSearch = gameInterface.createBtnSearch();
@@ -98,6 +111,14 @@ socket.on("startGame", (startGame) => {
         }
     }
 })
+
+
+
+
+
+
+
+
 
 socket.on("answerToTheQuestion", (dataQuestions) => {
 
@@ -121,7 +142,6 @@ socket.on("answerToTheQuestion", (dataQuestions) => {
 
             })
         }
-
 
     } else {
         document.getElementById("questionGame").innerText = dataQuestions[0];
@@ -231,7 +251,6 @@ socket.on("player answered", (answer) => {
         button.innerText = "Restart";
         document.body.children[document.body.children.length - 1].appendChild(button);
         document.getElementById("test").addEventListener("click", (e) => {
-            console.log("OUIIIIIIIIIIIIIIIIIIII");
             e.target.parentNode.removeChild(e.target);
             let buttonNo = document.getElementById("test2");
             buttonNo.parentNode.removeChild(buttonNo);
@@ -245,7 +264,6 @@ socket.on("player answered", (answer) => {
         document.body.children[document.body.children.length - 1].appendChild(button2);
 
         document.getElementById("test2").addEventListener("click", (e) => {
-            console.log("NOOOOOOOOOOOOOOOOOON");
             e.target.parentNode.removeChild(e.target);
             let buttonYes = document.getElementById("test");
             buttonYes.parentNode.removeChild(buttonYes);
@@ -289,6 +307,7 @@ socket.on("newTurn", (dataNewTurn) => {
 
 });
 
+
 socket.on("restart", (idNewCurrentPlayer) => {
 
     resetQuestions();
@@ -316,6 +335,23 @@ socket.on("restart", (idNewCurrentPlayer) => {
 
     }
 })
+
+socket.on("user disconnected", (username) => {
+    game.findUserWithUsername(username);
+    game.setNumberOfActuelPlayers(game.getNumberOfActuelPlayers() - 1);
+})
+
+socket.on("switch player turn", (bool) => {
+    // Change the current player
+    game.IncrementCurrentIndexPlayer();
+
+    while (!game.getCurrentPlayer().getStatePlaying()) {
+        game.IncrementCurrentIndexPlayer();
+    }
+    socket.emit("switch player turn", game.getCurrentIndexPlayer())
+})
+
+
 
 socket.on("stopGame", (data) => {
     gameInterface.clearAllInterface();

@@ -25,8 +25,8 @@ socket.on('chat message', function (msg) {
     window.scrollTo(0, document.body.scrollHeight);
 });
 
-socket.on("players connected", function (arrayPlayer) {
-    document.getElementById("numberOfUsers").innerText = arrayPlayer;
+socket.on("players connected", function (lengthPlayer) {
+    document.getElementById("numberOfUsers").innerText = lengthPlayer;
 })
 
 

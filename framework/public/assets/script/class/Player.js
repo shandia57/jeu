@@ -131,4 +131,13 @@ export class Player {
             this.#players[i].#statePlaying = true;
         }
     }
+
+    findUserWithUsername(username) {
+        for (let i = 0; i < this.#players.length; i++) {
+            if (this.#players[i].getUsername() === username) {
+                this.#players = this.#players.filter(value => value !== this.#players[i]);
+                console.log(this.#players);
+            }
+        }
+    }
 }
