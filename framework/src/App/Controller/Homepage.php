@@ -14,7 +14,6 @@ class Homepage extends AbstractController
 
         session_start();
         
-
         if(!empty($_POST))
         {
             $this->controlPostSended();
