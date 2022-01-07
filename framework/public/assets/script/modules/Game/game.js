@@ -154,8 +154,17 @@ socket.on("answerToTheQuestion", (dataQuestions) => {
         document.getElementById("questionGame").innerText = dataQuestions[0];
         if (dataQuestions[1].length === 1) {
             gameInterface.createInterfaceSingleAnswer(dataQuestions[1]);
+
         } else {
             gameInterface.createInterfaceAnswers(dataQuestions[1]);
+        }
+
+        if (url[1] === "GameMaster") {
+            let body = document.getElementsByClassName("bodyModal")[0];
+            let p = document.createElement("p");
+            p.setAttribute("id", "goodResponse")
+            p.innerText = "La réponse est : " + dataQuestions[1][0].answer
+            body.appendChild(p);
         }
 
         // HEIGTH STEP ask to answer the question
@@ -181,6 +190,7 @@ socket.on("answerToTheQuestion", (dataQuestions) => {
 });
 
 socket.on("player answered", (answer) => {
+
     if (answer[1] === true) {
         if (socket.id === answer[3]) {
             const btns = document.getElementsByClassName("btn-outline-info");
@@ -205,8 +215,9 @@ socket.on("player answered", (answer) => {
 
 
         alert(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points")
-        game.getCurrentPlayer().addPoints(48)
-        // game.getCurrentPlayer().addPoints(answer[2])
+        gameInterface.insertLi(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points");
+        // game.getCurrentPlayer().addPoints(48)
+        game.getCurrentPlayer().addPoints(answer[2])
         document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
         index = game.getCurrentPlayer().getPoints();
@@ -251,11 +262,16 @@ socket.on("player answered", (answer) => {
     let index = game.getCurrentPlayer().getPoints();
     document.getElementById(user).children[index].style.backgroundColor = returnColor(user);
 
+    if (url[1] === "GameMaster") {
+        document.getElementById("goodResponse").innerText = "";
+    }
 
     if (game.getCurrentPlayer().controlPointsOfTheCurrentPlayer()) {
 
         // messages 
         alert("Bravo ! " + game.getCurrentPlayer().getUsername() + " a gagné");
+        gameInterface.insertLi("Bravo ! " + game.getCurrentPlayer().getUsername() + " a gagné");
+
 
         game.setNumberOfActuelPlayers(game.getNumberOfActuelPlayers() - 1);
         game.getCurrentPlayer().setStatePlaying();
@@ -272,7 +288,8 @@ socket.on("player answered", (answer) => {
     // RESET the game
     if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
         let button = document.createElement("button");
-        button.setAttribute("id", "test")
+        button.setAttribute("id", "test");
+        button.setAttribute("class", "bn30");
         button.innerText = "Restart";
         document.body.children[document.body.children.length - 1].appendChild(button);
         document.getElementById("test").addEventListener("click", (e) => {
@@ -284,7 +301,8 @@ socket.on("player answered", (answer) => {
         })
 
         let button2 = document.createElement("button");
-        button2.setAttribute("id", "test2")
+        button2.setAttribute("id", "test2");
+        button.setAttribute("class", "bn30");
         button2.innerText = "No";
         document.body.children[document.body.children.length - 1].appendChild(button2);
 
@@ -445,8 +463,10 @@ function play() {
 
         var questions = game.getQuestionsWithLevel(getLevel);
         // FIRST STEP get a random index from 0 to length Of arrayQuestions
-        // let index = game.getRandomIndex(questions.length);
-        let index = 2;
+        let index = game.getRandomIndex(questions.length);
+        // let index = 2;
+        gameInterface.insertLi(game.getCurrentPlayer().getUsername() + "a choisi une question de couleur : " + getLevel);
+
 
         // SECOND STEP get a random question
         let singleQuestion = game.getSingleQuestion(index, questions);
