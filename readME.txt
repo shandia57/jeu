@@ -64,7 +64,7 @@ Il suffit de cliquer sur le bouton "lancer la partie".
 
 Une page va s'ouvrir :http://framework.local/game?player=GameMaster
 
-Pour créer les sessions des joueurs, il suffit de remplacer "GameMaster" dans l'url par le username du joueur.
+Pour créer les sessions des joueurs, il suffit de remplacer "GameMaster" dans l'url par le username du joueur dans un nouvel onglet.
 Les usernames sont visibles dans le terminal dans l'array: players allowed [ 'shandia', 'testCo', 'jksdfjkfsdh' ] par exemple.
 
 Une fois tous les joueurs inscrits ayant leur session, le jeu commence, le maitre du jeu est en stand by pendant ce temps ainsi que les autres participants.
