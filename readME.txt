@@ -2,6 +2,11 @@
 ####           PROJET TUTORE: Une version revisitée du fameux jeu de l'oie!              ####
 #############################################################################################
 
+Chaque joueur doit répondre à des questions dont le niveau de difficulté choisi au préalable lui permet de progresser plus vite sur la grille de jeu en cas de bonne réponse.
+Mais attention, c'est à double tranchant car une réponse erronée fera reculer le joueur sur la grille proportionnellement !
+Le gagnant sera le premier arrivé sur la 48ème case avant les autres. 
+
+
 But du projet:
 
 Réaliser un jeu de société multijoueurs en utilisant les technologies:
