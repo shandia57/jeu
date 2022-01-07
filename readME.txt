@@ -1,4 +1,7 @@
-///////////////////////// projet tuteuré ////////////////////////////////////////
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
 Participants : 
 - Eric HOFFMANN
@@ -6,7 +9,7 @@ Participants :
 
 lien github : https://github.com/shandia57/jeuDeLoieV2.git
 
-Executer la commande suivante : "composer install" dans /jeuDeLoieV2/framework/
+Executer la commande suivante : "composer install" dans le dossier du projet /jeuDeLoieV2/framework/
 
 
 fichier nécessaire : 
@@ -44,7 +47,10 @@ pour se connecter au jeu :
 
 /////////////// ATTENTION: un système de cookie est mis en place si l'utilisateur souahite rester connecté
 
+//////////////Pour la partie serveur node /////////////////////////////////////////////////////
+dans le dossier "public" du projet, faire: npm install
+
 
 
 si toutefois vous avez des questions, je suis disponible sur discord (shandia-sama#0281)
-Sinon par mail : alexandre57450@hotmail.fr
+Sinon par mail : alexandre57450@hotmail.fr/ec.ho@orange.fr
