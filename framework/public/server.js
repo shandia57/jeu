@@ -12,15 +12,14 @@ let playerAllowed = [];
 let playerCollor = [];
 let colorToSend = "";
 let players = [];
-let playersWon = []
 let MAXPLAYERS = null;
 let currentPlayer = 0
 let goodAnswer = "";
 let level = "";
 let indexQuestion = 0;
-let maxPoints = 48;
 let boolRestartGame = [];
 let compteur = 0;
+
 
 
 
@@ -37,7 +36,6 @@ io.on('connection', (socket) => {
     socket.on("playersList", (players) => {
         playerAllowed = players[0];
         playerCollor = players[1];
-        console.log("color", playerCollor);
         console.log("players allowed", playerAllowed);
     })
 
@@ -69,11 +67,16 @@ io.on('connection', (socket) => {
                 "id": player[0],
                 "username": player[1],
                 "color": player[2],
+                "points": 0,
+                "rank": 6
             }
         );
         userConnected.push(player[1]);
         io.emit("players connected", players.length);
         if (players.length === MAXPLAYERS) {
+            for (let i = 0; i < players.length; i++) {
+                players[i].rank = MAXPLAYERS;
+            }
             io.emit("startGame", [true, players, players[currentPlayer].id, playerCollor]);
         }
     })
@@ -95,12 +98,17 @@ io.on('connection', (socket) => {
 
 
         indexQuestion = questionsAnswers[4]; io.emit("answerToTheQuestion", questionsAnswers);
-
+        console.log("Good answer : ", questionsAnswers[2])
 
     })
 
+
+
     socket.on("player answered", (answer) => {
+
         answer.push(players[currentPlayer].id);
+
+
         if (answer[1] === true) {
             io.emit("player answered", answer);
         } else {
@@ -117,9 +125,7 @@ io.on('connection', (socket) => {
     })
 
 
-
     socket.on("endOfGame", (conf) => {
-        console.log(conf);
         boolRestartGame.push(conf);
         if (boolRestartGame.length === players.length) {
             let newArrayBool = boolRestartGame.filter((value) => {
@@ -162,10 +168,11 @@ io.on('connection', (socket) => {
 
     socket.on("switch player turn", (index) => {
         currentPlayer = index;
+
         compteur++;
-        console.log(compteur);
         if (compteur === players.length) {
             io.emit("newTurn", [players[currentPlayer].id, level, indexQuestion]);
+            compteur = 0;
         }
 
     })

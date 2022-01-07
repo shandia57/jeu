@@ -21,7 +21,6 @@ var input = document.getElementById('input');
 
 var users = [];
 var usersWithColor = [];
-var indexColorArray = 0;
 var usersFromPhp = document.getElementsByName("users");
 let game = new JeuDeLoie();
 
@@ -78,7 +77,7 @@ socket.on("responseUser", (bool) => {
 
         } else {
             player.setUsername(bool[1]);
-            indexColorArray = returnIndex(bool[1])
+            // indexColorArray = returnIndex(bool[1])
             socket.emit("players", [player.getId(), player.getUsername(), bool[2]]);
             gameInterface.deleteUsernameInput();
             gameInterface.createNavBarOfPlayers()
@@ -216,12 +215,15 @@ socket.on("player answered", (answer) => {
 
         alert(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points")
         gameInterface.insertLi(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points");
-        game.getCurrentPlayer().addPoints(48)
-        // game.getCurrentPlayer().addPoints(answer[2])
+
+        // game.getCurrentPlayer().addPoints(48)
+        game.getCurrentPlayer().addPoints(answer[2]);
+
         document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
         index = game.getCurrentPlayer().getPoints();
         document.getElementById(user).children[index].style.backgroundColor = returnColor(user);
+
 
     } else {
         if (socket.id === answer[3]) {
@@ -287,32 +289,29 @@ socket.on("player answered", (answer) => {
 
     // RESET the game
     if (game.getNumberOfActuelPlayers() === game.getEndGameWithNumberPlayer()) {
-        let button = document.createElement("button");
-        button.setAttribute("id", "test");
-        button.setAttribute("class", "bn30");
-        button.innerText = "Restart";
-        document.body.children[document.body.children.length - 1].appendChild(button);
-        document.getElementById("test").addEventListener("click", (e) => {
-            e.target.parentNode.removeChild(e.target);
-            let buttonNo = document.getElementById("test2");
-            buttonNo.parentNode.removeChild(buttonNo);
-            socket.emit("endOfGame", [true, game.getCurrentIndexPlayer()]);
+        if (url[1] !== "GameMaster") {
 
-        })
 
-        let button2 = document.createElement("button");
-        button2.setAttribute("id", "test2");
-        button.setAttribute("class", "bn30");
-        button2.innerText = "No";
-        document.body.children[document.body.children.length - 1].appendChild(button2);
 
-        document.getElementById("test2").addEventListener("click", (e) => {
-            e.target.parentNode.removeChild(e.target);
-            let buttonYes = document.getElementById("test");
-            buttonYes.parentNode.removeChild(buttonYes);
-            socket.emit("endOfGame", [false, game.getCurrentIndexPlayer()]);
-        })
+            document.getElementsByClassName("overlay")[0].style.display = "block";
+            document.getElementsByTagName("main").item(0).style.display = "none";
 
+            document.getElementById("restart").addEventListener("click", (e) => {
+                e.target.parentNode.removeChild(e.target);
+                let buttonNo = document.getElementById("no");
+                buttonNo.parentNode.removeChild(buttonNo);
+                socket.emit("endOfGame", [true, game.getCurrentIndexPlayer()]);
+
+            })
+
+            document.getElementById("no").addEventListener("click", (e) => {
+                e.target.parentNode.removeChild(e.target);
+                let buttonYes = document.getElementById("restart");
+                buttonYes.parentNode.removeChild(buttonYes);
+                socket.emit("endOfGame", [false, game.getCurrentIndexPlayer()]);
+            })
+
+        }
 
 
     } else {
@@ -352,6 +351,23 @@ socket.on("newTurn", (dataNewTurn) => {
 
 
 socket.on("restart", (idNewCurrentPlayer) => {
+
+    document.getElementsByClassName("overlay")[0].style.display = "none";
+    document.getElementsByTagName("main").item(0).style.display = "block";
+    let button1 = document.createElement("button")
+    button1.setAttribute("id", "restart")
+    button1.setAttribute("class", "bn30")
+    button1.innerText = "Restart";
+    let button2 = document.createElement("button")
+    button2.setAttribute("id", "no")
+    button2.setAttribute("class", "bn30")
+    button2.innerText = "No";
+
+    let body = document.getElementsByClassName("bodyOverlay")[0];
+    body.appendChild(button1)
+    body.appendChild(button2)
+
+
 
     resetQuestions();
     game.resetAllPoints();
@@ -400,15 +416,6 @@ socket.on("stopGame", (data) => {
     gameInterface.clearAllInterface();
 });
 
-
-
-function returnIndex(username) {
-    for (let i = 0; i < usersWithColor.length; i++) {
-        if (usersWithColor[i].username === username) {
-            return i;
-        }
-    }
-}
 
 function returnColor(username) {
     for (let i = 0; i < usersWithColor.length; i++) {
@@ -463,8 +470,8 @@ function play() {
 
         var questions = game.getQuestionsWithLevel(getLevel);
         // FIRST STEP get a random index from 0 to length Of arrayQuestions
-        // let index = game.getRandomIndex(questions.length);
-        let index = 2;
+        let index = game.getRandomIndex(questions.length);
+        // let index = 2;
         gameInterface.insertLi(game.getCurrentPlayer().getUsername() + "a choisi une question de couleur : " + getLevel);
 
 

@@ -21,22 +21,16 @@
     <link rel="stylesheet" type="text/css" href="assets/style/buttonCreateGame.css">
     <link rel="stylesheet" type="text/css" href="assets/style/game.css">
     <link rel="stylesheet" type="text/css" href="assets/style/buttonRestart.css">
+    <link rel="stylesheet" type="text/css" href="assets/style/modalEndGame.css">
 
 </head>
 <body>
+
 
 	<main>
         {% for user in users %}
             <input type="hidden" name="users" value={{user}}>
         {% endfor %}
-        <h1>Entrez votre username<h1>
-        <div class="containerConnection">
-            <div class="input-group mb-3">
-                <input id="testText" type="text" class="form-control" placeholder="Username" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button id="btnGo" class="btn btn-outline-secondary" type="submit">Go</button>
-            </div>
-            <div id="usernameHelp" class="form-text"></div>
-        </div>
 	</main>
 
 
@@ -49,6 +43,29 @@
     Console Game
     </button>
 </div>
+
+      <div class="overlay">
+        <div class="modalOverlay backgroundLightGray">
+            <div class="headerOverlay centerContent">
+                <h1>Tableau des score</h1>
+                <hr>
+            </div>
+            <div class="bodyOverlay">
+                <ul id="endScore" class="ulOverlay centerContent">
+                    <li class="backgroundLightGray">An item</li>
+                    <li class=" backgroundLightGray">A second item</li>
+                    <li class=" backgroundLightGray">A third item</li>
+                    <li class=" backgroundLightGray">A fourth item</li>
+                    <li class=" backgroundLightGray">And a fifth one</li>
+                </ul>
+                <hr>
+            </div>
+            <div class="bodyOverlay centerContent">
+                <button id="restart" class="bn30">Restart</button>
+                <button id="no" class="bn30">No</button>
+            </div>
+        </div>
+    </div>
 
 <!-- Modal -->
 <div class="modal fade" id="chatBox" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

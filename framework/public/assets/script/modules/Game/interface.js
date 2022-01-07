@@ -23,7 +23,7 @@ export function createBtnSearch() {
 
     let button = document.createElement('button');
     let i = document.createElement('i');
-    button.setAttribute("class", "btn btn-outline-secondary")
+    button.setAttribute("class", "btn btn-outline-info")
     button.setAttribute("type", "button")
     button.setAttribute("id", "buttonSearch")
 
@@ -185,6 +185,7 @@ export function createNavBarOfPlayers() {
 
     let h1 = document.createElement("h1");
     let main = document.body.children[0];
+    console.log(main)
     h1.innerText = "En attente que les autres joueurs se connectent";
     h1.setAttribute("id", "h1ToChange")
     main.appendChild(h1);
@@ -274,6 +275,7 @@ export function createDomGame() {
     divCenter.appendChild(modalQuestions);
     container.appendChild(divCenter);
     document.body.children[document.body.children.length - 1].appendChild(container);
+    // console.log(document.getElementsByName("main"));
 }
 
 export function makeGrid(username, color) {
@@ -303,4 +305,5 @@ export function resteTableColor() {
     }
 
 }
+
 
