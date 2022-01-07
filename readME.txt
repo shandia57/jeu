@@ -1,7 +1,11 @@
-## Table of contents
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Setup](#setup)
+#############################################################################################
+####           PROJET TUTORE: Une version revisitée du fameux jeu de l'oie!              ####
+#############################################################################################
+
+But du projet:
+
+Réaliser un jeu de société multijoueurs en utilisant les technologies:
+php, javascript, node.js et socket io.
 
 Participants : 
 - Eric HOFFMANN
@@ -9,14 +13,10 @@ Participants :
 
 lien github : https://github.com/shandia57/jeuDeLoieV2.git
 
-Executer la commande suivante : "composer install" dans le dossier du projet /jeuDeLoieV2/framework/
+Executer la commande suivante : "composer install" dans le dossier du projet /jeuDeLoieV2/framework/ après avoir cloné le projet.
 
-
-fichier nécessaire : 
-- app.conf.php (à mettre dans le dossier suivant : /jeuDeLoieV2/framework/config )
-
--> code nécessaire : 
-
+fichier nécessaire à ne pas oublier dnas le dossier /jeuDeLoieV2/framework/config
+- app.conf.php dont voici le code:
 
 <?php
 
@@ -30,10 +30,7 @@ return [
 ];
 
 
-
-
-
-Le fichier SQL se trouve dans le chemin suivant : /jeuDeloieV2/fichiers utile/bdd/SQL/
+Ensuite, le script SQL se trouve dans le chemin suivant : /jeuDeloieV2/fichiers_utiles/bdd/SQL/
 
 
 pour se connecter au jeu : 
@@ -45,12 +42,13 @@ pour se connecter au jeu :
 	-> username : shandia
 	-> MDP: test
 
-/////////////// ATTENTION: un système de cookie est mis en place si l'utilisateur souahite rester connecté
+/////////////// ATTENTION: un système de cookie est mis en place si l'utilisateur souhaite rester connecté ////////
 
-//////////////Pour la partie serveur node /////////////////////////////////////////////////////
-dans le dossier "public" du projet, faire: npm install
+/////////////////////////////Pour la partie serveur node /////////////////////////////////////////////////////
+dans le dossier "/jeuDeLoieV2/framework/public" du projet, faire:
+
+npm install
 
 
-
-si toutefois vous avez des questions, je suis disponible sur discord (shandia-sama#0281)
+si toutefois vous avez des questions, nous sommes disponibles sur discord (shandia-sama#0281) et Eric.H#6646
 Sinon par mail : alexandre57450@hotmail.fr/ec.ho@orange.fr
