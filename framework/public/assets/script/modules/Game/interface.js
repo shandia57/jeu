@@ -155,21 +155,38 @@ export function clearAllInterface() {
 export function createNavBarOfPlayers() {
     let header = document.createElement("header");
     let nav = document.createElement("nav");
+    let div = document.createElement("div");
+    let div2 = document.createElement("div");
     let p = document.createElement("p");
     let label = document.createElement("label");
+
+    div.setAttribute("id", "playersConnected")
+    div2.setAttribute("id", "playerInGame")
 
 
     p.innerText = "Players connected : ";
     label.setAttribute("id", "numberOfUsers");
     label.innerText = "0";
     p.appendChild(label);
-    nav.appendChild(p);
+
+    let label2 = document.createElement("label");
+    let b = document.createElement("b");
+    b.innerText = "Player";
+    b.setAttribute("id", "usernamePlayer")
+    label2.appendChild(b);
+
+    div.appendChild(p)
+    div2.appendChild(label2)
+
+    nav.appendChild(div);
+    nav.appendChild(div2);
     header.appendChild(nav);
     document.body.appendChild(header);
 
     let h1 = document.createElement("h1");
     let main = document.body.children[0];
     h1.innerText = "En attente que les autres joueurs se connectent";
+    h1.setAttribute("id", "h1ToChange")
     main.appendChild(h1);
     document.body.appendChild(main);
 

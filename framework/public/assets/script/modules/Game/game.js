@@ -70,14 +70,22 @@ socket.on("responseUser", (bool) => {
     if (bool[0] === false) {
 
         if (bool[1] === "GameMaster") {
+
             socket.emit("GameMaster", [GameMaster.getId(), GameMaster.getUsername()]);
+            gameInterface.deleteUsernameInput();
+            gameInterface.createNavBarOfPlayers()
+            document.getElementById("usernamePlayer").innerText = GameMaster.getUsername();
+
         } else {
             player.setUsername(bool[1]);
             indexColorArray = returnIndex(bool[1])
             socket.emit("players", [player.getId(), player.getUsername(), bool[2]]);
+            gameInterface.deleteUsernameInput();
+            gameInterface.createNavBarOfPlayers()
+            document.getElementById("usernamePlayer").innerText = player.getUsername();
+
         }
-        gameInterface.deleteUsernameInput();
-        gameInterface.createNavBarOfPlayers();
+
     } else {
         alert(bool[1]);
     }
@@ -88,6 +96,7 @@ socket.on("players connected", function (lengthPlayer) {
 })
 
 socket.on("startGame", (startGame) => {
+
     if (startGame[0] === true) {
         gameInterface.createDomGame();
         usersWithColor = startGame[3];
@@ -96,6 +105,8 @@ socket.on("startGame", (startGame) => {
             newPlayer.setId(startGame[1][i].id);
             game.setPlayers(newPlayer);
         }
+        document.getElementById("h1ToChange").innerText = "Que le meilleur gagne ! ";
+
 
         let table = document.createElement("tablled");
         table.setAttribute("id", "myTable");
@@ -194,8 +205,8 @@ socket.on("player answered", (answer) => {
 
 
         alert(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points")
-        // game.getCurrentPlayer().addPoints(48)
-        game.getCurrentPlayer().addPoints(answer[2])
+        game.getCurrentPlayer().addPoints(48)
+        // game.getCurrentPlayer().addPoints(answer[2])
         document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
         index = game.getCurrentPlayer().getPoints();
@@ -468,8 +479,13 @@ function resetQuestions() {
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (input.value) {
-        socket.emit('chat message', player.getUsername() + " : " + input.value);
-        input.value = '';
+        if (url[1] === "GameMaster") {
+            socket.emit('chat message', url[1] + " : " + input.value);
+            input.value = '';
+        } else {
+            socket.emit('chat message', url[1] + " : " + input.value);
+            input.value = '';
+        }
     }
 });
 

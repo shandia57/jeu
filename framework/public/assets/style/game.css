@@ -2,6 +2,10 @@ body{
     background: linear-gradient(to right, #1b2735 0%, #181b2b );
     color: rgb(230, 230, 230);
 }
+main{
+    text-align: center;
+
+}
 
 h1{
     text-align: center;
@@ -9,6 +13,8 @@ h1{
 h2{
     text-align: center;
 }
+
+
 
 .container{
     background-color: rgb(85, 85, 85);
@@ -114,6 +120,19 @@ nav{
     background-color: lightgray;
     width:100%;
     color:black;
+}
+
+nav div{
+    display: inline-block;
+}
+
+#playersConnected{
+    margin-left:2%;
+}
+
+#playerInGame{
+    float:right;
+    margin-right:2%;
 }
 
 body {
