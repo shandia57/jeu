@@ -216,8 +216,8 @@ socket.on("player answered", (answer) => {
 
         alert(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points")
         gameInterface.insertLi(game.getCurrentPlayer().getUsername() + " a gagné " + answer[2] + " points");
-        // game.getCurrentPlayer().addPoints(48)
-        game.getCurrentPlayer().addPoints(answer[2])
+        game.getCurrentPlayer().addPoints(48)
+        // game.getCurrentPlayer().addPoints(answer[2])
         document.getElementById("currentPlayerScore").innerText = game.getCurrentPlayer().getPoints();
 
         index = game.getCurrentPlayer().getPoints();
@@ -463,8 +463,8 @@ function play() {
 
         var questions = game.getQuestionsWithLevel(getLevel);
         // FIRST STEP get a random index from 0 to length Of arrayQuestions
-        let index = game.getRandomIndex(questions.length);
-        // let index = 2;
+        // let index = game.getRandomIndex(questions.length);
+        let index = 2;
         gameInterface.insertLi(game.getCurrentPlayer().getUsername() + "a choisi une question de couleur : " + getLevel);
 
 
